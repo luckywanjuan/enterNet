@@ -1,19 +1,21 @@
 package com.tqy.cams.service.impl;
 
 import com.activiti.base.entity.common.ResultMessage;
-import com.tqy.cams.bean.*;
+import com.tqy.cams.bean.Role;
+import com.tqy.cams.bean.User;
 import com.tqy.cams.bean.common.BaseStatic;
 import com.tqy.cams.dao.UserMapper;
 import com.tqy.cams.service.UserService;
 import com.tqy.cams.utils.StringUtil;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 用户

@@ -1,6 +1,8 @@
 package com.tqy.cams.dao;
 
-import com.tqy.cams.bean.*;
+import com.tqy.cams.bean.Role;
+import com.tqy.cams.bean.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -12,13 +14,15 @@ public interface UserMapper {
 
     List<Role> getRoleUser();
 
-    String getUserByName(String userName, String userPwd);
+    String getUserByName(@Param("userName") String userName, @Param("userPwd") String userPwd);
+    
+    String getIdByName(@Param("userName") String userName);
 
     List<Map<String,String>> getUsers();
 
-    String[] getUserRoles(String userId);
+    String[] getUserRoles(@Param("userId") String userId);
 
-    List<Map<String,Object>> getUserInfo(String userId);
+    List<Map<String,Object>> getUserInfo(@Param("userId") String userId);
 
     List<User> getUsersNoRole();
 

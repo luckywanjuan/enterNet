@@ -1,16 +1,149 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tqy.cams.dao.RzblMapper" >
+	
+	<select id="select_blob" parameterType="java.lang.String" resultMap ="com.tqy.cams.bean.RzApplication">    
+	    SELECT attachment, file FROM rz_application WHERE id = #{applicationId}    
+	</select>
 
     <insert id="saveRzApplication" parameterType="com.tqy.cams.bean.RzApplication">
-        insert into rz_application(id,system_name,business_type,manager_dept,develop_dept,application_username,phone,email,create_date,attachment,remark)
-        VALUES (#{id},#{systemName},#{businessType},#{managerDept},#{developDept},#{applicationUserName},#{phone},#{email},#{createDate},#{attachment},#{remark})
+        insert into rz_application
+        (id,system_name,business_type,manager_dept,develop_dept,application_username,
+        phone,email,create_date,remark,user_id,attachment,file)
+        VALUES 
+        (#{id},#{systemName},#{businessType},#{managerDept},#{developDept},
+        #{applicationUserName},#{phone},#{email},#{createDate},#{remark},#{userId},
+        #{attachment},#{file,jdbcType=BLOB})
     </insert>
     
      <insert id="saveCheckRzApplication" parameterType="com.tqy.cams.bean.RzCheckRz">
-        insert into rz_check(check_username,check_date,suggestion,result,application_id)
-        VALUES (#{checkUserName},#{checkDate},#{suggestion},#{result},#{applicationId})
+        insert into rz_check(id,check_username,check_date,suggestion,result,application_id,user_id)
+        VALUES (#{id},#{checkUserName},#{checkDate},#{suggestion},#{result},#{applicationId},#{userId})
     </insert>
+        
+    <update id="updateRzApplication" parameterType="com.tqy.cams.bean.RzApplication">
+        UPDATE rz_application SET 
+        	 business_type = #{businessType}
+        	,manager_dept = #{managerDept}
+	        ,develop_dept = #{developDept}
+	        ,application_username = #{applicationUserName}
+	        ,phone = #{phone}
+	        ,email = #{email}
+        <if test="remark != null and remark != ''.toString()">
+            ,remark = #{remark}
+        </if>
+        <if test="attachment != null and attachment != ''.toString()">
+            ,attachment = #{attachment}
+        </if>
+        <if test="file != null">
+            ,file = #{file,jdbcType=BLOB}
+        </if>
+        WHERE id = #{id}
+    </update>
+    
+    <update id="updateCheckRzApplication" parameterType="com.tqy.cams.bean.RzApplication">
+        UPDATE rz_check SET 
+        	 check_username = #{checkUserName}
+        	,check_date = #{checkDate}
+        <if test="suggestion != null and suggestion != ''.toString()">
+            ,suggestion = #{suggestion}
+        </if>
+        <if test="result != null and result != ''.toString()">
+            ,result = #{result}
+        </if>
+        WHERE application_id = #{applicationId}
+    </update>
+    
+    <select id="queryCount" resultType="java.lang.Integer">
+    	select count(1) from rz_application where user_id=#{userId}
+        <if test="systemName != null and systemName != ''.toString()">
+            and system_name like '%${systemName}%'
+        </if>
+        <if test="managerDept != null and managerDept != ''.toString()">
+            and manager_dept like '%${managerDept}%'
+        </if>
+        <if test="developDept != null and developDept != ''.toString()">
+            and develop_dept like '%${developDept}%'
+        </if>
+    </select>
+    
+    <select id="queryRzAppByCondition" resultType="com.tqy.cams.bean.RzApplication">
+   		select a.id AS "id",
+              a.system_name AS "systemName",
+              a.business_type AS "businessType",
+              a.manager_dept AS "managerDept",
+              a.develop_dept AS "developDept",
+              a.application_username AS "applicationUserName",
+              a.phone AS "phone",
+              a.email AS "email",
+              a.create_date AS "createDate",
+              a.attachment AS "attachment",
+              a.remark AS "remark",
+              c.result AS "result"
+        from rz_application a 
+        left join rz_check c on a.id=c.application_id 
+        where a.user_id=#{userId}
+        <if test="systemName != null and systemName != ''.toString()">
+            and a.system_name like '%${systemName}%'
+        </if>
+        <if test="managerDept != null and managerDept != ''.toString()">
+            and a.manager_dept like '%${managerDept}%'
+        </if>
+        <if test="developDept != null and developDept != ''.toString()">
+            and a.develop_dept like '%${developDept}%'
+        </if>
+        limit #{start},#{end}
+    </select>
+    
+    <select id="queryAllCount" resultType="java.lang.Integer">
+    	select count(1) from rz_application
+    </select>
+    
+    <select id="queryNoCheckRzApp" resultType="com.tqy.cams.bean.RzApplication">
+   		select a.id AS "id",
+              a.system_name AS "systemName",
+              a.business_type AS "businessType",
+              a.manager_dept AS "managerDept",
+              a.develop_dept AS "developDept",
+              a.application_username AS "applicationUserName",
+              a.phone AS "phone",
+              a.email AS "email",
+              a.create_date AS "createDate",
+              a.attachment AS "attachment",
+              a.remark AS "remark",
+              c.result AS "result"
+        from rz_application a 
+        left join rz_check c on a.id=c.application_id where c.result is null
+        limit #{start},#{end}
+    </select>
+    
+    <select id="queryAllRzApp" resultType="com.tqy.cams.bean.RzApplication">
+   		select a.id AS "id",
+              a.system_name AS "systemName",
+              a.business_type AS "businessType",
+              a.manager_dept AS "managerDept",
+              a.develop_dept AS "developDept",
+              a.application_username AS "applicationUserName",
+              a.phone AS "phone",
+              a.email AS "email",
+              a.create_date AS "createDate",
+              a.attachment AS "attachment",
+              a.remark AS "remark",
+              c.result AS "result"
+        from rz_application a 
+        left join rz_check c on a.id=c.application_id 
+        where c.result is not null
+        <if test="systemName != null and systemName != ''.toString()">
+            and a.system_name like '%${systemName}%'
+        </if>
+        <if test="managerDept != null and managerDept != ''.toString()">
+            and a.manager_dept like '%${managerDept}%'
+        </if>
+        <if test="developDept != null and developDept != ''.toString()">
+            and a.develop_dept like '%${developDept}%'
+        </if>
+        limit #{start},#{end}
+    </select>
     
     <select id="getRzApplicationById" parameterType="java.lang.String" resultType="com.tqy.cams.bean.RzApplication">
         select id AS "id",
@@ -19,21 +152,21 @@
               manager_dept AS "managerDept",
               develop_dept AS "developDept",
               application_username AS "applicationUserName",
-              phone AS "phone",
-              email AS "email",
+              phone,
+              email,
               create_date AS "createDate",
-              attachment AS "attachment",
-              remark AS "remark"
-        from rz_application where id=#{0}
+              attachment,
+              remark
+        from rz_application where id=#{id}
     </select>
     
     <select id="getCheckRzApplicationById" parameterType="java.lang.String" resultType="com.tqy.cams.bean.RzCheckRz">
         select check_username AS "checkUserName",
               check_date AS "checkDate",
-              suggestion AS "suggestion",
-              result AS "result",
-              application_id AS "applicationId",
-        from rz_check where application_id=#{0}
+              suggestion,
+              result,
+              application_id AS "applicationId"
+        from rz_check where application_id=#{applicationId}
     </select>
 
     <select id="getMyApplicationByPage" parameterType="java.util.Map" resultType="com.tqy.cams.bean.MyProcInst">
@@ -60,36 +193,6 @@
         where t.user_id = t1.startUserId
         ORDER BY t1.index
     </select>
-    
-    <update id="updateRzApplication" parameterType="com.tqy.cams.bean.RzApplication">
-        UPDATE rz_application SET 
-        	 business_type = #{businessType}
-        	,manager_dept = #{managerDept}
-	        ,develop_dept = #{developDept}
-	        ,application_username = #{applicationUserName}
-	        ,phone = #{phone}
-	        ,email = #{email}
-        <if test="attachment != null and attachment != ''.toString()">
-            ,attachment = #{attachment}
-        </if>
-        <if test="remark != null and remark != ''.toString()">
-            ,remark = #{remark}
-        </if>
-        WHERE id = #{id}
-    </update>
-    
-    <update id="updateCheckRzApplication" parameterType="com.tqy.cams.bean.RzApplication">
-        UPDATE rz_check SET 
-        	 check_username = #{checkUserName}
-        	,check_date = #{checkDate}
-        <if test="suggestion != null and suggestion != ''.toString()">
-            ,suggestion = #{suggestion}
-        </if>
-        <if test="result != null and result != ''.toString()">
-            ,result = #{result}
-        </if>
-        WHERE application_id = #{applicationId}
-    </update>
 
     <select id="getMyTaskByPage" parameterType="java.util.Map" resultType="com.tqy.cams.bean.RzApplication">
         select

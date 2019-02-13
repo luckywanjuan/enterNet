@@ -1,23 +1,38 @@
 package com.tqy.cams.bean;
 
-import java.io.Serializable;
-
 import com.activiti.base.entity.ITask;
+
+import java.io.Serializable;
 
 public class RzCheckRz extends ITask implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	private String id;
 	private String applicationId;	//审核的认证申请id
 	private String checkUserName;	//审核人姓名
 	private String checkDate; 	//审核时间
 	private String suggestion;	//审核意见
 	private String result;		//审核结果
 	
+	private String userId;
+	
 	// 任务类型  0：我的任务，1：代办任务，2：被委托任务
     private int taskType;
     // 任务类型名称
     private String taskTypeName;
 	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public int getTaskType() {
 		return taskType;
 	}

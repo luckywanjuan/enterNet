@@ -5,6 +5,7 @@ import com.activiti.base.entity.common.PageResult;
 import com.activiti.base.entity.common.ResultMessage;
 import com.tqy.cams.bean.RzApplication;
 import com.tqy.cams.bean.RzCheckRz;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -93,24 +94,64 @@ public interface RzblService {
      * @return
      */
     ResultMessage getVariables(String prciId);
+    
+    /**
+     * 文件上传
+     * @param file
+     * @param dirPath
+     * @return
+     */
+    ResultMessage upload(MultipartFile file, String dirPath);
+    
+    /**
+     * 文件下载
+     * @param applicationId
+     * @return
+     */
+    ResultMessage download(String applicationId, String dirPath);
 
     /**
      * 保存入网认证申请表单数据
-     * @param rz	
+     * @param rz
      * @param prciId	流程实例ID
      * @param taskId	任务id
      */
-    ResultMessage updateRzApplication(RzApplication rz, String prciId, String taskId);
+    ResultMessage updateRzApplication(RzApplication rz);
 
+    /**
+     * 查看用户对应的认证表单
+     * @param systemName
+     * @param managerDept
+     * @param developDept
+     * @return
+     */
+    PageResult queryAllRzApp(String pageNo, String pageSize, String systemName,
+                             String managerDept, String developDept, String userId);
+
+    /**
+     * 查看所有认证表单
+     * @param systemName
+     * @param managerDept
+     * @param developDept
+     * @return
+     */
+    PageResult queryAllCheckRzApp(String pageNo, String pageSize, String systemName,
+                                  String managerDept, String developDept, String isCheck);
+
+    /**
+     * 查看认证表单和结果
+     * @param id
+     * @return
+     */
     ResultMessage getRzApplication(String id);
-    
+
     /**
      * 保存入网认证审核表单数据
-     * @param check	
+     * @param check
      * @param prciId	流程实例ID
      * @param taskId	任务id
      */
-    ResultMessage updateCheckRzApplication(RzCheckRz check, String prciId, String taskId);
+    ResultMessage updateCheckRzApplication(RzCheckRz check);
 
     ResultMessage getCheckRzApplication(String applicationId);
 
@@ -144,7 +185,7 @@ public interface RzblService {
      * 委托列表
      */
     ResultMessage queryDelegateInfoList(String userId);
-    
+
 	/**
 	 * 被委托人发送任务
 	 * @param taskId
@@ -156,14 +197,14 @@ public interface RzblService {
 	 * @return
 	 */
 	ResultMessage sendTaskDelegate(String taskId, String userId, String result,
-			String resultDesc, String delegater, String delegateId);
+                                   String resultDesc, String delegater, String delegateId);
 
 	/**
 	 * 删除委托
 	 * @param id
 	 */
 	void deleteDelegate(String id);
-	
+
 	/**
 	 * 被委托人回退任务
 	 * @param taskId
@@ -175,7 +216,7 @@ public interface RzblService {
 	 * @return
 	 */
 	ResultMessage backTaskDelegate(String taskId, String userId, String result,
-			String resultDesc, String delegater, String delegateId);
+                                   String resultDesc, String delegater, String delegateId);
 
     /**
      * 获取委托的业务规则
