@@ -2,8 +2,8 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/defaults.xml" />
 
-    <property name="FILE_HOME" value="D:/logs" />
-    <property name="FILE_HOME_BACK" value="D:/logs/back" />
+    <property name="FILE_HOME" value="C:/logs" />
+    <property name="FILE_HOME_BACK" value="C:/logs/back" />
 
     <!-- 彩色日志 -->
     <!-- 彩色日志依赖的渲染类 -->
