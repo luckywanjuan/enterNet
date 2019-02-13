@@ -149,7 +149,7 @@
 <script src="../../assets/layui/layui.js"></script>
 <script>
     var ctx = "${pageContext.request.contextPath}/";
-    var ctx = "http://192.168.0.105:8888/";
+    //var ctx = "http://192.168.0.105:8888/";
     var form,table,laypage,laytpl,layer;
     var userInfo=JSON.parse(sessionStorage.getItem('userInfo'));
     var userId=userInfo.data.userId;

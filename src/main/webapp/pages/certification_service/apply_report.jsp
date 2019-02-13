@@ -113,7 +113,7 @@
     var uuid="";
     var initFlag=true;
     var ctx = "${pageContext.request.contextPath}/";
-    var ctx = "http://192.168.0.105:8888/";
+    //var ctx = "http://192.168.0.105:8888/";
     var fileNames="";
     var filesPath="",urlPath=[];
     var fileNameArr=new Array();
@@ -175,7 +175,6 @@
                     filesPath=filesPath.substr(0,filesPath.length-1);
                 }
             }
-            console.log(data);
             postData['userId']=userId;
             postData['systemName']=data.field.systemName;
             postData['businessType']=data.field.businessType;
@@ -193,7 +192,6 @@
             }
             postData['remark']=data.field.remark;
             postData['email']=data.field.email;
-            console.log(data);
            var submiting=false;
             if (!submiting) {
                 submiting=true;
