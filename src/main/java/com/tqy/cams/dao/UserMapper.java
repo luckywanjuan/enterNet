@@ -16,7 +16,7 @@ public interface UserMapper {
 
     String getUserByName(@Param("userName") String userName, @Param("userPwd") String userPwd);
     
-    String getIdByName(@Param("userName") String userName);
+    //String getIdByName(@Param("userName") String userName);
 
     List<Map<String,String>> getUsers();
 
