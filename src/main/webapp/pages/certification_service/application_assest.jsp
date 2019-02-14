@@ -97,7 +97,7 @@
             <table class="layui-table" id="assetTable" lay-filter="assetTable"></table>
         </div>
         <script type="text/html" id="databar">
-           <a class="layui-btn  layui-btn-mini" lay-event="fujian">附件下载</a>
+           <a class="layui-btn  layui-btn-mini" href="" download lay-event="fujian">附件下载</a>
             <a class="layui-btn  layui-btn-mini" data-method="offset" data-type="auto" lay-event="shenhe">审核</a>
         </script>
     </div>
@@ -181,42 +181,49 @@
             }
         };
         var tableUrl = ctx + 'rzbl/queryAllCheckRzApp?isCheck='+0;
-        table.render({
-            id: 'assetTable',
-            elem: '#assetTable',
-            page: true, //开启分页
-            url: tableUrl,
-            cols: [[ //表头
-                {field: 'applicationUserName', title: '系统名称',width:90}
-                ,{field: 'managerDept', title: '系统管理单位',width:110}
-                ,{field: 'developDept', title: '研制单位', width:90,totalRow: true}
-                ,{field: 'businessType', title: '业务类型',width:90}
-                ,{field: 'applicationUserName', title: '联系人',width:90}
-                ,{field: 'phone', title: '手机号',width:90}
-                ,{field: 'email', title: '电子邮箱',width:90}
-                ,{field: 'createDate', title: '申请时间', width:90}
-                ,{ title: '操作', align:'center',width:180, toolbar: '#databar'}
-            ]],
-             height: 380,
-            loading: true,
-            done:function(res){
-                console.log(res)
-                // ityzl_CLOSE_LOAD_LAYER(ient);
-            },
-            //skin: 'line', //行边框风格
-            even: true //开启隔行背景
-        });
+        function renderTable(){
+            table.render({
+                id: 'assetTable',
+                elem: '#assetTable',
+                page: true, //开启分页
+                url: tableUrl,
+                cols: [[ //表头
+                    {field: 'applicationUserName', title: '系统名称',width:90}
+                    ,{field: 'managerDept', title: '系统管理单位',width:110}
+                    ,{field: 'developDept', title: '研制单位', width:90,totalRow: true}
+                    ,{field: 'businessType', title: '业务类型',width:90}
+                    ,{field: 'applicationUserName', title: '联系人',width:90}
+                    ,{field: 'phone', title: '手机号',width:90}
+                    ,{field: 'email', title: '电子邮箱',width:90}
+                    ,{field: 'createDate', title: '申请时间', width:90}
+                    ,{ title: '操作', align:'center',width:180, toolbar: '#databar'}
+                ]],
+                height: 380,
+                loading: true,
+                done:function(res){
+                    console.log(res)
+                    // ityzl_CLOSE_LOAD_LAYER(ient);
+                },
+                //skin: 'line', //行边框风格
+                even: true //开启隔行背景
+            });
+        }
         table.on('tool(assetTable)', function(obj) {
-            tableData = obj.data //获得当前行数据
-                , layEvent = obj.event; //获得 lay-event 对应的值
+            tableData = obj.data ;//获得当前行数据
+            layEvent = obj.event; //获得 lay-event 对应的值
+            var othis = $(this);
             if(layEvent==='fujian'){
-                var $eleForm = $("<form method='get'></form>");
-                $eleForm.attr("action","");
-                $(document.body).append($eleForm);
-               // document.location.href = ctx + "actions/sysm/doExport.action";
+                var attachment=tableData.attachment;
+                var indexx =attachment.indexOf("upload");
+                if(null!=attachment&&''!=attachment&&indexx!=-1){
+                    var subStr=attachment.substr(indexx,attachment.length);
+                    var pathUrl=ctx+subStr.replace(/\\/g,'/');
+                    othis.attr('href',pathUrl)
+                }
             }else if(layEvent==='shenhe'){
                 var othis = $(this), method = othis.data('method');
                 active[method] ? active[method].call(this, othis) : '';
+                renderTable();
             }
         });
         form.on('submit(assetForm)', function (data) {
