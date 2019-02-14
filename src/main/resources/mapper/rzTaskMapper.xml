@@ -6,8 +6,49 @@
         insert into rz_test_task(id,task_name,system_name,business_type,manager_dept,develop_dept,test_plan,test_report)
         VALUES (#{id},#{taskName},#{systemName},#{businessType},#{managerDept},#{developDept},#{testPlan},#{testReport})
     </insert>
+    <update id="updateRzTask" parameterType="com.tqy.cams.bean.RzTask">
+        UPDATE rz_test_task SET
+        task_name = #{taskName}
+        ,system_name = #{systemName}
+        ,business_type = #{businessType}
+        ,manager_dept = #{managerDept}
+        ,develop_dept = #{developDept}
+        ,test_plan = #{testPlan}
+        ,test_report = #{testReport}
 
+        WHERE id = #{id}
+    </update>
+    <select id="getRzTask" resultType="com.tqy.cams.bean.RzTask">
+        select task_name,
+              system_name,
+              business_type,
+              manager_dept,
+              develop_dept,
+              test_plan,
+              test_report,
+        from rz_test_task where id=12
+       <!-- <where>
 
+        　　　　　　<if test="task_name != null ">task_name=#{taskName}</if>
+
+        　　　　　　<if test="system_name != null " >and system_name=#{systemName}</if>
+
+        　　　　　　<if test="develop_dept != null ">and develop_dept = #{developDept}</if>
+                    <if test="manager_dept != null ">and manager_dept = #{managerDept}</if>
+
+        　　　　</where>-->
+    </select>
+    <select id="getRzTaskMsg" resultType="com.tqy.cams.bean.RzTask">
+        select task_name AS "taskName",
+        system_name AS "systemName",
+        business_type AS "businessType",
+        manager_dept AS "managerDept",
+        develop_dept AS "developDept",
+        test_plan AS "testPlan",
+        test_report AS "testReport",
+        from rz_test_task WHERE id = #{id}
+
+    </select>
 
 
 

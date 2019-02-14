@@ -17,11 +17,10 @@ import javax.servlet.http.HttpServletRequest;
  * 认证办理
  **/
 @RestController
-@RequestMapping("rzbl")
+@RequestMapping("rztask")
 public class RzTaskController {
 
-    @Autowired
-    private RzblService rzblService;
+
     @Autowired
     private RzTaskService rzTaskService;
 
@@ -32,6 +31,36 @@ public class RzTaskController {
     public ResultMessage saveRzTask(RzTask rz){
         return rzTaskService.saveRzTask(rz);
     }
-    
 
+    /**
+     * 根据条件查询
+     * @param taskName
+     * @param systemName
+     * @param developDept
+     * @param managerDept
+     * @return
+     */
+    @RequestMapping("getRzTask")
+    public ResultMessage getRzTask(String taskName,String systemName,String developDept,String managerDept){
+        return rzTaskService.getRzTask(taskName,systemName,developDept,managerDept);
+    }
+
+    /**
+     * 根据id查询详细数据
+     * @param id
+     * @return
+     */
+    @RequestMapping("getRzTaskMsg")
+    public ResultMessage getRzTaskMsg(String id){
+        return rzTaskService.getRzTaskMsg(id);
+    }
+     /**
+     * 根据id修改详细数据
+     * @param id
+     * @return
+     */
+    @RequestMapping("updateRzTaskMsg")
+    public ResultMessage updateRzTaskMsg(RzTask rz,String id){
+        return rzTaskService.updateRzTaskMsg(rz,id);
+    }
 }
