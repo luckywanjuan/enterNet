@@ -56,7 +56,7 @@ public class RzTaskImpl implements RzTaskService {
        //对象接 mapper 返回的数据
        RzTask rzTask = rzTaskMapper.getRzTask(taskName,systemName,developDept,managerDept);
        //装入map中
-           resultMap.put("RzTask",rzTask);
+       resultMap.put("RzTask",rzTask);
            //将map返回给前端
        logger.info("查询任务成功");
        return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",resultMap);
@@ -72,7 +72,7 @@ public class RzTaskImpl implements RzTaskService {
        if(id!=null){
            Map<String,Object> resultMap = new HashMap<>();
            RzTask rzTask =rzTaskMapper.getRzTaskMsg(id);
-           resultMap.put("RzTask",rzTask);
+           resultMap.put("RzTaskMsg",rzTask);
            logger.info("查询任务成功");
            return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",resultMap);
        }

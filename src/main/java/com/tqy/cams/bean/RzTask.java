@@ -6,14 +6,14 @@ import java.io.Serializable;
 
 public class RzTask extends ITask implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private String id;
-	private String taskName;
-	private String systemName;
-	private String businessType;
-	private String managerDept;
-	private String developDept;
-	private byte[] testPlan;
-	private byte[] testReport;
+	private String id;   //测试任务id
+	private String taskName;  //测试任务名称
+	private String systemName;  //关联系统名称
+	private String businessType;  //业务类型
+	private String managerDept; //系统管理单位
+	private String developDept; //研制单位
+	private byte[] testPlan;  //测试计划
+	private byte[] testReport; //测试报告
 
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
