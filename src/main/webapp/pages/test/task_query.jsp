@@ -239,7 +239,7 @@
             if(urlPath['plan'][0]){
                 postData['testPlan']=urlPath['plan'][0];
             }else{
-                postData['attachment']='';
+                postData['testPlan']='';
             }
             if(urlPath['report'][0]){
                 postData['TestReport']=urlPath['report'][0];
