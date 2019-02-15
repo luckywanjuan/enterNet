@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="assets/layui/css/admin.css" media="all">
 </head>
 <body class="layui-layout-body">
-
 <div id="LAY_app">
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
@@ -108,13 +107,34 @@
                             </dd>
                         </dl>
                     </li>
+                    <li data-name="home" class="layui-nav-item admin">
+                        <a href="javascript:;" lay-tips="主页" lay-direction="2">
+                            <i class="layui-icon layui-icon-component"></i>
+                            <cite>测试过程管理</cite>
+                            <span class="layui-nav-more"></span>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd data-name="console">
+                                <a lay-href="pages/test/report_generate.jsp"   data-id="5" data-type="tabAdd" data-title="测试报告生成" class="site-demo-active" >测试报告生成</a><%--普通用户--%>
+                            </dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd data-name="console">
+                                <a lay-href="pages/test/plan_generate.jsp"   data-id="6" data-type="tabAdd" data-title="测试计划生成" class="site-demo-active" >测试计划生成</a><%--普通用户--%>
+                            </dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd data-name="console">
+                                <a lay-href="pages/test/task_query.jsp"   data-id="7" data-type="tabAdd" data-title="测试任务查询" class="site-demo-active" >测试任务查询</a><%--普通用户--%>
+                            </dd>
+                        </dl>
+                    </li>
                 </ul>
             </div>
         </div>
         <!-- 页面标签 -->
         <div class="layadmin-pagetabs" id="LAY_app_tabs">
             <div class="layui-tab layui-body" style="top:50px;" id="" lay-unauto lay-allowClose="true" lay-filter="demo" >
-
                 <ul class="layui-tab-title"></ul>
                 <div class="layui-tab-content"  ></div>
             </div>
