@@ -49,7 +49,7 @@ public class RzTaskImpl implements RzTaskService {
 
 
     }
-   @Override
+  /* @Override
    public ResultMessage getRzTask(String taskName,String systemName,String developDept,String managerDept){
       //创建一个map
        Map<String,Object> resultMap = new HashMap<>();
@@ -66,7 +66,7 @@ public class RzTaskImpl implements RzTaskService {
 
        //return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",rzs);
 
-   }
+   }*/
    @Override
     public ResultMessage getRzTaskMsg(String id){
        if(id!=null){
@@ -92,5 +92,86 @@ public class RzTaskImpl implements RzTaskService {
         logger.info("修改任务失败");
         return new ResultMessage(BaseStatic.ERROR_CODE,"失败"+id+"~"+rz);
     }
+    public ResultMessage saveRzPlan(RzPlan rzp){
+        //新用户进来为空 uuid 生成一个随机的id
+        if(rzp.getId()==null) {
+            rzp.setId(UUID.randomUUID().toString());
+            //生成id后，直接将信息存入数据库
+            rzTaskMapper.saveRzPlan(rzp);
+            logger.info("保存计划成功");
+            return new ResultMessage(BaseStatic.SUCCESS_CODE, "保存计划成功");
 
+        }
+
+        return new ResultMessage(BaseStatic.ERROR_CODE,"保存计划失败");
+
+
+    }
+    public ResultMessage getRzPlanMsg(String taskName){
+        Map<String,Object> resultMap = new HashMap<>();
+        RzPlan rzp = rzTaskMapper.getRzPlanMsg(taskName);
+        resultMap.put("RzPlanMsg",rzp);
+        logger.info("查询任务成功"+taskName);
+        return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",resultMap);
+    }
+    public ResultMessage saveRzReport(RzReport rzr){
+        //新用户进来为空 uuid 生成一个随机的id
+        if(rzr.getId()==null) {
+            rzr.setId(UUID.randomUUID().toString());
+            //生成id后，直接将信息存入数据库
+            rzTaskMapper.saveRzReport(rzr);
+            logger.info("保存测试报告成功");
+            return new ResultMessage(BaseStatic.SUCCESS_CODE, "保存测试报告成功");
+
+        }
+        return new ResultMessage(BaseStatic.ERROR_CODE,"保存测试报告失败");
+    }
+    public  ResultMessage updateRzReport(RzReport rzr,String id){
+        if(id!=null){
+           /* Map<String,Object> resultMap = new HashMap<>();
+            int rzTask =rzTaskMapper.updateRzTask(rz,id);
+            resultMap.put("RzTask",rzTask);*/
+            rzTaskMapper.updateRzReport(rzr);
+            logger.info("修改任务成功");
+            return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功");
+        }
+        logger.info("修改任务失败");
+        return new ResultMessage(BaseStatic.ERROR_CODE,"失败"+id+"~");
+    }
+    public ResultMessage saveTestPoint(TestPoint tp){
+        //新用户进来为空 uuid 生成一个随机的id
+        if(tp.getId()==null) {
+            tp.setId(UUID.randomUUID().toString());
+            //生成id后，直接将信息存入数据库
+            rzTaskMapper.savePoint(tp);
+            logger.info("保存测试报告成功");
+            return new ResultMessage(BaseStatic.SUCCESS_CODE, "保存要点测试内容成功");
+
+        }
+        return new ResultMessage(BaseStatic.ERROR_CODE,"保存要点测试内容失败");
+    }
+    public ResultMessage updateTestPoint(TestPoint tp,String id){
+        if(id!=null){
+           /* Map<String,Object> resultMap = new HashMap<>();
+            int rzTask =rzTaskMapper.updateRzTask(rz,id);
+            resultMap.put("RzTask",rzTask);*/
+            rzTaskMapper.updatePoint(tp);
+            logger.info("修改任务成功");
+            return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功");
+        }
+        logger.info("修改任务失败");
+        return new ResultMessage(BaseStatic.ERROR_CODE,"失败"+id+"~");
+    }
+    public ResultMessage saveRzBank(RzBank rzb){
+        //新用户进来为空 uuid 生成一个随机的id
+        if(rzb.getId()==null) {
+            rzb.setId(UUID.randomUUID().toString());
+            //生成id后，直接将信息存入数据库
+            rzTaskMapper.saveRzBank(rzb);
+            logger.info("保存测试报告成功");
+            return new ResultMessage(BaseStatic.SUCCESS_CODE, "保存要点测试内容成功");
+
+        }
+        return new ResultMessage(BaseStatic.ERROR_CODE,"保存要点测试内容失败");
+    }
 }

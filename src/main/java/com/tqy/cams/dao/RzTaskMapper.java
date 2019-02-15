@@ -25,7 +25,7 @@ public interface RzTaskMapper {
     /**被 调2个方法调用 详细查看的编辑，创建新任务页面的修改
      * 根据id修改任务表
      * @param rz
-     * @param id
+     * @param
      * @return
      */
     int updateRzTask(RzTask rz);
@@ -39,7 +39,7 @@ public interface RzTaskMapper {
      * @param managerDept
      * @return
      */
-    RzTask getRzTask(String taskName,String systemName,String developDept,String managerDept);
+    /*RzTask getRzTask(String taskName,String systemName,String developDept,String managerDept);*/
 
     /**
      * 根据id查询详细数据
@@ -49,8 +49,53 @@ public interface RzTaskMapper {
     RzTask getRzTaskMsg(String id);
 
 
+    /**
+     * 保存计划表
+     * @param rzp
+     * @return
+     */
+    int saveRzPlan(RzPlan rzp);
 
+    /**
+     * 获取2个参数---系统管理单位和研制单位
+     * @param
+     * @return
+     */
+    RzPlan getRzPlanMsg(String taskName);
 
+    /**
+     * 创建测试报告
+     * @param rzr
+     * @return
+     */
+    int saveRzReport(RzReport rzr);
 
+    /**
+     *  根据测试报告任务id修改测试报告
+     * @param
+     * @return
+     */
 
+    int updateRzReport(RzReport rzr);
+
+    /**
+     * 保存新的要点内容
+    * @param tp
+     * @return
+     */
+    int savePoint(TestPoint tp);
+
+    /**
+     * 修改测试要点
+     * @param tp
+     * @return
+     */
+    int updatePoint(TestPoint tp);
+
+    /**
+     * 创建新的要点管理库
+     * @param rzb
+     * @return
+     */
+    int saveRzBank(RzBank rzb);
 }
