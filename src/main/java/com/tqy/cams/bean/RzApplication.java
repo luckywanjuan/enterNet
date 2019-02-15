@@ -1,9 +1,8 @@
 package com.tqy.cams.bean;
 
-import java.io.Serializable;
-
 import com.activiti.base.entity.ITask;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.io.Serializable;
 
 /**
  * 入网认证申请
@@ -23,15 +22,21 @@ public class RzApplication extends ITask implements Serializable{
 	private String createDate;		//申请日期
 	private String attachment;		//电子附件
 	private String remark;			//系统描述
+	private String result;		//认证状态
+	private String userId;		//操作用户ID
+	private byte[] file;//附件内容
 	
     // 任务类型  0：我的任务，1：代办任务，2：被委托任务
     private int taskType;
     // 任务类型名称
     private String taskTypeName;
     
+	public RzApplication() {
+	}
+	
 	public RzApplication(String id, String systemName, String businessType, String managerDept, String developDept,
 			String applicationUserName, String phone, String email, String createDate, String attachment, String remark,
-			int taskType, String taskTypeName) {
+			int taskType, String taskTypeName, String result) {
 		this.id = id;
 		this.systemName = systemName;
 		this.businessType = businessType;
@@ -45,7 +50,25 @@ public class RzApplication extends ITask implements Serializable{
 		this.remark = remark;
 		this.taskType = taskType;
 		this.taskTypeName = taskTypeName;
+		this.result = result;
 	}
+	
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public byte[] getFile() {
+		return file;
+	}
+
+	public void setFile(byte[] file) {
+		this.file = file;
+	}
+
 	public int getTaskType() {
 		return taskType;
 	}
@@ -106,6 +129,7 @@ public class RzApplication extends ITask implements Serializable{
 	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
+
 	public String getAttachment() {
 		return attachment;
 	}
@@ -123,6 +147,12 @@ public class RzApplication extends ITask implements Serializable{
 	}
 	public void setBusinessType(String businessType) {
 		this.businessType = businessType;
+	}
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
 	}
 	
 }

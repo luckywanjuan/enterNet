@@ -8,26 +8,32 @@ import com.activiti.base.entity.common.PageResult;
 import com.activiti.base.entity.common.ResultMessage;
 import com.activiti.base.service.ITaskService;
 import com.activiti.base.util.HessianServiceFactory;
-import com.tqy.cams.bean.*;
+import com.tqy.cams.bean.MyProcInst;
+import com.tqy.cams.bean.MyTaskInst;
+import com.tqy.cams.bean.RzApplication;
+import com.tqy.cams.bean.RzCheckRz;
 import com.tqy.cams.bean.common.BaseStatic;
 import com.tqy.cams.dao.RzblMapper;
 import com.tqy.cams.dao.UserMapper;
 import com.tqy.cams.service.RzblService;
+import com.tqy.cams.utils.FileUtil;
 import com.tqy.cams.utils.HttpClientUtil;
 import com.tqy.cams.utils.JsonUtils;
 import com.tqy.cams.utils.StringUtil;
-
-import org.activiti.engine.task.Task;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-
+import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 认证办理
@@ -38,7 +44,7 @@ public class RzblServiceImpl implements RzblService {
 
     private static ITaskService taskService = null;
     static {
-        taskService = HessianServiceFactory.getService(ITaskService.class,BaseStatic.ACTIVITI_SERVER_URL);
+        taskService = HessianServiceFactory.getService(ITaskService.class, BaseStatic.ACTIVITI_SERVER_URL);
     }
 
     @Autowired
@@ -80,21 +86,9 @@ public class RzblServiceImpl implements RzblService {
         ResultMessage result = HttpClientUtil.handleActivitiHttpPost(url,params);
         if(result.getCode() == BaseStatic.SUCCESS_CODE){
             String prciId = result.getData().toString();
-            // 签收任务
-           // Task task = taskService.claimProcessInstanceFristTask(prciId,userId);
-//            Map<String, String> taskMap = new HashMap<>();
-//            taskMap.put("procInstId",prciId);
-//            taskMap.put("userId",userId);
-//            result = HttpClientUtil.handleActivitiHttpPost(BaseStatic.ACTIVITI_SERVER_URL + "/client/claimProcessInstanceFristTask",taskMap);
-//            if(result.getCode() == BaseStatic.SUCCESS_CODE){
-//                String taskId = result.getData().toString();
-                Map<String,String> resultMap = new HashMap<>();
-                resultMap.put("prciId",prciId);
-               // resultMap.put("taskId",task.getId());
-               // resultMap.put("formKey",task.getFormKey());
-                
-                return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",resultMap);
-//            }
+            Map<String,String> resultMap = new HashMap<>();
+            resultMap.put("prciId",prciId);
+            return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",resultMap);
         }
         return new ResultMessage(BaseStatic.ERROR_CODE,"失败");
     }
@@ -153,7 +147,6 @@ public class RzblServiceImpl implements RzblService {
         Map<String, String> procProMap = new HashMap<>();
         procProMap.put("procInstId",prciId);
         Map<String, Object> variables = new HashMap<>();
-        variables.put("day", 2);
         procProMap.put("mapStr", JsonUtils.objectToJson(variables));
         ResultMessage result = HttpClientUtil.handleActivitiHttpPost(BaseStatic.ACTIVITI_SERVER_URL + "/client/setVariables",procProMap);
         if(result.getCode() == BaseStatic.SUCCESS_CODE){
@@ -161,7 +154,7 @@ public class RzblServiceImpl implements RzblService {
         }
         return new ResultMessage(BaseStatic.ERROR_CODE,"失败");
     }
-
+    
     @Override
     public ResultMessage getVariables(String prciId) {
         Map<String, String> procProMap = new HashMap<>();
@@ -172,52 +165,153 @@ public class RzblServiceImpl implements RzblService {
         }
         return new ResultMessage(BaseStatic.ERROR_CODE,"失败");
     }
-
+    
     @Override
-    public ResultMessage updateRzApplication(RzApplication rz, String prciId, String taskId) {
-        // 新增
-        if(StringUtil.isNullOrBlank(rz.getId())){
-            rz.setId(UUID.randomUUID().toString());
-            rzMapper.saveRzApplication(rz);
-        }else{
-            rzMapper.updateRzApplication(rz);
-        }
+    public ResultMessage upload(MultipartFile file, String dirPath) {
+    	File filePath = new File(dirPath);
+    	//如果保存文件的地址不存在，就先创建目录
+    	if(!filePath.exists()) {
+    		filePath.mkdirs();
+    	}
+    	String path = "";
+    	try {
+	    	//for(MultipartFile file: files) {
+	    		//获取上传文件的原始名称
+	    		String originalFilename = file.getOriginalFilename();
+    			//使用MultipartFile接口的方法完成文件上传到指定位置
+    			file.transferTo(new File(dirPath + originalFilename));
+    			path = dirPath + originalFilename + ",";
+	    	//}
+    	}catch(Exception e) {
+    		logger.error("上传文件出错："+e.getMessage());
+    		return new ResultMessage(BaseStatic.ERROR_CODE,"失败",e.getMessage());
+    	}
+    	return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",path.substring(0, path.length()-1));
+    }
+    
+    @Override
+    public ResultMessage download(String applicationId,String dirPath) {
+    	RzApplication application = rzMapper.getAttachmentbyId(applicationId);
+    	String attachmentPath = application.getAttachment();
+    	String fileName = attachmentPath.substring(attachmentPath.indexOf("upload")+7, attachmentPath.length());
+    	byte[] file = application.getFile();
+    	FileUtil.writeFile(file, dirPath+fileName);
+    	return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",dirPath+fileName);
+    }
+    
+    @Override
+    public ResultMessage updateRzApplication(RzApplication rz) {
+    	String userId = rz.getUserId();
+    	//启动流程实例
+    	ResultMessage mes = startProcess(userId, "rwbl", "");
+    	Map<String, String> map = JsonUtils.jsonToObject(JsonUtils.objectToJson(mes.getData()), HashMap.class);
+    	String prciId = map.get("prciId");
+    	//String prciId = "361c405021fb4ca09d1f4a384dd9c677";
+    	try {
+			byte[] content = FileUtil.getContent(rz.getAttachment());
+			rz.setFile(content);
+	        // 新增
+	        if(StringUtil.isNullOrBlank(rz.getId())){
+	            rz.setId(StringUtil.getUUID());
+	            rzMapper.saveRzApplication(rz);
+	        }else{
+	            rzMapper.updateRzApplication(rz);
+	        }
+    	} catch (IOException e) {
+			e.printStackTrace();
+		}
         logger.info("保存认证申请表单数据成功");
         //保存业务与流程关系数据
         this.setBusinessId(prciId, rz.getId());
         logger.info("保存认证申请与流程关系数据成功");
-
-        // 设置流程变量
-		/*
-		 * Map<String, String> procProMap = new HashMap<>();
-		 * procProMap.put("procInstId",prciId); Map<String, Object> variables = new
-		 * HashMap<>(); procProMap.put("mapStr", JsonUtils.objectToJson(variables));
-		 * ResultMessage result =
-		 * HttpClientUtil.handleActivitiHttpPost(BaseStatic.ACTIVITI_SERVER_URL +
-		 * "/client/setVariables",procProMap); logger.info("设置流程变量成功");
-		 */
-
-        // 流转任务
-        //if(result.getCode() == BaseStatic.SUCCESS_CODE){
-            //发送流程
-            this.sendTask(taskId,"1", "发送申请", null);
-            logger.info("发送认证申请成功");
-       // }
-        return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功");
+        
+        Map<String, String> map1 = new HashMap<>();
+        map1.put("prciId",prciId);
+        ResultMessage message = HttpClientUtil.handleActivitiHttpPost(BaseStatic.ACTIVITI_SERVER_URL + "/client/queryTaskId",map1);
+        if(message.getCode() == BaseStatic.SUCCESS_CODE){
+        	String taskId = message.getData().toString();
+	        // 设置流程变量
+	        /*Map<String, String> procProMap = new HashMap<>();
+	        procProMap.put("procInstId",prciId);
+	        Map<String, String> mapStr = new HashMap<>();
+	        mapStr.put("taskId", taskId);
+	        mapStr.put("userId", userId);
+	        procProMap.put("mapStr",mapStr.toString());
+	        ResultMessage result = HttpClientUtil.handleActivitiHttpPost(BaseStatic.ACTIVITI_SERVER_URL + "/client/setVariables",procProMap);
+	        logger.info("设置流程变量成功");
+	
+	         // 流转任务
+	        if(result.getCode() == BaseStatic.SUCCESS_CODE){*/
+		        //发送流程
+		        this.sendTask(taskId,userId, "发送申请", null);
+		        logger.info("发送认证申请成功");
+	        //}
+        }
+        return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",rz.getId());
+    }
+    
+    @Override
+    public PageResult queryAllRzApp(String pageNo, String pageSize, String systemName, 
+    		String managerDept, String developDept, String userId) {
+    	int totalSize = rzMapper.queryCount(systemName,managerDept,developDept,userId);
+    	int start = 0;
+    	int end = 0;
+    	if(!StringUtil.isNullOrBlank(pageNo) && !StringUtil.isNullOrBlank(pageSize)){
+    		start = Integer.parseInt(pageNo)-1;
+    		end = Integer.parseInt(pageNo) * Integer.parseInt(pageSize);
+    	}else{
+    		end = totalSize;
+    	}
+    	List<RzApplication> info = rzMapper.queryRzAppByCondition(start, end, systemName,managerDept,developDept,userId);
+    	for(RzApplication rz : info) {
+    		if(StringUtil.isNullOrBlank(rz.getResult())) {
+    			rz.setResult("待审核");
+    		}else if(rz.getResult().equals("通过")) {
+    			rz.setResult("已入网");
+    		}
+    	}
+    	PageResult rs = new PageResult(BaseStatic.SUCCESS_CODE, "成功", info);
+    	return rs;
+    }
+    
+    @Override
+    public PageResult queryAllCheckRzApp(String pageNo, String pageSize,String systemName, 
+    		String managerDept, String developDept,String isCheck) {
+    	List<RzApplication> info = new ArrayList<RzApplication>();
+    	if(Integer.parseInt(isCheck) == 0) {
+    		info = rzMapper.queryNoCheckRzApp(Integer.parseInt(pageNo)-1, Integer.parseInt(pageNo) * Integer.parseInt(pageSize));
+    		for(RzApplication rz : info) {
+    			rz.setResult("待审核");
+    		}
+    	}else if(Integer.parseInt(isCheck) == 1){
+    		info = rzMapper.queryAllRzApp(Integer.parseInt(pageNo)-1, Integer.parseInt(pageNo) * Integer.parseInt(pageSize),
+    				systemName,managerDept,developDept);
+    		for(RzApplication rz : info) {
+				if(rz.getResult().equals("通过")) {
+					rz.setResult("已入网");
+				}
+    		}
+    	}
+    	return new PageResult(BaseStatic.SUCCESS_CODE, "成功", info);
     }
 
     @Override
     public ResultMessage getRzApplication(String id) {
+    	RzApplication rz = rzMapper.getRzApplicationById(id);
         Map<String,Object> resultMap = new HashMap<>();
-        RzApplication rz = rzMapper.getRzApplicationById(id);
         resultMap.put("rz",rz);
         return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",resultMap);
     }
     
     @Override
-    public ResultMessage updateCheckRzApplication(RzCheckRz check, String prciId, String taskId) {
+    public ResultMessage updateCheckRzApplication(RzCheckRz check) {
+    	String userId = check.getUserId();
+    	ResultMessage mes = startProcess(userId, "rwbl", "");
+    	Map<String, String> map = JsonUtils.jsonToObject(JsonUtils.objectToJson(mes.getData()), HashMap.class);
+    	String prciId = map.get("prciId");
     	RzCheckRz checkRz = rzMapper.getCheckRzApplicationById(check.getApplicationId());
-    	if(StringUtil.isNullOrBlank(checkRz.getCheckUserName())) {
+    	if(checkRz == null) {
+    		check.setId(StringUtil.getUUID());
     		rzMapper.saveCheckRzApplication(check);
     	}else {
     		rzMapper.updateCheckRzApplication(check);
@@ -227,21 +321,28 @@ public class RzblServiceImpl implements RzblService {
         this.setBusinessId(prciId, check.getApplicationId());
         logger.info("保存认证审核与流程关系数据成功");
 
-        // 设置流程变量
-        Map<String, String> procProMap = new HashMap<>();
-        procProMap.put("procInstId",prciId);
-        Map<String, Object> variables = new HashMap<>();
-        procProMap.put("mapStr", JsonUtils.objectToJson(variables));
-        ResultMessage result = HttpClientUtil.handleActivitiHttpPost(BaseStatic.ACTIVITI_SERVER_URL + "/client/setVariables",procProMap);
-        logger.info("设置流程变量成功");
-
-        // 流转任务
-        if(result.getCode() == BaseStatic.SUCCESS_CODE){
-            //发送流程
-            this.sendTask(taskId,check.getCheckUserName(), "发送审核", null);
-            logger.info("发送认证审核成功");
+        Map<String, String> map1 = new HashMap<>();
+        map1.put("prciId",prciId);
+        ResultMessage message = HttpClientUtil.handleActivitiHttpPost(BaseStatic.ACTIVITI_SERVER_URL + "/client/queryTaskId",map1);
+        if(message.getCode() == BaseStatic.SUCCESS_CODE){
+        	String taskId = message.getData().toString();
+	        // 设置流程变量
+	        /*Map<String, String> procProMap = new HashMap<>();
+	        procProMap.put("procInstId",prciId);
+	        Map<String, String> mapStr = new HashMap<>();
+	        mapStr.put("taskId", taskId);
+	        mapStr.put("userId", userId);
+	        procProMap.put("mapStr",mapStr.toString());
+	        ResultMessage result = HttpClientUtil.handleActivitiHttpPost(BaseStatic.ACTIVITI_SERVER_URL + "/client/setVariables",procProMap);
+	        logger.info("设置流程变量成功");
+	        // 流转任务
+	        if(result.getCode() == BaseStatic.SUCCESS_CODE){*/
+	            //发送流程
+	            this.sendTask(taskId, userId, "发送审核", null);
+	            logger.info("发送认证审核成功");
+	        //}
         }
-        return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功");
+        return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功","");
     }
     
     @Override
@@ -264,7 +365,7 @@ public class RzblServiceImpl implements RzblService {
         if(result.getCode() == BaseStatic.SUCCESS_CODE){
             Map<String, Class> classMap = new HashMap<String, Class>();
             classMap.put("nodes", Node.class);
-            List<MyProcInst> procInsts = JsonUtils.jsonToList(JsonUtils.objectToJson(result.getData()),MyProcInst.class,classMap);
+            List<MyProcInst> procInsts = JsonUtils.jsonToList(JsonUtils.objectToJson(result.getData()), MyProcInst.class,classMap);
             if(procInsts != null && procInsts.size() > 0){
                 Map<String, Object> map = new HashMap<>();
                 map.put("list",procInsts);
@@ -304,7 +405,7 @@ public class RzblServiceImpl implements RzblService {
         params.put("userId",userId);
         PageResult result = HttpClientUtil.handleActivitiPageHttpPost(BaseStatic.ACTIVITI_SERVER_URL + "/client/queryHiTaskAll",params);
         if(result.getCode() == BaseStatic.SUCCESS_CODE){
-            List<MyTaskInst> taskInsts = JsonUtils.jsonToList(JsonUtils.objectToJson(result.getData()),MyTaskInst.class);
+            List<MyTaskInst> taskInsts = JsonUtils.jsonToList(JsonUtils.objectToJson(result.getData()), MyTaskInst.class);
             if(taskInsts != null && taskInsts.size() > 0){
                 Map<String, Object> map = new HashMap<>();
                 map.put("list",taskInsts);
@@ -446,7 +547,7 @@ public class RzblServiceImpl implements RzblService {
         ResultMessage result = HttpClientUtil.handleActivitiHttpPost(BaseStatic.ACTIVITI_SERVER_URL + "/client/queryFootMarkInfo",procProMap);
         if(result.getCode() == BaseStatic.SUCCESS_CODE){
             List<MyTaskInst> list = null;
-            List<MyTaskInst> taskInsts = JsonUtils.jsonToList(JsonUtils.objectToJson(result.getData()),MyTaskInst.class);
+            List<MyTaskInst> taskInsts = JsonUtils.jsonToList(JsonUtils.objectToJson(result.getData()), MyTaskInst.class);
             if(taskInsts != null && taskInsts.size() > 0){
                 Map<String, Object> map = new HashMap<>();
                 map.put("list",taskInsts);
@@ -456,5 +557,5 @@ public class RzblServiceImpl implements RzblService {
         }
         return result;
     }
-
+    
 }

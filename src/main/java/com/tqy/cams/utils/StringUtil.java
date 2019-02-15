@@ -77,13 +77,13 @@ public class StringUtil {
      */
     public static String getTimeStamp(String format){
         SimpleDateFormat dateFm = new SimpleDateFormat(format); //格式化当前系统日期
-        return dateFm.format(new java.util.Date());
+        return dateFm.format(new Date());
     }
     /**
      * 获取32位的字符类型的随机值
      * @return 32位的字符
      */
-    public static String getRandomStrId() {
+    public static String getUUID() {
         UUID uuid = UUID.randomUUID();
         String tempId = uuid.toString().replace("-", "");
         return tempId;

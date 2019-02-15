@@ -1,131 +1,115 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: tch002
+  Date: 2019/2/14
+  Time: 13:04
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>入网申请填报</title>
-    <link rel="stylesheet" href="../../assets/layui/css/layui.css" media="all">
-    <link rel="stylesheet" href="../../assets/css/common.css" media="all">
+    <title>测试计划生成</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/layui/css/layui.css" media="all">
     <style>
         .layui-form-label {
             width: 130px;
         }
+        .layui-form-checkbox span{
+            height: auto;
+        }
     </style>
 </head>
 <body>
-<div class="layui-fluid ">
-    <div class="layui-card ">
-        <div class="layui-card-header">认证申请填报</div>
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-card-header">测试报告生成</div>
         <div class="layui-card-body" style="padding: 15px;">
             <form class="layui-form" action="" lay-filter="component-form-group">
                 <div class="layui-form-item layui-row">
-                    <label class="layui-form-label">系统化名称(必填)</label>
-                    <div class="layui-col-md6">
-                        <input type="text" name="systemName"  lay-verify="required|systemName" autocomplete="off" placeholder="请输入标题" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item layui-row">
-                    <label class="layui-form-label">业务类型(必填)</label>
-                    <div class="layui-col-md6">
+                    <label class="layui-form-label">测试任务名称(必填)</label>
+                    <div class="layui-col-md4">
                         <select name="businessType" lay-verify="required|businessType">
-                            <option value="" selected="">请选择业务类型</option>
-                            <option value="业务1">业务1</option>
-                            <option value="业务2" >业务2</option>
-                            <option value="业务3">业务3</option>
+                            <option value="" selected="">请选择测试任务</option>
+                            <option value="业务1">任务1</option>
+                            <option value="业务2" >任务2</option>
+                            <option value="业务3">任务3</option>
                         </select>
                     </div>
                 </div>
                 <div class="layui-form-item layui-row">
                     <label class="layui-form-label">系统管理单位(必填)</label>
-                    <div class="layui-col-md6">
-                        <input type="text" name="managerDept" lay-verify="required|managerDept" autocomplete="off" placeholder="请输入系统管理单位" class="layui-input">
+                    <div class="layui-col-md4">
+                        <input type="text" name="managerDept"  lay-verify="required|managerDept" autocomplete="off" placeholder="请输入标题" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item layui-row">
                     <label class="layui-form-label">研制单位(必填)</label>
-                    <div class="layui-col-md6">
+                    <div class="layui-col-md4">
                         <input type="text" name="developDept" lay-verify="required|developDept" autocomplete="off" placeholder="请输入研制单位" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item layui-row">
-                    <label class="layui-form-label">联系人(必填)</label>
-                    <div class="layui-col-md6">
-                        <input type="text" name="applicationUserName" lay-verify="required|applicationUserName" autocomplete="off" placeholder="请输入联系人" class="layui-input">
+                    <label class="layui-form-label">测试类型（必填）</label>
+                    <div class="layui-col-md4">
+                        <select name="businessType" lay-verify="required|businessType">
+                            <option value="" selected="">请选择测试类型</option>
+                            <option value="类型1">类型1</option>
+                            <option value="类型2" >类型2</option>
+                            <option value="类型3">类型3</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item layui-row">
-                    <label class="layui-form-label">手机号(必填)</label>
-                    <div class="layui-col-md6">
-                        <input type="tel"  placeholder="请输入手机号" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">                    </div>
+                    <label class="layui-form-label">系统形式审查</label>
+                    <div class="layui-col-md4">
+                        <input type="radio" name="systemSitua" value="软件包格式校验" title="软件包格式校验" checked="">
+                        <input type="radio" name="systemSitua" value="基础数据项审查" title="基础数据项审查">
+                    </div>
                 </div>
                 <div class="layui-form-item layui-row">
-                    <label class="layui-form-label">电子邮箱(必填)</label>
-                    <div class="layui-col-md6">
-                        <input type="text" placeholder="请输入电子邮箱" name="email" lay-verify="required|email" autocomplete="off" class="layui-input">                    </div>
+                    <label class="layui-form-label">接口规范审查</label>
+                    <div class="layui-col-md4">
+                        <input type="radio" name="interface" value="服务接口命名规则" title="服务接口命名规则" checked="">
+                        <input type="radio" name="interface" value="交互格式" title="交互格式">
+                    </div>
                 </div>
                 <div class="layui-form-item layui-row">
-                    <label class="layui-form-label">申请日期</label>
-                    <div class="layui-col-md6">
-                        <input type="text" name="createDate"   id="date" lay-verify="required|createDate" placeholder="请选择申请日期" autocomplete="off" class="layui-input" lay-key="1">                    </div>
+                    <label class="layui-form-label">测试要点</label>
+                        <div class="layui-col-md8">
+                            <input type="checkbox" name="like1[write]" lay-skin="primary" title="要点1" checked="">
+                            <input type="checkbox" name="like1[write]" lay-skin="primary" title="要点1" checked="">
+                            <input type="checkbox" name="like1[read]" lay-skin="primary" title="要点2">
+                            <input type="checkbox" name="like1[game]" lay-skin="primary" title="要点3" disabled="">
+                        </div>
                 </div>
                 <div class="layui-form-item layui-row">
-                    <label class="layui-form-label">电子附件</label>
-                    <div class="layui-col-md6 layui-upload">
+                    <label class="layui-form-label">测试数据上传</label>
+                    <div class="layui-col-md4 layui-upload">
                         <span id="files"></span>
                         <button class="layui-btn layui-btn-normal " type="button" id="fileUpload">选择文件</button>
-                        <%-- <input id="excelFile" type="file" name="excelFile" lay-type="file"  class="layui-upload-file" >--%>
-                        <%--<input type="text" name="title"   autocomplete="off" placeholder="请选择电子附件" class="layui-input">--%>
-                    </div>
-                </div>
-                <div class="layui-form-item layui-form-text  layui-row">
-                    <label class="layui-form-label">系统描述</label>
-                    <div class=" layui-col-md6">
-                        <textarea name="remark" placeholder="请输入内容" lay-verify="remark" class="layui-textarea"></textarea>
                     </div>
                 </div>
                 <div class="layui-form-item layui-layout-admin">
                     <div class="layui-input-block">
                         <div style="text-align: center">
-                            <button class="layui-btn" type="button" lay-submit lay-filter="component-form-demo1" id="submit">
-                                立即提交
+                            <button class="layui-btn" type="button" lay-submit lay-filter="commitReport" id="submit">
+                                生成
                             </button>
+                            <button type="button" class="layui-btn layui-btn-primary">预览</button>
                             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                         </div>
                     </div>
                 </div>
-                <br>
-                <br>
-                <br>
             </form>
         </div>
+
     </div>
 </div>
-<%--<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
-    <legend>常规使用：普通图片上传</legend>
-</fieldset>
-<div class="layui-upload">
-    <button type="button" class="layui-btn" id="test1">上传图片</button>
-    <div class="layui-upload-list">
-        <img class="layui-upload-img" id="demo1">
-        <p id="demoText"></p>
-    </div>
-</div>--%>
 <script src="../../assets/layui/layui.js"></script>
+<script src="../../assets/common/function.js"></script>
 <script>
-    var uuid="";
-    var initFlag=true;
     var ctx = "${pageContext.request.contextPath}/";
-    //var ctx = "http://192.168.0.105:8888/";
-    var fileNames="";
-    var filesPath="",urlPath=[];
-    var fileNameArr=new Array();
-    var userInfo=JSON.parse(sessionStorage.getItem('userInfo'));
-    var userId=userInfo.data.userId;
-    var postData={};
-    function guid() {
-        function S4() {
-            return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-        }
-        return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
-    }
     layui.use(['form', 'layedit', 'laydate', 'table', 'upload','layer'], function () {
         var $ = layui.jquery;
         var form = layui.form, laydate = layui.laydate, upload = layui.upload,layer=layui.layer;
@@ -134,9 +118,8 @@
         });
         uuid=guid();
         upload.render({
-            elem: '#fileUpload'
-            //, url: uploadUrl,
-            , url:ctx + "rzbl/fileUpload",
+            elem: '#fileUpload',
+            url:ctx + "rzbl/fileUpload",
             data: {
                 applicationId: uuid
             }
@@ -146,7 +129,7 @@
                 //预读本地文件示例，不支持ie8
                 obj.preview(function (index, file, result) {//异步
                     fileNameArr.push(file.name);
-                   // $('#files').html(fileNameArr[0])
+                    // $('#files').html(fileNameArr[0])
                 });
             }
             , done: function (res) {
@@ -161,8 +144,8 @@
                 //演示失败状态，并实现重传
             }
         });
-        form.on('submit(component-form-demo1)', function (data) {
-             fileNames="",filesPath="";
+        form.on('submit(commitReport)', function (data) {
+            fileNames="",filesPath="";
             if(null!=fileNameArr&&fileNameArr.length>0){
                 fileNameArr.forEach(function (item, index){
                     fileNames+=item+",";
@@ -192,7 +175,7 @@
             }
             postData['remark']=data.field.remark;
             postData['email']=data.field.email;
-           var submiting=false;
+            var submiting=false;
             if (!submiting) {
                 submiting=true;
                 $.ajax({
@@ -215,11 +198,7 @@
                 return false;
             }
         })
-        //但是，如果你的HTML是动态生成的，自动渲染就会失效
-        //因此你需要在相应的地方，执行下述方法来手动渲染，跟这类似的还有 element.init();
-        //  form.render();
     });
 </script>
 </body>
 </html>
-

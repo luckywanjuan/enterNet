@@ -2,7 +2,6 @@ package com.tqy.cams.conf;
 
 import com.github.pagehelper.PageHelper;
 import com.tqy.cams.bean.common.BaseStatic;
-
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

@@ -3,7 +3,6 @@ package com.tqy.cams.utils;
 import com.activiti.base.entity.common.PageResult;
 import com.activiti.base.entity.common.ResultMessage;
 import com.tqy.cams.bean.common.BaseStatic;
-
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;

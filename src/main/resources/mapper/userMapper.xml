@@ -16,11 +16,15 @@
         where r.role_id=ru.role_id
         and ru.user_id=u.user_id
     </select>
-
+    
+    <!--<select id="getIdByName" resultType="java.lang.String">
+        select user_id from user where user_name=#{userName}
+    </select>-->
+    
     <select id="getUserByName" resultType="java.lang.String">
         select user_id from user where user_name=#{userName} and user_pwd=#{userPwd}
     </select>
-    
+
     <select id="getUsers" resultType="java.util.Map">
         select r.role_id AS "id",r.role_name AS "name",'' AS "pId"
         from role r
@@ -36,14 +40,14 @@
     </select>
 
     <select id="getUserRoles" parameterType="java.lang.String" resultType="java.lang.String">
-        select r.role_id from role_user r where r.user_id= #{0}
+        select r.role_id from role_user r where r.user_id= #{userId}
     </select>
     
     <select id="getUserInfo" parameterType="java.lang.String" resultType="java.util.Map">
         select u.user_id AS "userId",u.user_name AS "userName",r.role_name AS "roleName"
         from `user` u,role_user ru,role r
         where u.user_id=ru.user_id and ru.role_id=r.role_id
-        AND u.user_id=#{0}
+        AND u.user_id=#{userId}
     </select>
 
     <select id="getRolesByUserIds" parameterType="java.util.List" resultType="java.util.Map">

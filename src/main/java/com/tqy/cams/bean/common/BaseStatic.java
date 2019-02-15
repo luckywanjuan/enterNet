@@ -25,7 +25,6 @@ public class BaseStatic {
     public static final int SUCCESS_CODE = 0;
     public static final int ERROR_CODE = 1;
 
-
     // 服务端取分页属性值的key
     public static final String PAGE_PAGESIZE_KEY = prop.getProperty("page.pagesize.key");
     public static final String PAGE_PAGESIZE_VALUE = prop.getProperty("page.pagesize.value");

@@ -3,7 +3,6 @@ package com.tqy.cams.controller;
 import com.activiti.base.entity.common.ResultMessage;
 import com.tqy.cams.bean.User;
 import com.tqy.cams.service.UserService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

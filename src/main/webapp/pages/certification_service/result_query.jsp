@@ -8,6 +8,9 @@
             width: 95px;
         }
         .layui-table-view .layui-table {width:100%}
+        .middle_text{
+            line-height: 38px;
+        }
     </style>
 </head>
 <body style="background: #fff">
@@ -53,34 +56,26 @@
             <div  class="layui-card-body">
                 <form class="layui-form" lay-filter="ensureModal">
                     <div class="layui-form-item layui-row">
-                        <label class="layui-form-label">审批人</label>
-                        <div class="layui-col-md6">
-                            <input type="text" name="userName" lay-verify="" readonly autocomplete="off"  class="layui-input">
-                        </div>
+                        <label class="layui-form-label">审批人:</label>
+                        <div class="layui-col-md6 middle_text"  id="userName"></div>
                     </div>
                     <div class="layui-form-item layui-row">
-                        <label class="layui-form-label">审批日期</label>
-                        <div class="layui-col-md6">
-                            <input type="text" name="checkDate"   id="date" lay-verify="required|date" placeholder="请选择审批日期" autocomplete="off" class="layui-input" lay-key="1">                    </div>
+                        <label class="layui-form-label">审批日期:</label>
+                        <div class="layui-col-md6 middle_text" id="checkDate"></div>
                     </div>
                     <div class="layui-form-item layui-form-text  layui-row">
-                        <label class="layui-form-label">审批意见</label>
-                        <div class=" layui-col-md6">
-                            <textarea name="suggestion" placeholder="请输入审批意见"  lay-verify="systemIntro" class="layui-textarea"></textarea>
+                        <label class="layui-form-label">审批意见:</label>
+                        <div class=" layui-col-md6 middle_text" id="suggestion">
                         </div>
                     </div>
                     <div class="layui-form-item layui-form-text  layui-row">
-                        <label class="layui-form-label">审核结果</label>
-                        <div class="layui-input-block">
-                            <input type="radio" name="agree" value="通过" title="通过" checked="">
-                            <input type="radio" name="agree" value="不通过" title="不通过">
-                        </div>
+                        <label class="layui-form-label">审核结果:</label>
+                        <div class="layui-input-block middle_text" id="agree"></div>
                     </div>
                     <div class="layui-form-item layui-layout-admin">
                         <div class="layui-input-block">
                             <div style="text-align: center">
-                                <button type="reset" class="layui-btn layui-btn-primary canclebtn" >取消</button>
-                                <button class="layui-btn" type="button" lay-submit  lay-filter="assetForm"  id="submit">
+                                <button class="layui-btn" type="button" id="closeMask">
                                     确定
                                 </button>
                             </div>
@@ -94,13 +89,13 @@
 <script src="../../assets/layui/layui.js"></script>
 <script>
     var ctx = "${pageContext.request.contextPath}/";
-    var ctx = "http://192.168.0.105:8888/";
+   // var ctx = "http://192.168.0.105:8888/";
     var postData={};
-    var table,laypage,laytpl;
+    var table,laypage,laytpl,layer;
     var userInfo=JSON.parse(sessionStorage.getItem('userInfo'));
     var userId=userInfo.data.userId;
-    layui.use(['table','laypage','laytpl'], function(){
-        laypage = layui.laypage,table = layui.table,laytpl = layui.laytpl;//分页 //表格
+    layui.use(['table','laypage','laytpl','layer'], function(){
+        laypage = layui.laypage,table = layui.table,laytpl = layui.laytpl,layer=layui.layer;//分页 //表格
         var $ = layui.jquery;
         postData['userId']=userId;
         function calcTabelCellWidth(perc) {
@@ -149,15 +144,51 @@
                }
            })
        }
+       function getPerReault(id){
+           $.ajax({
+               url: ctx + "rzbl/getRzApplication",
+               data:{
+                   id:id
+               } ,
+               type: 'post',
+               dataType: 'json',
+               async: false,
+               success: function (resp) {
+                   $('#userName').html(resp.data.rz.checkUserName)
+                   $('#checkDate').html(resp.data.rz.checkDate)
+                   $('#suggestion').html(resp.data.rz.suggestion)
+                   $('#agree').html(resp.data.rz.result)
+
+                   layer.open({
+                       type: 1
+                       ,title: '入网结论查看'
+                       ,area: ['800px', '600px']
+                       ,offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                       ,id: 'layerDemo1'//防止重复弹出
+                       ,content: $('#modalContent')
+                       ,btnAlign: 'c' //按钮居中
+                       ,shade:  [0.5,'#000'] //不显示遮罩
+                       ,yes: function(){
+                           layer.closeAll();
+                       }
+                   });
+               }, error: function () {
+               }
+           })
+       }
         table.on('tool(roletable)', function(obj) {
             tableData = obj.data; //获得当前行数据
             layEvent = obj.event; //获得 lay-event 对应的值
+            console.log(tableData)
+            console.log(layEvent)
             if(layEvent==='enterNet'){
-
+                getPerReault(tableData.id)
             }
         });
+      /* $('#closeMask').on('click',function () {
+           layer.closeAll();
+       })*/
         window.doSearch=function() {
-            console.log('aaa');
             postData['systemName']=$("input[name='systemName']").val();
             postData['developDept']=$("input[name='developDept']").val();
             postData['managerDept']=$("input[name='managerDept']").val();
