@@ -125,7 +125,7 @@
                         </dl>
                         <dl class="layui-nav-child">
                             <dd data-name="console">
-                                <a lay-href="pages/test/test_query.jsp"   data-id="7" data-type="tabAdd" data-title="测试任务查询" class="site-demo-active" >测试任务查询</a><%--普通用户--%>
+                                <a lay-href="pages/test/task_query.jsp"   data-id="7" data-type="tabAdd" data-title="测试任务查询" class="site-demo-active" >测试任务查询</a><%--普通用户--%>
                             </dd>
                         </dl>
                     </li>
