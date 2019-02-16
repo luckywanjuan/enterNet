@@ -128,6 +128,11 @@
                                 <a lay-href="pages/test/task_query.jsp"   data-id="7" data-type="tabAdd" data-title="测试任务查询" class="site-demo-active" >测试任务查询</a><%--普通用户--%>
                             </dd>
                         </dl>
+                        <dl class="layui-nav-child">
+                            <dd data-name="console">
+                                <a lay-href="pages/test/point_manage.jsp"   data-id="8" data-type="tabAdd" data-title="要点库管理" class="site-demo-active" >要点库管理</a><%--普通用户--%>
+                            </dd>
+                        </dl>
                     </li>
                 </ul>
             </div>
