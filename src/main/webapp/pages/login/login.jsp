@@ -23,7 +23,7 @@
         <div class="layadmin-user-login-box layadmin-user-login-header">
             <h2>入网管理系统</h2>
         </div>
-        <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+        <div class="layadmin-user-login-box layadmin-user-login-body layui-form" onSubmit="return false;">
             <div class="layui-form-item">
                 <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-login-username"></label>
                 <input type="text" name="username" id="LAY-user-login-username" lay-verify="required" placeholder="用户名" class="layui-input">
@@ -41,7 +41,7 @@
 <script src="../../assets/layui/layui.js"></script>
 <script>
     var ctx = "${pageContext.request.contextPath}/";
-    var ctx = "http://192.168.0.105:8888/";
+    var ctx = "http://localhost:8888/";
     //192.168.0.105
     layui.use(['form', 'layedit', 'laydate', 'table', 'upload'], function () {
         var $ = layui.jquery;
@@ -49,10 +49,13 @@
         var postData={'userName':'','userPwd':''};//admin/admin    张婉娟/zwj 测试账号
         form.on('submit(LAY-user-login-submit)', function (data) {
             postData.userName=data.field.username;
-           postData.userPwd=data.field.password;
+            postData.userPwd=data.field.password;
+            loginApi(postData);
+        });
+        function loginApi(data) {
             $.ajax({
                 url: ctx + "user/login",
-                data: postData,
+                data: data,
                 type: 'post',
                 dataType: 'json',
                 async: false,
@@ -66,6 +69,11 @@
 
                 }
             })
+        }
+        $(document).on('keydown', function(e){
+            postData.userName=$("input[name='username']").val();
+            postData.userPwd=$("input[name='password']").val();
+            loginApi(postData)
         })
     });
 </script>

@@ -185,9 +185,9 @@
                 getPerReault(tableData.id)
             }
         });
-      /* $('#closeMask').on('click',function () {
+       $('#closeMask').on('click',function () {
            layer.closeAll();
-       })*/
+       })
         window.doSearch=function() {
             postData['systemName']=$("input[name='systemName']").val();
             postData['developDept']=$("input[name='developDept']").val();
