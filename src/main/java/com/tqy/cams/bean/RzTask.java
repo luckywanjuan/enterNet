@@ -82,4 +82,6 @@ public class RzTask extends ITask implements Serializable{
 	public void setTestReport(byte[] testReport) {
 		this.testReport = testReport;
 	}
+
+
 }

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -54,7 +55,7 @@ public class RzTaskImpl implements RzTaskService {
       //创建一个map
        Map<String,Object> resultMap = new HashMap<>();
        //对象接 mapper 返回的数据
-       RzTask rzTask = rzTaskMapper.getRzTask(taskName,systemName,developDept,managerDept);
+       List rzTask = rzTaskMapper.getRzTask(taskName,systemName,developDept,managerDept);
        //装入map中
        resultMap.put("RzTask",rzTask);
            //将map返回给前端

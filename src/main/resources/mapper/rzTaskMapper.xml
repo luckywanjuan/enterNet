@@ -19,19 +19,26 @@
         WHERE id = #{id}
     </update>
     <select id="getRzTask" resultType="com.tqy.cams.bean.RzTask">
-        select task_name AS "taskName",
+        select id as "id",
+        task_name AS "taskName",
         system_name AS "systemName",
         business_type AS "businessType",
         manager_dept AS "managerDept",
-        develop_dept AS "developDept",
-        test_plan AS "testPlan",
-        test_report AS "testReport"
+        develop_dept AS "developDept"
         from rz_test_task
         where 1=1
-　　　　　　<if test="taskName != null and taskName != ''.toString()"> and task_name like '%${taskName}%'</if>
-　　　　　　<if test="systemName != null and systemName != ''.toString()" > and system_name like '%${systemName}%'</if>
-　　　　　　<if test="developDept != null and developDept != ''.toString()"> and develop_dept like '%${developDept}%'</if>
-            <if test="managerDept != null and managerDept != ''.toString()"> and manager_dept like '%${managerDept}%'</if>
+        <if test="taskName != null and taskName != ''.toString()">
+            and task_name like '%${taskName}%'
+        </if>
+        <if test="systemName != null and systemName != ''.toString()">
+            and system_name like '%${systemName}%'
+        </if>
+        <if test="managerDept != null and managerDept != ''.toString()">
+            and manager_dept like '%${managerDept}%'
+        </if>
+        <if test="developDept != null and developDept != ''.toString()">
+            and develop_dept like '%${developDept}%'
+        </if>
     </select>
     <select id="getRzTaskMsg" parameterType="java.lang.String" resultType="com.tqy.cams.bean.RzTask">
         select task_name AS "taskName",
