@@ -160,7 +160,7 @@ public class RzTaskImpl implements RzTaskService {
         logger.info("修改任务失败");
         return new ResultMessage(BaseStatic.ERROR_CODE,"失败"+id+"~");
     }*/
-    public ResultMessage saveRzBank(RzBank rzb){
+  /*  public ResultMessage saveRzBank(RzBank rzb){
         //新用户进来为空 uuid 生成一个随机的id
         if(rzb.getId()==null) {
             rzb.setId(StringUtil.getUUID());
@@ -172,13 +172,20 @@ public class RzTaskImpl implements RzTaskService {
         }
         return new ResultMessage(BaseStatic.ERROR_CODE,"保存要点测试内容失败");
     }
-
+*/
 
     public ResultMessage getTestPoint(String id){
         Map<String,Object> resultMap = new HashMap<>();
         TestPoint tp = rzTaskMapper.getPoint(id);
         resultMap.put("RzPlanMsg",tp);
         logger.info("查询任务成功"+id);
+        return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",resultMap);
+    }
+    public ResultMessage getAllPoint(){
+        Map<String,Object> resultMap = new HashMap<>();
+        List<TestPoint> tp = rzTaskMapper.getAllPoint();
+        resultMap.put("RzPlanMsg",tp);
+        logger.info("查询任务成功");
         return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",resultMap);
     }
 }

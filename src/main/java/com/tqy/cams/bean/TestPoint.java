@@ -9,6 +9,9 @@ public class TestPoint extends ITask implements Serializable{
    private  String id;  //id
    private String point; //要点内容
    private String affiliationId;  //归属外键id
+	private  String pointName; //要点名称
+	private  String testType; //测试类型
+
 
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
@@ -36,5 +39,21 @@ public class TestPoint extends ITask implements Serializable{
 
 	public void setAffiliationId(String affiliationId) {
 		this.affiliationId = affiliationId;
+	}
+
+	public String getPointName() {
+		return pointName;
+	}
+
+	public void setPointName(String pointName) {
+		this.pointName = pointName;
+	}
+
+	public String getTestType() {
+		return testType;
+	}
+
+	public void setTestType(String testType) {
+		this.testType = testType;
 	}
 }

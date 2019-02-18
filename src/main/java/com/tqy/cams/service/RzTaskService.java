@@ -82,13 +82,13 @@ public interface RzTaskService {
      *//*
     ResultMessage updateTestPoint(TestPoint tp,String id);*/
 
-    /**
+   /* *//**
      * 创建新的要点管理库
      * @param rzb
      * @return
-     */
+     *//*
     ResultMessage saveRzBank(RzBank rzb);
-
+*/
     /**
      * 根据id获取要点的详细内容
      * @param id
@@ -96,4 +96,5 @@ public interface RzTaskService {
      */
     ResultMessage getTestPoint(String id);
 
+    ResultMessage getAllPoint();
 }

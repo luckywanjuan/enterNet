@@ -121,8 +121,12 @@ public class RzTaskController {
         return rzTaskService.getTestPoint(id);
     }
 
-    @RequestMapping("saveRzBank")
+   /* @RequestMapping("saveRzBank")
     public ResultMessage saveRzBank(RzBank rzb){
         return rzTaskService.saveRzBank(rzb);
-    }
+    }*/
+   @RequestMapping("getAllPoint")
+   public ResultMessage getAllPoint(){
+       return rzTaskService.getAllPoint();
+   }
 }

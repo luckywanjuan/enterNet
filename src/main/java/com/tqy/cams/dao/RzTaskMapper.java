@@ -97,7 +97,7 @@ public interface RzTaskMapper {
      * @param rzb
      * @return
      */
-    int saveRzBank(RzBank rzb);
+    /*int saveRzBank(RzBank rzb);*/
 
     /**
      * 根据id查找要点内容
@@ -105,4 +105,10 @@ public interface RzTaskMapper {
      * @return
      */
     TestPoint getPoint(String id);
+
+    /**
+     * 获得所有的要点
+     * @return
+     */
+    List<TestPoint> getAllPoint();
 }

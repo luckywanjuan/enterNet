@@ -1,3 +1,4 @@
+/*
 package com.tqy.cams.bean;
 
 import com.activiti.base.entity.ITask;
@@ -56,3 +57,4 @@ public class RzBank extends ITask implements Serializable{
 		this.pointContent = pointContent;
 	}
 }
+*/
