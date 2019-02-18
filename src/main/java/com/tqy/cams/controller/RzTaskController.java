@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 认证认证测试
+ * 认证测试
  **/
 @RestController
 @RequestMapping("rztask")
