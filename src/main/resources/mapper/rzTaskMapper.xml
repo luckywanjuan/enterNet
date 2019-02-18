@@ -94,6 +94,15 @@
         insert into rz_bank(id,task_type,point_id,point_name,point_content)
         VALUES (#{id},#{taskType},#{pointId},#{pointName},#{pointContent})
     </insert>
+    <select id="getPoint" parameterType="java.lang.String" resultType="com.tqy.cams.bean.TestPoint">
+        select id AS "id",
+        point AS "point",
+        affiliation_id AS "affiliationId"
+
+        from test_point WHERE id = #{id}
+
+    </select>
+
 
 
 

@@ -32,13 +32,13 @@ public interface RzTaskService {
      */
     ResultMessage getRzTaskMsg(String id);
 
-    /**
+   /* *//**
      * 根据id修改任务详细
      * @param id
      * @return
-     */
-    ResultMessage updateRzTaskMsg(RzTask rz,String id);
-
+     *//*
+    ResultMessage updateRzTaskMsg(RzTask rz);
+*/
     /**
      * 创教新计划
      * @param rzp
@@ -66,7 +66,7 @@ public interface RzTaskService {
      * @param id
      * @return
      */
-    ResultMessage updateRzReport(RzReport rz,String id);
+    /*ResultMessage updateRzReport(RzReport rz,String id);*/
 
     /**
      * 添加新的要点内容
@@ -75,12 +75,12 @@ public interface RzTaskService {
      */
     ResultMessage saveTestPoint(TestPoint tp);
 
-    /**
+  /*  *//**
      * 修改测试要点内容
      * @param tp
      * @return
-     */
-    ResultMessage updateTestPoint(TestPoint tp,String id);
+     *//*
+    ResultMessage updateTestPoint(TestPoint tp,String id);*/
 
     /**
      * 创建新的要点管理库
@@ -88,5 +88,12 @@ public interface RzTaskService {
      * @return
      */
     ResultMessage saveRzBank(RzBank rzb);
+
+    /**
+     * 根据id获取要点的详细内容
+     * @param id
+     * @return
+     */
+    ResultMessage getTestPoint(String id);
 
 }

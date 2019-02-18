@@ -54,12 +54,12 @@ public class RzTaskController {
     }
      /**
      * 根据id修改详细数据
-     * @param id
+     * @param
      * @return
      */
     @RequestMapping("updateRzTaskMsg")
-    public ResultMessage updateRzTaskMsg(RzTask rz,String id){
-        return rzTaskService.updateRzTaskMsg(rz,id);
+    public ResultMessage updateRzTaskMsg(RzTask rz){
+        return rzTaskService.saveRzTask(rz);
     }
     /**
      * 保存添加计划
@@ -88,12 +88,12 @@ public class RzTaskController {
     }
     /**
      * 根据id修改详细数据
-     * @param id
+     * @param
      * @return
      */
     @RequestMapping("updateRzReport")
-    public ResultMessage updateRzReport(RzReport rzr,String id){
-        return rzTaskService.updateRzReport(rzr,id);
+    public ResultMessage updateRzReport(RzReport rzr){
+        return rzTaskService.saveRzReport(rzr);
     }
 
     /**
@@ -105,16 +105,22 @@ public class RzTaskController {
     }
     /**
      * 根据id修改要点内容
-     * @param id
+     * @param
      * @return
      */
     @RequestMapping("updatePoint")
-    public ResultMessage updateRzReport(TestPoint tp,String id){
-        return rzTaskService.updateTestPoint(tp,id);
+    public ResultMessage updatePoint(TestPoint tp){
+        return rzTaskService.saveTestPoint(tp);
     }
     /**
      * 新建要点内容库
      */
+
+    @RequestMapping("getPoint")
+    public ResultMessage getRzPoint(String id){
+        return rzTaskService.getTestPoint(id);
+    }
+
     @RequestMapping("saveRzBank")
     public ResultMessage saveRzBank(RzBank rzb){
         return rzTaskService.saveRzBank(rzb);

@@ -61,7 +61,7 @@ public interface RzTaskMapper {
      * @param
      * @return
      */
-    RzPlan getRzPlanMsg(String taskName);
+    RzPlan getRzPlanMsg(String id);
 
     /**
      * 创建测试报告
@@ -98,4 +98,11 @@ public interface RzTaskMapper {
      * @return
      */
     int saveRzBank(RzBank rzb);
+
+    /**
+     * 根据id查找要点内容
+     * @param
+     * @return
+     */
+    TestPoint getPoint(String id);
 }
