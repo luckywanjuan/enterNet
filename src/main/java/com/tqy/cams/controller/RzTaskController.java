@@ -38,10 +38,10 @@ public class RzTaskController {
      * @param managerDept
      * @return
      */
-   /* @RequestMapping("getRzTask")
+   @RequestMapping("getRzTask")
     public ResultMessage getRzTask(String taskName,String systemName,String developDept,String managerDept){
         return rzTaskService.getRzTask(taskName,systemName,developDept,managerDept);
-    }*/
+    }
 
     /**
      * 根据id查询详细数据
@@ -75,8 +75,8 @@ public class RzTaskController {
      * @return
      */
     @RequestMapping("getRzPlanMsg")
-    public ResultMessage getRzPlanMsg(String taskName){
-        return rzTaskService.getRzPlanMsg(taskName);
+    public ResultMessage getRzPlanMsg(String id){
+        return rzTaskService.getRzPlanMsg(id);
     }
 
     /**

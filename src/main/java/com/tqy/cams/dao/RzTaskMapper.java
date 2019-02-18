@@ -39,7 +39,7 @@ public interface RzTaskMapper {
      * @param managerDept
      * @return
      */
-    /*RzTask getRzTask(String taskName,String systemName,String developDept,String managerDept);*/
+    RzTask getRzTask(@Param("taskName") String taskName,@Param("systemName") String systemName,@Param("developDept") String developDept,@Param("managerDept") String managerDept);
 
     /**
      * 根据id查询详细数据

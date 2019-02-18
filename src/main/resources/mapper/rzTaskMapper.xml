@@ -18,7 +18,7 @@
 
         WHERE id = #{id}
     </update>
-   <!-- <select id="getRzTask" parameterType="java.lang.String" resultType="com.tqy.cams.bean.RzTask">
+    <select id="getRzTask" resultType="com.tqy.cams.bean.RzTask">
         select task_name AS "taskName",
         system_name AS "systemName",
         business_type AS "businessType",
@@ -27,17 +27,12 @@
         test_plan AS "testPlan",
         test_report AS "testReport"
         from rz_test_task
-        <where> 1=1
-
-        　　　　　　<if test="task_name != null "> and task_name = #{taskName}</if>
-
-        　　　　　　<if test="system_name != null " >and system_name = #{systemName}</if>
-
-        　　　　　　<if test="develop_dept != null ">and develop_dept = #{developDept}</if>
-                    <if test="manager_dept != null ">and manager_dept = #{managerDept}</if>
-
-        　　　　</where>
-    </select>-->
+        where 1=1
+　　　　　　<if test="taskName != null and taskName != ''.toString()"> and task_name like '%${taskName}%'</if>
+　　　　　　<if test="systemName != null and systemName != ''.toString()" > and system_name like '%${systemName}%'</if>
+　　　　　　<if test="developDept != null and developDept != ''.toString()"> and develop_dept like '%${developDept}%'</if>
+            <if test="managerDept != null and managerDept != ''.toString()"> and manager_dept like '%${managerDept}%'</if>
+    </select>
     <select id="getRzTaskMsg" parameterType="java.lang.String" resultType="com.tqy.cams.bean.RzTask">
         select task_name AS "taskName",
         system_name AS "systemName",
@@ -56,9 +51,11 @@
     </insert>
 
     <select id="getRzPlanMsg" parameterType="java.lang.String" resultType="com.tqy.cams.bean.RzPlan">
-     select  system_dept AS "systemDept",
+     select
+      task_name AS "taskName",
+      system_dept AS "systemDept",
      develop_dept AS "developDept"
-        from rz_test_plan WHERE task_name = #{taskName}
+        from rz_test_plan WHERE id = #{id}
 
     </select>
     <insert id="saveRzReport" parameterType="com.tqy.cams.bean.RzReport">

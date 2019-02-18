@@ -23,8 +23,8 @@ public interface RzTaskService {
      * @param managerDept
      * @return
      */
-    /*ResultMessage getRzTask(String taskName,String systemName,String developDept,String managerDept);
-*/
+    ResultMessage getRzTask(String taskName,String systemName,String developDept,String managerDept);
+
     /**
      *  根据id查询任务详细
      * @param id
@@ -51,7 +51,7 @@ public interface RzTaskService {
      * @param
      * @return
      */
-    ResultMessage getRzPlanMsg(String taskName);
+    ResultMessage getRzPlanMsg(String id);
 
     /**
      * 创建测试报告
