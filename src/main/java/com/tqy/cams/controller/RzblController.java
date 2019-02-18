@@ -104,8 +104,8 @@ public class RzblController {
      * 获取用户对应的入网认证申请表单数据
      */
     @RequestMapping("queryAllRzApp")
-    public PageResult queryAllRzApp(String page, String limit, String systemName, 
-    		String managerDept, String developDept, String userId) {
+    public PageResult queryAllRzApp(String userId, String systemName,
+    		String managerDept, String developDept, String page, String limit) {
         return rzblService.queryAllRzApp(page,limit,systemName,managerDept,developDept,userId);
     }
     

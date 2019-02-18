@@ -257,8 +257,8 @@ public class RzblServiceImpl implements RzblService {
     	int start = 0;
     	int end = 0;
     	if(!StringUtil.isNullOrBlank(pageNo) && !StringUtil.isNullOrBlank(pageSize)){
-    		start = Integer.parseInt(pageNo)-1;
-    		end = Integer.parseInt(pageNo) * Integer.parseInt(pageSize);
+    		start = Integer.parseInt(pageNo) * Integer.parseInt(pageSize);
+    		end = Integer.parseInt(pageSize);
     	}else{
     		end = totalSize;
     	}
@@ -275,16 +275,16 @@ public class RzblServiceImpl implements RzblService {
     }
     
     @Override
-    public PageResult queryAllCheckRzApp(String pageNo, String pageSize,String systemName, 
+    public PageResult queryAllCheckRzApp(String pageNo, String pageSize,String systemName,
     		String managerDept, String developDept,String isCheck) {
     	List<RzApplication> info = new ArrayList<RzApplication>();
     	if(Integer.parseInt(isCheck) == 0) {
-    		info = rzMapper.queryNoCheckRzApp(Integer.parseInt(pageNo)-1, Integer.parseInt(pageNo) * Integer.parseInt(pageSize));
+    		info = rzMapper.queryNoCheckRzApp(Integer.parseInt(pageNo) * Integer.parseInt(pageSize),Integer.parseInt(pageSize));
     		for(RzApplication rz : info) {
     			rz.setResult("待审核");
     		}
     	}else if(Integer.parseInt(isCheck) == 1){
-    		info = rzMapper.queryAllRzApp(Integer.parseInt(pageNo)-1, Integer.parseInt(pageNo) * Integer.parseInt(pageSize),
+    		info = rzMapper.queryAllRzApp(Integer.parseInt(pageNo) * Integer.parseInt(pageSize),Integer.parseInt(pageSize),
     				systemName,managerDept,developDept);
     		for(RzApplication rz : info) {
 				if(rz.getResult().equals("通过")) {

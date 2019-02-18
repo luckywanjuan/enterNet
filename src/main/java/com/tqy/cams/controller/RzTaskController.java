@@ -1,18 +1,14 @@
 package com.tqy.cams.controller;
 
-import com.activiti.base.entity.common.PageResult;
 import com.activiti.base.entity.common.ResultMessage;
 import com.tqy.cams.bean.*;
 import com.tqy.cams.service.RzTaskService;
-import com.tqy.cams.service.RzblService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
- * 认证办理
+ * 认证认证测试
  **/
 @RestController
 @RequestMapping("rztask")
