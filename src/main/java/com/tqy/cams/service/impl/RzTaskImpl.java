@@ -1,5 +1,6 @@
 package com.tqy.cams.service.impl;
 
+import com.activiti.base.entity.common.PageResult;
 import com.activiti.base.entity.common.ResultMessage;
 import com.activiti.base.service.ITaskService;
 import com.activiti.base.util.HessianServiceFactory;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,15 +59,26 @@ public class RzTaskImpl implements RzTaskService {
     }
    @Override
    public ResultMessage getRzTask(String taskName,String systemName,String developDept,String managerDept){
-      //创建一个map
+
+       List<RzTask> info = new ArrayList<RzTask>();
+       info = rzTaskMapper.getRzTask(taskName,systemName,developDept,managerDept);
+
+
+
+
+
+
+
+
+    /*    //创建一个map
        Map<String,Object> resultMap = new HashMap<>();
        //对象接 mapper 返回的数据
        List rzTask = rzTaskMapper.getRzTask(taskName,systemName,developDept,managerDept);
        //装入map中
        resultMap.put("RzTask",rzTask);
            //将map返回给前端
-       logger.info("查询任务成功");
-       return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",resultMap);
+       logger.info("查询任务成功");*/
+       return new PageResult(BaseStatic.SUCCESS_CODE, "成功", info);
 
 
    }

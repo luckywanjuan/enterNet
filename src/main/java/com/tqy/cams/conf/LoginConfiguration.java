@@ -1,3 +1,4 @@
+/*
 package com.tqy.cams.conf;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,3 +30,4 @@ public class LoginConfiguration implements WebMvcConfigurer{
     }
 
 }
+*/
