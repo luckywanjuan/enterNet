@@ -35,7 +35,7 @@
             <input type="text" name="developDept"  lay-verify="required|systemName" autocomplete="off" placeholder="请输入研制单位" class="layui-input">
         </div>
     </div>
-    <div class="layui-col-md3 layui-form">
+    <%--<div class="layui-col-md3 layui-form">
         <label class="layui-form-label">进度</label>
         <div class="layui-col-md4">
             <select name="businessType" lay-verify="required|businessType">
@@ -43,7 +43,7 @@
                 <option value="业务1">完成</option>
             </select>
         </div>
-    </div>
+    </div>--%>
 
     <div class="layui-col-md6">
         <label class="layui-form-label">管理单位：</label>
@@ -61,9 +61,9 @@
 </div>
 <div class="layui-row">
     <div class="layui-col-md12">
-        <table class="layui-table" id="roletable" lay-filter="roletable"></table>
+        <table class="layui-table" id="taskQuery" lay-filter="taskQuery"></table>
     </div>
-    <script type="text/html" id="databar">
+    <script type="text/html" id="tableBar">
         <button class="layui-btn layui-btn-warm layui-btn-mini"  lay-event="enterNet">入网结论查看</button>
         <button class="layui-btn layui-btn-mini"    lay-event="testReport">测试报告查看</button>
         <button class="layui-btn layui-btn-danger layui-btn-mini"   lay-event="testReportLoad">测试报告下载</button>
@@ -89,7 +89,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="layui-form-item layui-form-text  layui-row">
+                    <%--<div class="layui-form-item layui-form-text  layui-row">
                         <label class="layui-form-label">业务类型:</label>
                         <div class=" layui-col-md3">
                             <select name="businessType" lay-verify="required|businessType">
@@ -97,7 +97,7 @@
                                 <option value="业务类型2">业务类型2</option>
                             </select>
                         </div>
-                    </div>
+                    </div>--%>
                     <div class="layui-form-item layui-form-text  layui-row">
                         <label class="layui-form-label">系统管理单位:</label>
                         <div class=" layui-col-md3">
@@ -134,6 +134,15 @@
                         </div>
                     </div>
                 </form>
+                <div class="layui-row">
+                    <div class="layui-col-md12">
+                        <table class="layui-table" id="assetTable" lay-filter="assetTable"></table>
+                    </div>
+                    <script type="text/html" id="databar">
+                        <a class="layui-btn  layui-btn-mini" href="" download lay-event="fujian">附件下载</a>
+                        <a class="layui-btn  layui-btn-mini" data-method="offset" data-type="auto" lay-event="shenhe">审核</a>
+                    </script>
+                </div>
             </div>
         </div>
     </div>
@@ -233,7 +242,7 @@
             postData['id']=taskId;
             postData['taskName']=data.field.taskName;
             postData['systemName']=data.field.systemName;
-            postData['businessType']=data.field.businessType;
+            /*postData['businessType']=data.field.businessType;*/
             postData['managerDept']=data.field.managerDept;
             postData['developDept']=data.field.developDept;
             if(urlPath['plan'][0]){
@@ -246,7 +255,6 @@
             }else{
                 postData['TestReport']='';
             }
-          console.log(data)
             var submiting=false;
             if (!submiting) {
                 submiting=true;
@@ -270,7 +278,44 @@
                 })
             }
         })
-        function getTableApi(initData) {
+        var tableUrl = ctx + 'rztask/getRzTask';
+        function renderTable(){
+            table.render({
+                id: 'taskQuery',
+                elem: '#taskQuery',
+                page: true, //开启分页
+                url: tableUrl,
+                where:{
+                    taskName:$("input[name='taskName']").val(),
+                    systemName:$("input[name='systemName']").val(),
+                    managerDept:$("input[name='managerDept']").val(),
+                    developDept:$("input[name='developDept']").val()
+                },
+                cols: [[ //表头
+                    {field: 'zizeng', title: '序号',type:'numbers', width:calcTabelCellWidth(0.1), sort: true}
+                    ,{field: 'taskName', title: '任务名称',width:110}
+                    ,{field: 'systemName', title: '系统名称',width:90}
+                    ,{field: 'developDept', title: '研制单位', width:90,totalRow: true}
+                    ,{field: 'developDept', title: '管理单位', width:90,totalRow: true}
+                   /* ,{field: 'businessType', title: '业务类型',width:90}
+                    ,{field: 'applicationUserName', title: '联系人',width:90}
+                    ,{field: 'phone', title: '手机号',width:90}
+                    ,{field: 'email', title: '电子邮箱',width:90}
+                    ,{field: 'createDate', title: '申请时间', width:90}
+                    ,{ title: '操作', align:'center',width:180, toolbar: '#tableBar'}*/
+                ]],
+                height: 380,
+                loading: true,
+                done:function(res){
+                    console.log(res)
+                    // ityzl_CLOSE_LOAD_LAYER(ient);
+                },
+                //skin: 'line', //行边框风格
+                even: true //开启隔行背景
+            });
+        }
+        renderTable();
+       /* function getTableApi(initData) {
             $.ajax({
                 url: ctx + "rztask/getRzTask",
                 data: initData,
@@ -283,7 +328,7 @@
                     submiting = false;
                 }
             })
-        }
+        }*/
     });
 
 </script>
