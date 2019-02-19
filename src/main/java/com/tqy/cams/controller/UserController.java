@@ -27,8 +27,22 @@ public class UserController {
     @RequestMapping("login")
     public ResultMessage login(String userName, String userPwd, HttpServletRequest request){
         ResultMessage rm = userService.login(userName,userPwd);
+        request.getSession().setAttribute("loginName", "admin");
         return rm;
     }
+    
+    /**
+     * 注销登录
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping("/loginout")
+    public String loginOut(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "redirect:/";
+    }
+
 
     /**
      * 获取角色用户信息

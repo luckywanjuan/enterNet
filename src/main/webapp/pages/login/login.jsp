@@ -38,7 +38,7 @@
         </div>
     </div>
 </div>
-<script src="../../assets/layui/layui.js"></script>
+<script src="${pageContext.request.contextPath}/assets/layui/layui.js"></script>
 <script>
     var ctx = "${pageContext.request.contextPath}/";
     var ctx = "http://localhost:8888/";
