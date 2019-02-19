@@ -2,6 +2,7 @@ package com.tqy.cams.service;
 
 import com.activiti.base.entity.common.ResultMessage;
 import com.tqy.cams.bean.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 认证办理
@@ -96,5 +97,16 @@ public interface RzTaskService {
      */
     ResultMessage getTestPoint(String id);
 
+    /**
+     * 获取所有的要点内容
+     * @return
+     */
     ResultMessage getAllPoint();
+    /**
+     * 文件上传
+     * @param file
+     * @param dirPath
+     * @return
+     */
+    ResultMessage upload(MultipartFile file, String dirPath);
 }

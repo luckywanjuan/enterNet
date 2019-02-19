@@ -6,6 +6,9 @@ import com.tqy.cams.service.RzTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 认证测试
@@ -125,4 +128,17 @@ public class RzTaskController {
    public ResultMessage getAllPoint(){
        return rzTaskService.getAllPoint();
    }
+
+    /**  文件上传
+     *
+     * @param file
+     * @param request
+     * @return
+     */
+    @RequestMapping("/fileUpload")
+    public ResultMessage handleFormUpload(MultipartFile file, HttpServletRequest request) {
+        //设置上传文件的保存地址目录
+        String dirPath = request.getServletContext().getRealPath("/upload/");
+        return rzTaskService.upload(file,dirPath);
+    }
 }

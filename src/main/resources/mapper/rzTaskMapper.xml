@@ -4,7 +4,7 @@
 
     <insert id="saveRzTask" parameterType="com.tqy.cams.bean.RzTask">
         insert into rz_test_task(id,task_name,system_name,business_type,manager_dept,develop_dept,test_plan,test_report)
-        VALUES (#{id},#{taskName},#{systemName},#{businessType},#{managerDept},#{developDept},#{testPlan},#{testReport})
+        VALUES (#{id},#{taskName},#{systemName},#{businessType},#{managerDept},#{developDept},#{testPlan,jdbcType=BLOB},#{testReport,jdbcType=BLOB})
     </insert>
     <update id="updateRzTask" parameterType="com.tqy.cams.bean.RzTask">
         UPDATE rz_test_task SET
@@ -13,8 +13,8 @@
         ,business_type = #{businessType}
         ,manager_dept = #{managerDept}
         ,develop_dept = #{developDept}
-        ,test_plan = #{testPlan}
-        ,test_report = #{testReport}
+        ,test_plan = #{testPlan,jdbcType=BLOB}
+        ,test_report = #{testReport,jdbcType=BLOB}
 
         WHERE id = #{id}
     </update>
@@ -67,14 +67,14 @@
     </select>
     <insert id="saveRzReport" parameterType="com.tqy.cams.bean.RzReport">
         insert into rz_test_report(id,test_name,manager_dept,develop_dept,test_data,test_path)
-        VALUES (#{id},#{testName},#{managerDept},#{developDept},#{testData},#{testPath})
+        VALUES (#{id},#{testName},#{managerDept},#{developDept},#{testData,jdbcType=BLOB},#{testPath})
     </insert>
     <update id="updateRzReport" parameterType="com.tqy.cams.bean.RzReport">
         UPDATE rz_test_report SET
         test_name = #{testName},
         manager_dept = #{managerDept},
         develop_dept = #{developDept},
-        test_data = #{testData},
+        test_data = #{testData,jdbcType=BLOB},
         test_path = #{testPath}
 
         WHERE id = #{id}

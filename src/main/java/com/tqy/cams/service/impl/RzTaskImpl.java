@@ -12,7 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -186,5 +188,32 @@ public class RzTaskImpl implements RzTaskService {
         resultMap.put("RzPlanMsg",tp);
         logger.info("查询任务成功");
         return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",resultMap);
+    }
+    /**
+     * 文件上传
+     * @param file
+     * @param dirPath
+     * @return
+     */
+    public ResultMessage upload(MultipartFile file, String dirPath){
+        File filePath = new File(dirPath);
+        //如果保存文件的地址不存在，就先创建目录
+        if(!filePath.exists()) {
+            filePath.mkdirs();
+        }
+        String path = "";
+        try {
+            //for(MultipartFile file: files) {
+            //获取上传文件的原始名称
+            String originalFilename = file.getOriginalFilename();
+            //使用MultipartFile接口的方法完成文件上传到指定位置
+            file.transferTo(new File(dirPath + originalFilename));
+            path = dirPath + originalFilename + ",";
+            //}
+        }catch(Exception e) {
+            logger.error("上传文件出错："+e.getMessage());
+            return new ResultMessage(BaseStatic.ERROR_CODE,"失败",e.getMessage());
+        }
+        return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",path.substring(0, path.length()-1));
     }
 }
