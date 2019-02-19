@@ -87,6 +87,7 @@
     </div>
 </div>
 <script src="../../assets/layui/layui.js"></script>
+<script src="../../assets/common/function.js"></script>
 <script>
     var ctx = "${pageContext.request.contextPath}/";
    // var ctx = "http://192.168.0.105:8888/";
@@ -98,10 +99,6 @@
         laypage = layui.laypage,table = layui.table,laytpl = layui.laytpl,layer=layui.layer;//分页 //表格
         var $ = layui.jquery;
         postData['userId']=userId;
-        function calcTabelCellWidth(perc) {
-            var winwidth = $(window).width();
-            return perc * winwidth;
-        }
         getTableList();
        function getTableList(){
            postData['systemName']=$("input[name='systemName']").val();
