@@ -260,6 +260,7 @@
                         submiting = false;
                         if (resp.code==0) {
                             layer.alert('提交成功');
+                            layer.closeAll();
                         } else {
                             layer.alert(resp.errorMsg);
                         }
@@ -267,9 +268,22 @@
                         submiting = false;
                     }
                 })
-                return false;
             }
         })
+        function getTableApi(initData) {
+            $.ajax({
+                url: ctx + "rztask/getRzTask",
+                data: initData,
+                type: 'post',
+                dataType: 'json',
+                async: false,
+                success: function (resp) {
+
+                }, error: function () {
+                    submiting = false;
+                }
+            })
+        }
     });
 
 </script>

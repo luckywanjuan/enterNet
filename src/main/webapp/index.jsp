@@ -62,12 +62,12 @@
                     <a href="javascript:;">
                         <cite id="userName"></cite>
                     </a>
-                    <%--<dl class="layui-nav-child">
-                        <dd><a lay-href="set/user/info.html">基本资料</a></dd>
+                    <dl class="layui-nav-child">
+                       <%-- <dd><a lay-href="set/user/info.html">基本资料</a></dd>
                         <dd><a lay-href="set/user/password.html">修改密码</a></dd>
-                        <hr>
-                        <dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
-                    </dl>--%>
+                        <hr>--%>
+                        <dd layadmin-event="logout" id="logout" style="text-align: center;"><a>退出</a></dd>
+                    </dl>
                 </li>
 
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
@@ -254,6 +254,10 @@
             var e = $(this)
                 , i = e.attr("layadmin-event");
             flexible &&flexible.call(this, e)
+        })
+        $('#logout').on('click',function () {
+            window.location='${pageContext.request.contextPath}/pages/login/login.jsp';
+            sessionStorage.removeItem('userInfo');
         })
     })
 </script>
