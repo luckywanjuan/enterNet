@@ -71,9 +71,11 @@
             })
         }
         $(document).on('keydown', function(e){
-            postData.userName=$("input[name='username']").val();
-            postData.userPwd=$("input[name='password']").val();
-            loginApi(postData)
+            if(e.which ==13){
+                postData.userName=$("input[name='username']").val();
+                postData.userPwd=$("input[name='password']").val();
+                loginApi(postData)
+            }
         })
     });
 </script>

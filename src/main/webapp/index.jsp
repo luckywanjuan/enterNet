@@ -100,7 +100,7 @@
                                 <a lay-href="pages/certification_service/result_query.jsp"     data-id="2" data-type="tabAdd" data-title="认证结果查询" class="site-demo-active user" >认证结果查询</a><%--普通用户--%>
                             </dd>
                             <dd data-name="console">
-                                <a lay-href="pages/certification_service/application_assest.jsp" id="admin" data-id="3" data-type="tabAdd" data-title="认证申请审批" class="site-demo-active admin" >认证申请审批</a><%--管理用户--%>
+                                <a lay-href="pages/certification_service/application_assest.jsp"  data-id="3" data-type="tabAdd" data-title="认证申请审批" class="site-demo-active admin" >认证申请审批</a><%--管理用户--%>
                             </dd>
                             <dd data-name="console">
                                 <a lay-href="pages/certification_service/result_manage.jsp"  data-id="4"  data-type="tabAdd" data-title="认证结果管理" class="site-demo-active admin" >认证结果管理</a><%--管理用户--%>
@@ -125,7 +125,7 @@
                         </dl>
                         <dl class="layui-nav-child">
                             <dd data-name="console">
-                                <a lay-href="pages/test/task_query.jsp"   data-id="7" data-type="tabAdd" data-title="测试任务查询" class="site-demo-active" >测试任务查询</a><%--普通用户--%>
+                                <a lay-href="pages/test/task_query.jsp" id="admin"  data-id="7" data-type="tabAdd" data-title="测试任务查询" class="site-demo-active" >测试任务查询</a><%--普通用户--%>
                             </dd>
                         </dl>
                         <dl class="layui-nav-child">
