@@ -1,5 +1,6 @@
 package com.tqy.cams.service;
 
+import com.activiti.base.entity.common.PageResult;
 import com.activiti.base.entity.common.ResultMessage;
 import com.tqy.cams.bean.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,14 +25,14 @@ public interface RzTaskService {
      * @param managerDept
      * @return
      */
-    ResultMessage getRzTask(String taskName,String systemName,String developDept,String managerDept);
+    PageResult getRzTask(String taskName,String systemName,String developDept,String managerDept,String pageNo, String pageSize);
 
     /**
      *  根据id查询任务详细
      * @param id
      * @return
      */
-    ResultMessage getRzTaskMsg(String id);
+    PageResult getRzTaskMsg(String id);
 
    /* *//**
      * 根据id修改任务详细
@@ -52,7 +53,7 @@ public interface RzTaskService {
      * @param
      * @return
      */
-    ResultMessage getRzPlanMsg(String id);
+    PageResult getRzPlanMsg(String id);
 
     /**
      * 创建测试报告
@@ -95,13 +96,13 @@ public interface RzTaskService {
      * @param id
      * @return
      */
-    ResultMessage getTestPoint(String id);
+    PageResult getTestPoint(String id);
 
     /**
      * 获取所有的要点内容
      * @return
      */
-    ResultMessage getAllPoint();
+    PageResult getAllPoint();
     /**
      * 文件上传
      * @param file

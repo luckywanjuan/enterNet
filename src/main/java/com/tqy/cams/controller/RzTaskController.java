@@ -38,8 +38,8 @@ public class RzTaskController {
      * @return
      */
    @RequestMapping("getRzTask")
-    public ResultMessage getRzTask(String taskName,String systemName,String developDept,String managerDept){
-        return rzTaskService.getRzTask(taskName,systemName,developDept,managerDept);
+    public ResultMessage getRzTask(String taskName,String systemName,String developDept,String managerDept,String page, String limit){
+        return rzTaskService.getRzTask(taskName,systemName,developDept,managerDept,page,limit);
     }
 
     /**

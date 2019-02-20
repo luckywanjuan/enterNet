@@ -3,8 +3,8 @@
 <mapper namespace="com.tqy.cams.dao.RzTaskMapper" >
 
     <insert id="saveRzTask" parameterType="com.tqy.cams.bean.RzTask">
-        insert into rz_test_task(id,task_name,system_name,business_type,manager_dept,develop_dept,test_plan,test_report)
-        VALUES (#{id},#{taskName},#{systemName},#{businessType},#{managerDept},#{developDept},#{testPlan,jdbcType=BLOB},#{testReport,jdbcType=BLOB})
+        insert into rz_test_task(id,task_name,system_name,business_type,manager_dept,develop_dept,test_plan,test_report,create_time,update_time)
+        VALUES (#{id},#{taskName},#{systemName},#{businessType},#{managerDept},#{developDept},#{testPlan,jdbcType=BLOB},#{testReport,jdbcType=BLOB},#{createTime},#{updateTime})
     </insert>
     <update id="updateRzTask" parameterType="com.tqy.cams.bean.RzTask">
         UPDATE rz_test_task SET
@@ -16,6 +16,7 @@
         ,test_plan = #{testPlan,jdbcType=BLOB}
         ,test_report = #{testReport,jdbcType=BLOB}
 
+        ,update_time = #{updateTime}
         WHERE id = #{id}
     </update>
     <select id="getRzTask" resultType="com.tqy.cams.bean.RzTask">
@@ -24,9 +25,27 @@
         system_name AS "systemName",
         business_type AS "businessType",
         manager_dept AS "managerDept",
-        develop_dept AS "developDept"
+        develop_dept AS "developDept",
+        create_time AS "createTime",
+        update_time AS "updateTime"
         from rz_test_task
         where 1=1
+        <if test="taskName != null and taskName != ''.toString()">
+            and task_name like '%${taskName}%'
+        </if>
+        <if test="systemName != null and systemName != ''.toString()">
+            and system_name like '%${systemName}%'
+        </if>
+        <if test="managerDept != null and managerDept != ''.toString()">
+            and manager_dept like '%${managerDept}%'
+        </if>
+        <if test="developDept != null and developDept != ''.toString()">
+            and develop_dept like '%${developDept}%'
+        </if>
+        limit #{start},#{end}
+    </select>
+    <select id="queryCounts" resultType="java.lang.Integer">
+        select count(1) from rz_test_task where 1=1
         <if test="taskName != null and taskName != ''.toString()">
             and task_name like '%${taskName}%'
         </if>
@@ -47,27 +66,29 @@
         manager_dept AS "managerDept",
         develop_dept AS "developDept",
         test_plan AS "testPlan",
-        test_report AS "testReport"
+        test_report AS "testReport",
+        create_time AS "createTime"
         from rz_test_task WHERE id = #{id}
 
     </select>
 
     <insert id="saveRzPlan" parameterType="com.tqy.cams.bean.RzPlan">
-        insert into rz_test_plan(id,task_name,system_dept,develop_dept,test_type,system_check,interface_check,test_point)
-        VALUES (#{id},#{taskName},#{systemDept},#{developDept},#{testType},#{systemCheck},#{interfaceCheck},#{testPoint})
+        insert into rz_test_plan(id,task_name,system_dept,develop_dept,test_type,system_check,interface_check,test_point,create_time)
+        VALUES (#{id},#{taskName},#{systemDept},#{developDept},#{testType},#{systemCheck},#{interfaceCheck},#{testPoint},#{createTime})
     </insert>
 
     <select id="getRzPlanMsg" parameterType="java.lang.String" resultType="com.tqy.cams.bean.RzPlan">
      select
       task_name AS "taskName",
       system_dept AS "systemDept",
-     develop_dept AS "developDept"
+     develop_dept AS "developDept",
+      create_time AS "createTime"
         from rz_test_plan WHERE id = #{id}
 
     </select>
     <insert id="saveRzReport" parameterType="com.tqy.cams.bean.RzReport">
-        insert into rz_test_report(id,test_name,manager_dept,develop_dept,test_data,test_path)
-        VALUES (#{id},#{testName},#{managerDept},#{developDept},#{testData,jdbcType=BLOB},#{testPath})
+        insert into rz_test_report(id,test_name,manager_dept,develop_dept,test_data,test_path,create_time,update_time)
+        VALUES (#{id},#{testName},#{managerDept},#{developDept},#{testData,jdbcType=BLOB},#{testPath},#{createTime},#{updateTime})
     </insert>
     <update id="updateRzReport" parameterType="com.tqy.cams.bean.RzReport">
         UPDATE rz_test_report SET
@@ -75,21 +96,22 @@
         manager_dept = #{managerDept},
         develop_dept = #{developDept},
         test_data = #{testData,jdbcType=BLOB},
-        test_path = #{testPath}
-
+        test_path = #{testPath},
+        update_time = #{updateTime}
         WHERE id = #{id}
     </update>
     <insert id="savePoint" parameterType="com.tqy.cams.bean.TestPoint">
-        insert into test_point(id,point,affiliation_id,point_name,test_type)
-        VALUES (#{id},#{point},#{affiliationId},#{pointName},#{testType})
+        insert into test_point(id,point,affiliation_id,point_name,test_type,create_time,update_time)
+        VALUES (#{id},#{point},#{affiliationId},#{pointName},#{testType},#{createTime},#{updateTime})
     </insert>
     <update id="updatePoint" parameterType="com.tqy.cams.bean.TestPoint">
         UPDATE test_point SET
         point = #{point},
         point_name = #{pointName},
         test_type = #{testType},
-        affiliation_id = #{affiliationId}
+        affiliation_id = #{affiliationId},
 
+        update_time = #{updateTime}
         WHERE id = #{id}
     </update>
   <!--  <insert id="saveRzBank" parameterType="com.tqy.cams.bean.RzBank">
@@ -101,8 +123,9 @@
         point_name AS "pointName",
         test_type AS "testType",
         point AS "point",
-        affiliation_id AS "affiliationId"
-
+        affiliation_id AS "affiliationId",
+         create_time AS "createTime",
+        update_time AS "updateTime"
 
         from test_point WHERE id = #{id}
 
@@ -113,8 +136,9 @@
         point_name AS "pointName",
         test_type AS "testType",
         point AS "point",
-        affiliation_id AS "affiliationId"
-
+        affiliation_id AS "affiliationId",
+        create_time AS "createTime",
+        update_time AS "updateTime"
 
         from test_point
 

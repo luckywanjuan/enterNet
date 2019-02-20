@@ -14,6 +14,7 @@ public class RzPlan extends ITask implements Serializable{
 	private Integer systemCheck;  //系统形式检查
 	private Integer interfaceCheck;  //接口规范检查
 	private String testPoint; //测试要点
+	private String createTime;//创建时间
 
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
@@ -81,5 +82,13 @@ public class RzPlan extends ITask implements Serializable{
 
 	public void setTestPoint(String testPoint) {
 		this.testPoint = testPoint;
+	}
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
 	}
 }
