@@ -13,7 +13,7 @@
 </head>
 <body style="background: #fff">
 <div class="layui-fluid ">
-    <div class="layui-card ">
+    <%--<div class="layui-card ">
         <div class="layui-card-header">入网认证审批</div>
         <div class="layui-card-body" style="padding: 15px;">
             <form class="layui-form" action="" lay-filter="component-form-group">
@@ -91,7 +91,7 @@
                 <br>
             </form>
         </div>
-    </div>
+    </div>--%>
     <div class="layui-row">
         <div class="layui-col-md12">
             <table class="layui-table" id="assetTable" lay-filter="assetTable"></table>
@@ -208,6 +208,7 @@
                 even: true //开启隔行背景
             });
         }
+        renderTable();
         table.on('tool(assetTable)', function(obj) {
             tableData = obj.data ;//获得当前行数据
             layEvent = obj.event; //获得 lay-event 对应的值
