@@ -119,7 +119,7 @@
                            ,height: 420
                            ,data:resp.data
                            ,title: '用户表'
-                           ,limit: 1
+                           ,limit: 10
                            ,count: resp.count
                            ,page: true //开启分页
                            //,toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档

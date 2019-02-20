@@ -51,7 +51,7 @@
             <input type="text" name="managerDept"  lay-verify="required|systemName" autocomplete="off" placeholder="请输入管理单位" class="layui-input">
         </div>
         <div class="layui-col-md1">&nbsp;</div>
-        <button class="layui-btn layui-btn-sm" type="button"  onclick="doSearch()" lay-submit  lay-filter="component-form-demo1"  >
+        <button class="layui-btn layui-btn-sm" type="button"  onclick="doSearch()" lay-submit  lay-filter="component-form-demo1"  onclick="doSearch()">
             搜索
         </button>
         <button class="layui-btn layui-btn-sm" type="button"  onclick="newTask('new')" lay-submit  lay-filter="component-form-demo1"  >
@@ -297,12 +297,9 @@
                     ,{field: 'systemName', title: '系统名称',width:90}
                     ,{field: 'developDept', title: '研制单位', width:90,totalRow: true}
                     ,{field: 'developDept', title: '管理单位', width:90,totalRow: true}
-                   /* ,{field: 'businessType', title: '业务类型',width:90}
-                    ,{field: 'applicationUserName', title: '联系人',width:90}
-                    ,{field: 'phone', title: '手机号',width:90}
-                    ,{field: 'email', title: '电子邮箱',width:90}
-                    ,{field: 'createDate', title: '申请时间', width:90}
-                    ,{ title: '操作', align:'center',width:180, toolbar: '#tableBar'}*/
+                    ,{field: 'businessType', title: '时间',width:90}
+                   /* ,{field: 'applicationUserName', title: '进度',width:90}*/
+                    ,{ title: '操作', align:'center',width:180,toolbar: '#tableBar'}
                 ]],
                 height: 380,
                 loading: true,
@@ -315,20 +312,9 @@
             });
         }
         renderTable();
-       /* function getTableApi(initData) {
-            $.ajax({
-                url: ctx + "rztask/getRzTask",
-                data: initData,
-                type: 'post',
-                dataType: 'json',
-                async: false,
-                success: function (resp) {
-
-                }, error: function () {
-                    submiting = false;
-                }
-            })
-        }*/
+        window.doSearch=function(){
+            renderTable();
+        }
     });
 
 </script>
