@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.tqy</groupId>
-	<artifactId>cams</artifactId>
+	<artifactId>enterNet</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<!--
       spring boot 父节点依赖,
