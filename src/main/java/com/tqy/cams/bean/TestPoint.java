@@ -11,7 +11,8 @@ public class TestPoint extends ITask implements Serializable{
    private String affiliationId;  //归属外键id
 	private  String pointName; //要点名称
 	private  String testType; //测试类型
-
+	private String createTime;//创建时间
+	private String updateTime;//修改时间
 
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
@@ -55,5 +56,21 @@ public class TestPoint extends ITask implements Serializable{
 
 	public void setTestType(String testType) {
 		this.testType = testType;
+	}
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
 	}
 }

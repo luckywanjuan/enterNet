@@ -14,6 +14,8 @@ public class RzTask extends ITask implements Serializable{
 	private String developDept; //研制单位
 	private byte[] testPlan;  //测试计划
 	private byte[] testReport; //测试报告
+	private String createTime;//创建时间
+	private String updateTime;//修改时间
 
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
@@ -83,5 +85,19 @@ public class RzTask extends ITask implements Serializable{
 		this.testReport = testReport;
 	}
 
+	public String getCreateTime() {
+		return createTime;
+	}
 
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
 }

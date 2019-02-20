@@ -39,14 +39,16 @@ public interface RzTaskMapper {
      * @param managerDept
      * @return
      */
-    List<RzTask> getRzTask(@Param("taskName") String taskName,@Param("systemName") String systemName,@Param("developDept") String developDept,@Param("managerDept") String managerDept);
+    List<RzTask> getRzTask(@Param("taskName") String taskName,@Param("systemName") String systemName,@Param("developDept") String developDept,@Param("managerDept") String managerDept,@Param("start") int start, @Param("end") int end);
 
+
+    int queryCounts(@Param("taskName") String taskName,@Param("systemName") String systemName, @Param("managerDept") String managerDept,@Param("developDept") String developDept);
     /**
      * 根据id查询详细数据
      * @param id
      * @return
      */
-    RzTask getRzTaskMsg(String id);
+    List<RzTask> getRzTaskMsg(String id);
 
 
     /**
@@ -61,7 +63,7 @@ public interface RzTaskMapper {
      * @param
      * @return
      */
-    RzPlan getRzPlanMsg(String id);
+    List<RzPlan> getRzPlanMsg(String id);
 
     /**
      * 创建测试报告
@@ -104,7 +106,7 @@ public interface RzTaskMapper {
      * @param
      * @return
      */
-    TestPoint getPoint(String id);
+    List<TestPoint> getPoint(String id);
 
     /**
      * 获得所有的要点
