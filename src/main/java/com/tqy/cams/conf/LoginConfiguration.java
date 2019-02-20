@@ -1,4 +1,3 @@
-/*
 package com.tqy.cams.conf;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +25,8 @@ public class LoginConfiguration implements WebMvcConfigurer{
     public void addInterceptors(InterceptorRegistry registry) {
         InterceptorRegistration loginRegistry = registry.addInterceptor(loginInterceptor);
         // 拦截路径,	/** 表示拦截所有的请求，
-        loginRegistry.addPathPatterns("/**").excludePathPatterns("/","/assets/**");;
+        loginRegistry.addPathPatterns("/**").excludePathPatterns("/","/user/login","/assets/**");
+        //loginRegistry.excludePathPatterns("/assets/**");
     }
 
 }
-*/
