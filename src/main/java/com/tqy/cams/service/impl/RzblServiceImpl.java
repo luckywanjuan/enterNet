@@ -257,7 +257,7 @@ public class RzblServiceImpl implements RzblService {
     	int start = 0;
     	int end = 0;
     	if(!StringUtil.isNullOrBlank(pageNo) && !StringUtil.isNullOrBlank(pageSize)){
-    		start = Integer.parseInt(pageNo) * Integer.parseInt(pageSize);
+    		start = (Integer.parseInt(pageNo)-1) * Integer.parseInt(pageSize);
     		end = Integer.parseInt(pageSize);
     	}else{
     		end = totalSize;

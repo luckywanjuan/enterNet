@@ -30,7 +30,7 @@ public class RzTaskImpl implements RzTaskService {
     @Override
     public ResultMessage saveRzTask(RzTask rz){
         //新用户进来为空 uuid 生成一个随机的id
-        if(rz.getId()==null) {
+        if(StringUtil.isNullOrBlank(rz.getId())) {
             rz.setId(StringUtil.getUUID());
             rz.setCreateTime(StringUtil.getTimeStamp("yyyy-MM-dd HH:mm:ss"));
             //生成id后，直接将信息存入数据库
@@ -51,7 +51,7 @@ public class RzTaskImpl implements RzTaskService {
        int start = 0;
        int end = 0;
        if(!StringUtil.isNullOrBlank(pageNo) && !StringUtil.isNullOrBlank(pageSize)){
-           start = Integer.parseInt(pageNo) * Integer.parseInt(pageSize);
+           start = (Integer.parseInt(pageNo)-1) * Integer.parseInt(pageSize);
            end = Integer.parseInt(pageSize);
        }else{
            end = totalSize;
@@ -62,7 +62,7 @@ public class RzTaskImpl implements RzTaskService {
     
     @Override
     public PageResult getRzTaskMsg(String id){
-       if(id!=null){
+       if(StringUtil.isNullOrBlank(id)){
            List<RzTask> info = new ArrayList<RzTask>();
            info = rzTaskMapper.getRzTaskMsg(id);
            return new PageResult(BaseStatic.SUCCESS_CODE, "成功", info);
@@ -73,7 +73,7 @@ public class RzTaskImpl implements RzTaskService {
 
     public ResultMessage saveRzPlan(RzPlan rzp){
         //新用户进来为空 uuid 生成一个随机的id
-        if(rzp.getId()==null) {
+        if(StringUtil.isNullOrBlank(rzp.getId())) {
             rzp.setId(StringUtil.getUUID());
             rzp.setCreateTime(StringUtil.getTimeStamp("yyyy-MM-dd HH:mm:ss"));
             //生成id后，直接将信息存入数据库
@@ -85,7 +85,7 @@ public class RzTaskImpl implements RzTaskService {
     }
     
     public PageResult getRzPlanMsg(String id){
-        if(id!=null){
+        if(StringUtil.isNullOrBlank(id)){
             List<RzPlan> info = new ArrayList<RzPlan>();
             info = rzTaskMapper.getRzPlanMsg(id);
             return new PageResult(BaseStatic.SUCCESS_CODE, "成功", info);
@@ -96,7 +96,7 @@ public class RzTaskImpl implements RzTaskService {
     
     public ResultMessage saveRzReport(RzReport rzr){
         //新用户进来为空 uuid 生成一个随机的id
-        if(rzr.getId()==null) {
+        if(StringUtil.isNullOrBlank(rzr.getId())) {
             rzr.setId(StringUtil.getUUID());
             //生成id后，直接将信息存入数据库
             rzr.setCreateTime(StringUtil.getTimeStamp("yyyy-MM-dd HH:mm:ss"));
@@ -113,7 +113,7 @@ public class RzTaskImpl implements RzTaskService {
     
     public ResultMessage saveTestPoint(TestPoint tp){
         //新用户进来为空 uuid 生成一个随机的id
-        if(tp.getId()==null) {
+        if(StringUtil.isNullOrBlank(tp.getId())) {
             tp.setId(StringUtil.getUUID());
             //生成id后，直接将信息存入数据库
             tp.setCreateTime(StringUtil.getTimeStamp("yyyy-MM-dd HH:mm:ss"));
@@ -129,7 +129,7 @@ public class RzTaskImpl implements RzTaskService {
     }
 
     public PageResult getTestPoint(String id){
-        if(id!=null){
+        if(StringUtil.isNullOrBlank(id)){
             List<TestPoint> info = new ArrayList<TestPoint>();
             info = rzTaskMapper.getPoint(id);
             return new PageResult(BaseStatic.SUCCESS_CODE, "成功", info);
