@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface RzTaskService {
 
     /**
-     * 创教新任务
+     * 创教/更新新任务
      * @param rz
      * @return
      */
@@ -34,13 +34,6 @@ public interface RzTaskService {
      */
     PageResult getRzTaskMsg(String id);
 
-   /* *//**
-     * 根据id修改任务详细
-     * @param id
-     * @return
-     *//*
-    ResultMessage updateRzTaskMsg(RzTask rz);
-*/
     /**
      * 创教新计划
      * @param rzp
@@ -63,34 +56,12 @@ public interface RzTaskService {
     ResultMessage saveRzReport(RzReport rzr);
 
     /**
-     * 在线编辑修改测试报告
-     * @param rz
-     * @param id
-     * @return
-     */
-    /*ResultMessage updateRzReport(RzReport rz,String id);*/
-
-    /**
      * 添加新的要点内容
      * @param tp
      * @return
      */
     ResultMessage saveTestPoint(TestPoint tp);
 
-  /*  *//**
-     * 修改测试要点内容
-     * @param tp
-     * @return
-     *//*
-    ResultMessage updateTestPoint(TestPoint tp,String id);*/
-
-   /* *//**
-     * 创建新的要点管理库
-     * @param rzb
-     * @return
-     *//*
-    ResultMessage saveRzBank(RzBank rzb);
-*/
     /**
      * 根据id获取要点的详细内容
      * @param id

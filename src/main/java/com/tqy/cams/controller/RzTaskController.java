@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("rztask")
 public class RzTaskController {
 
-
     @Autowired
     private RzTaskService rzTaskService;
 
@@ -120,14 +119,10 @@ public class RzTaskController {
         return rzTaskService.getTestPoint(id);
     }
 
-   /* @RequestMapping("saveRzBank")
-    public ResultMessage saveRzBank(RzBank rzb){
-        return rzTaskService.saveRzBank(rzb);
-    }*/
-   @RequestMapping("getAllPoint")
-   public ResultMessage getAllPoint(){
-       return rzTaskService.getAllPoint();
-   }
+    @RequestMapping("getAllPoint")
+    public ResultMessage getAllPoint(){
+        return rzTaskService.getAllPoint();
+    }
 
     /**  文件上传
      *
