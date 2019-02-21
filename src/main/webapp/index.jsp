@@ -198,7 +198,7 @@
         $('#mainBody').attr('src','pages/certification_service/application_assest.jsp');
     }else{
         $('.admin').hide();
-        $('#LAY_app_tabsheader').html('                    <li lay-id="pages/certification_service/application_assest.jsp" lay-attr="pages/certification_service/application_assest.jsp" class="layui-this admin"><span>认证申请审批</span><i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>\n')
+        $('#LAY_app_tabsheader').html('<li lay-id="pages/certification_service/apply_report.jsp" lay-attr="pages/certification_service/apply_report.jsp" class="layui-this user"><span>认证申请填报</span><i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>\n')
         $('#mainBody').attr('src','pages/certification_service/apply_report.jsp');
     }
     $('#logout').on('click',function () {
