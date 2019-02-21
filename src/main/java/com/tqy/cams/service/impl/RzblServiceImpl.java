@@ -278,13 +278,14 @@ public class RzblServiceImpl implements RzblService {
     public PageResult queryAllCheckRzApp(String pageNo, String pageSize,String systemName,
     		String managerDept, String developDept,String isCheck) {
     	List<RzApplication> info = new ArrayList<RzApplication>();
+        int start = (Integer.parseInt(pageNo)-1) * Integer.parseInt(pageSize);
     	if(Integer.parseInt(isCheck) == 0) {
-    		info = rzMapper.queryNoCheckRzApp(Integer.parseInt(pageNo) * Integer.parseInt(pageSize),Integer.parseInt(pageSize));
+    		info = rzMapper.queryNoCheckRzApp(start,Integer.parseInt(pageSize));
     		for(RzApplication rz : info) {
     			rz.setResult("待审核");
     		}
     	}else if(Integer.parseInt(isCheck) == 1){
-    		info = rzMapper.queryAllRzApp(Integer.parseInt(pageNo) * Integer.parseInt(pageSize),Integer.parseInt(pageSize),
+    		info = rzMapper.queryAllRzApp(start,Integer.parseInt(pageSize),
     				systemName,managerDept,developDept);
     		for(RzApplication rz : info) {
 				if(rz.getResult().equals("通过")) {
