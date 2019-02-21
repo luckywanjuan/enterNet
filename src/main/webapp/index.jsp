@@ -71,7 +71,7 @@
                         <%--<dd><a lay-href="set/user/info.html">基本资料</a></dd>
                         <dd><a lay-href="set/user/password.html">修改密码</a></dd>
                         <hr>--%>
-                        <dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
+                        <dd style="text-align: center;"><a>退出</a></dd>
                     </dl>
                 </li>
 
@@ -88,7 +88,7 @@
         <!-- 侧边菜单 -->
         <div class="layui-side layui-side-menu">
             <div class="layui-side-scroll">
-                <div class="layui-logo" lay-href="home/console.html">
+                <div class="layui-logo">
                     <span>入网认证系统</span>
                 </div>
 
@@ -157,7 +157,15 @@
             </div>
             <div class="layui-tab" lay-unauto="" lay-allowclose="true" lay-filter="layadmin-layout-tabs">
                 <ul class="layui-tab-title" id="LAY_app_tabsheader">
+<%--
                     <li lay-id="home/console.html" lay-attr="home/console.html" class="layui-this"><i class="layui-icon layui-icon-home"></i><i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>
+--%>
+<%--
+                    <li lay-id="pages/certification_service/apply_report.jsp" lay-attr="pages/certification_service/apply_report.jsp" class="layui-this user"><span>认证申请填报</span><i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>
+--%>
+<%--
+                    <li lay-id="pages/certification_service/application_assest.jsp" lay-attr="pages/certification_service/application_assest.jsp" class="layui-this admin"><span>认证申请审批</span><i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>
+--%>
                 </ul>
             </div>
         </div>
@@ -186,11 +194,17 @@
     $('#userName').html(userInfo.userName);
     if(userInfo.data.role==0){//管理员
         $('.user').hide();
+        $('#LAY_app_tabsheader').html('<li lay-id="pages/certification_service/application_assest.jsp" lay-attr="pages/certification_service/application_assest.jsp" class="layui-this admin"><span>认证申请审批</span><i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>')
         $('#mainBody').attr('src','pages/certification_service/application_assest.jsp');
     }else{
         $('.admin').hide();
+        $('#LAY_app_tabsheader').html('                    <li lay-id="pages/certification_service/application_assest.jsp" lay-attr="pages/certification_service/application_assest.jsp" class="layui-this admin"><span>认证申请审批</span><i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>\n')
         $('#mainBody').attr('src','pages/certification_service/apply_report.jsp');
     }
+    $('#logout').on('click',function () {
+        window.location='${pageContext.request.contextPath}/pages/login/login.jsp';
+        sessionStorage.removeItem('userInfo');
+    })
 </script>
 
 <!-- 百度统计 -->
