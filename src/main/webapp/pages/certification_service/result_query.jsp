@@ -123,15 +123,15 @@
                            ,count: resp.count
                            ,page: true //开启分页
                            //,toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
-                           ,totalRow: true //开启合计行
+                           //,totalRow: true //开启合计行
                            ,even: true //隔行背景
                            ,cols: [[ //表头
                                {field: 'zizeng', title: '序号',type:'numbers', width:calcTabelCellWidth(0.1), sort: true}
                                ,{field: 'systemName', title: '系统名称',width:calcTabelCellWidth(0.1)}
-                               ,{field: 'developDept', title: '研制单位', width:calcTabelCellWidth(0.1),totalRow: true}
+                               ,{field: 'developDept', title: '研制单位', width:calcTabelCellWidth(0.1)}
                                ,{field: 'businessType', title: '业务类型',width:calcTabelCellWidth(0.1)}
                                ,{field: 'createDate', title: '申请时间', width:calcTabelCellWidth(0.1)}
-                               ,{field: 'checkDate', title: '审核时间',width:calcTabelCellWidth(0.1),totalRow: true}
+                               ,{field: 'checkDate', title: '审核时间',width:calcTabelCellWidth(0.1)}
                                ,{field: 'result', title: '状态', width:calcTabelCellWidth(0.1)}
                                ,{ fixed: 'right',title: '操作', align:'center',width:300, toolbar: '#databar'}
                            ]]
@@ -189,18 +189,7 @@
             postData['systemName']=$("input[name='systemName']").val();
             postData['developDept']=$("input[name='developDept']").val();
             postData['managerDept']=$("input[name='managerDept']").val();
-            table.reload('roletable', {
-                where: { //设定异步数据接口的额外参数，任意设
-                    userId:userId,
-                    systemName: $("#companyName").val(),
-                    developDept: $("input[name='developDept']").val(),
-                    managerDept: $("input[name='managerDept']").val()
-                }
-                ,page: {
-                    curr: 1 //重新从第 1 页开始
-                }
-            })
-            // getTableList();
+            getTableList();
         }
 
     });
