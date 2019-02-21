@@ -350,7 +350,7 @@ public class RzblServiceImpl implements RzblService {
     public ResultMessage getCheckRzApplication(String applicationId) {
         Map<String,Object> resultMap = new HashMap<>();
         RzCheckRz checkRz = rzMapper.getCheckRzApplicationById(applicationId);
-        resultMap.put("checkRz",checkRz);
+        resultMap.put("rz",checkRz);
         return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",resultMap);
     }
     

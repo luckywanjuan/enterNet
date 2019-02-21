@@ -119,11 +119,11 @@ public class RzblController {
     }
 
     /**
-     * 获取入网认证申请表单数据
+     * 获取单个入网认证申请表单的结论
      */
     @RequestMapping("getRzApplication")
     public ResultMessage getRzApplication(String id) {
-        return rzblService.getRzApplication(id);
+        return rzblService.getCheckRzApplication(id);
     }
     
     /**
@@ -137,10 +137,10 @@ public class RzblController {
     /**
      * 获取入网认证审核表单数据
      */
-    @RequestMapping("getCheckRzApplication")
+/*    @RequestMapping("getCheckRzApplication")
     public ResultMessage getCheckRzApplication(String applicationId) {
         return rzblService.getCheckRzApplication(applicationId);
-    }
+    }*/
 
 
     /**
