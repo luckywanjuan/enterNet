@@ -23,6 +23,7 @@ public class RzApplication extends ITask implements Serializable{
 	private String attachment;		//电子附件
 	private String remark;			//系统描述
 	private String result;		//认证状态
+	private String checkDate;	//审核时间
 	private String userId;		//操作用户ID
 	private byte[] file;//附件内容
 	
@@ -32,25 +33,6 @@ public class RzApplication extends ITask implements Serializable{
     private String taskTypeName;
     
 	public RzApplication() {
-	}
-	
-	public RzApplication(String id, String systemName, String businessType, String managerDept, String developDept,
-			String applicationUserName, String phone, String email, String createDate, String attachment, String remark,
-			int taskType, String taskTypeName, String result) {
-		this.id = id;
-		this.systemName = systemName;
-		this.businessType = businessType;
-		this.managerDept = managerDept;
-		this.developDept = developDept;
-		this.applicationUserName = applicationUserName;
-		this.phone = phone;
-		this.email = email;
-		this.createDate = createDate;
-		this.attachment = attachment;
-		this.remark = remark;
-		this.taskType = taskType;
-		this.taskTypeName = taskTypeName;
-		this.result = result;
 	}
 	
 	public String getUserId() {
@@ -154,5 +136,12 @@ public class RzApplication extends ITask implements Serializable{
 	public void setResult(String result) {
 		this.result = result;
 	}
-	
+
+	public String getCheckDate() {
+		return checkDate;
+	}
+
+	public void setCheckDate(String checkDate) {
+		this.checkDate = checkDate;
+	}
 }

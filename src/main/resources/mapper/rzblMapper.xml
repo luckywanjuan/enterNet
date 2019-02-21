@@ -79,6 +79,7 @@
               a.create_date AS "createDate",
               a.attachment AS "attachment",
               a.remark AS "remark",
+              c.check_date AS "checkDate",
               c.result AS "result"
         from rz_application a 
         left join rz_check c on a.id=c.application_id 
