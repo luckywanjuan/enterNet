@@ -52,7 +52,6 @@
             <button class="layui-btn layui-btn-mini"    lay-event="testReport">测试报告查看</button>
             <button class="layui-btn layui-btn-danger layui-btn-mini"   lay-event="testReportLoad">测试报告下载</button>
         </script>
-        <div id="view"></div>
     </div>
 </div>
 
@@ -142,11 +141,6 @@
                                ,{field: 'result', title: '状态', width:calcTabelCellWidth(0.1)}
                                ,{ fixed: 'right',title: '操作', width:300, toolbar: '#databar'}
                            ]]
-                       });
-                       var getTpl = document.getElementById('databar').innerHTML
-                           ,view = document.getElementById('view');
-                       laytpl(getTpl).render(resp.data, function(html){
-                           view.innerHTML = html;
                        });
                    }
                }, error: function () {
