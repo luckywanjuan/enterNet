@@ -46,10 +46,13 @@
             <table class="layui-table" id="roletable" lay-filter="roletable"></table>
         </div>
         <script type="text/html" id="databar">
+            {{#  if(d.result !='待审核'){ }}
             <button class="layui-btn layui-btn-warm layui-btn-mini"  lay-event="enterNet">入网结论查看</button>
+            {{#  }}}
             <button class="layui-btn layui-btn-mini"    lay-event="testReport">测试报告查看</button>
             <button class="layui-btn layui-btn-danger layui-btn-mini"   lay-event="testReportLoad">测试报告下载</button>
         </script>
+        <div id="view"></div>
     </div>
 </div>
 
@@ -137,8 +140,13 @@
                                ,{field: 'createDate', title: '申请时间', width:calcTabelCellWidth(0.1)}
                                ,{field: 'checkDate', title: '审核时间',width:calcTabelCellWidth(0.1)}
                                ,{field: 'result', title: '状态', width:calcTabelCellWidth(0.1)}
-                               ,{ fixed: 'right',title: '操作', align:'center',width:300, toolbar: '#databar'}
+                               ,{ fixed: 'right',title: '操作', width:300, toolbar: '#databar'}
                            ]]
+                       });
+                       var getTpl = document.getElementById('databar').innerHTML
+                           ,view = document.getElementById('view');
+                       laytpl(getTpl).render(resp.data, function(html){
+                           view.innerHTML = html;
                        });
                    }
                }, error: function () {
@@ -155,24 +163,29 @@
                dataType: 'json',
                async: false,
                success: function (resp) {
-                   $('#userName').html(resp.data.rz.checkUserName)
-                   $('#checkDate').html(resp.data.rz.checkDate)
-                   $('#suggestion').html(resp.data.rz.suggestion)
-                   $('#agree').html(resp.data.rz.result)
+                   var rsData=resp.data.rz;
+                   if(rsData){
+                       $('#userName').html(rsData.checkUserName)
+                       $('#checkDate').html(rsData.checkDate)
+                       $('#suggestion').html(rsData.suggestion)
+                       $('#agree').html(rsData.result);
+                       layer.open({
+                           type: 1
+                           ,title: '入网结论查看'
+                           ,area: ['800px', '600px']
+                           ,offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                           ,id: 'layerDemo1'//防止重复弹出
+                           ,content: $('#modalContent')
+                           ,btnAlign: 'c' //按钮居中
+                           ,shade:  [0.5,'#000'] //不显示遮罩
+                           ,yes: function(){
+                               layer.closeAll();
+                           }
+                       });
+                   }else{
 
-                   layer.open({
-                       type: 1
-                       ,title: '入网结论查看'
-                       ,area: ['800px', '600px']
-                       ,offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
-                       ,id: 'layerDemo1'//防止重复弹出
-                       ,content: $('#modalContent')
-                       ,btnAlign: 'c' //按钮居中
-                       ,shade:  [0.5,'#000'] //不显示遮罩
-                       ,yes: function(){
-                           layer.closeAll();
-                       }
-                   });
+                   }
+
                }, error: function () {
                }
            })
