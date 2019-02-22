@@ -11,64 +11,76 @@
         .middle_text{
             line-height: 38px;
         }
+       /* .layui-table-cell {
+            height: auto;
+            white-space: normal;
+        }*/
     </style>
 </head>
 <body style="background: #fff">
+
 <div class="layui-card-header">测试任务查询</div>
 <br>
-<div class="layui-row layui-col-space12">
-    <div class="layui-col-md3">
-        <label class="layui-form-label">任务名称：</label>
-        <div class="layui-col-md6">
-            <input type="text" name="systemName"  lay-verify="required|systemName" autocomplete="off" placeholder="请输入任务名称" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-col-md3">
-        <label class="layui-form-label">系统名称：</label>
-        <div class="layui-col-md6">
-            <input type="text" name="developDept"  lay-verify="required|systemName" autocomplete="off" placeholder="请输入系统名称" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-col-md3">
-        <label class="layui-form-label">研制单位：</label>
-        <div class="layui-col-md6">
-            <input type="text" name="developDept"  lay-verify="required|systemName" autocomplete="off" placeholder="请输入研制单位" class="layui-input">
-        </div>
-    </div>
-    <%--<div class="layui-col-md3 layui-form">
-        <label class="layui-form-label">进度</label>
-        <div class="layui-col-md4">
-            <select name="businessType" lay-verify="required|businessType">
-                <option value="" selected="">进行中</option>
-                <option value="业务1">完成</option>
-            </select>
-        </div>
-    </div>--%>
-
-    <div class="layui-col-md6">
-        <label class="layui-form-label">管理单位：</label>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space12">
         <div class="layui-col-md3">
-            <input type="text" name="managerDept"  lay-verify="required|systemName" autocomplete="off" placeholder="请输入管理单位" class="layui-input">
+            <label class="layui-form-label">任务名称：</label>
+            <div class="layui-col-md6">
+                <input type="text" name="task"  lay-verify="required|task" autocomplete="off" placeholder="请输入任务名称" class="layui-input">
+            </div>
         </div>
-        <div class="layui-col-md1">&nbsp;</div>
-        <button class="layui-btn layui-btn-sm" type="button"  onclick="doSearch()" lay-submit  lay-filter="component-form-demo1"  onclick="doSearch()">
-            搜索
-        </button>
-        <button class="layui-btn layui-btn-sm" type="button"  onclick="newTask('new')" lay-submit  lay-filter="component-form-demo1"  >
-            +新建任务
-        </button>
+        <div class="layui-col-md3">
+            <label class="layui-form-label">系统名称：</label>
+            <div class="layui-col-md6">
+                <input type="text" name="system"  lay-verify="required|system" autocomplete="off" placeholder="请输入系统名称" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-col-md3">
+            <label class="layui-form-label">研制单位：</label>
+            <div class="layui-col-md6">
+                <input type="text" name="develop"  lay-verify="required|develop" autocomplete="off" placeholder="请输入研制单位" class="layui-input">
+            </div>
+        </div>
+        <%--<div class="layui-col-md3 layui-form">
+            <label class="layui-form-label">进度</label>
+            <div class="layui-col-md4">
+                <select name="businessType" lay-verify="required|businessType">
+                    <option value="" selected="">进行中</option>
+                    <option value="业务1">完成</option>
+                </select>
+            </div>
+        </div>--%>
+
+        <div class="layui-col-md6">
+            <label class="layui-form-label">管理单位：</label>
+            <div class="layui-col-md3">
+                <input type="text" name="manager"  lay-verify="required|manager" autocomplete="off" placeholder="请输入管理单位" class="layui-input">
+            </div>
+            <div class="layui-col-md1">&nbsp;</div>
+            <button class="layui-btn layui-btn-sm" type="button"  onclick="doSearch()" lay-submit  lay-filter="component-form-demo1"  onclick="doSearch()">
+                搜索
+            </button>
+            <button class="layui-btn layui-btn-sm" type="button"  onclick="newTask('new')" lay-submit  lay-filter="component-form-demo1"  >
+                +新建任务
+            </button>
+        </div>
     </div>
 </div>
-<div class="layui-row">
-    <div class="layui-col-md12">
-        <table class="layui-table" id="taskQuery" lay-filter="taskQuery"></table>
-    </div>
-    <script type="text/html" id="tableBar">
-        <button class="layui-btn layui-btn-warm layui-btn-mini"  lay-event="enterNet">入网结论查看</button>
-        <button class="layui-btn layui-btn-mini"    lay-event="testReport">测试报告查看</button>
-        <button class="layui-btn layui-btn-danger layui-btn-mini"   lay-event="testReportLoad">测试报告下载</button>
-    </script>
-</div>
+
+
+
+<table class="layui-hide" id="demo" lay-filter="test"></table>
+<%--<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>--%>
+
+<script type="text/html" id="tableBar">
+    <button class="layui-btn layui-btn-warm layui-btn-xs"  lay-event="enterNet">入网结论查看</button>
+    <button class="layui-btn layui-btn-xs"    lay-event="testReport">测试报告查看</button>
+    <button class="layui-btn layui-btn-danger layui-btn-xs"   lay-event="testReportLoad">测试报告下载</button>
+</script>
 <div id="modalContent" style="display: none;">
     <div class="layui-fluid">
         <div class="layui-card">
@@ -150,8 +162,7 @@
 <script src="../../assets/common/function.js"></script>
 <script src="../../assets/layui/layui.js"></script>
 <script>
-    var ctx = "${pageContext.request.contextPath}/";
-    // var ctx = "http://192.168.0.105:8888/";
+   var ctx = "${pageContext.request.contextPath}/";
     var postData={},urlPath={'plan':[],'report':[]};
     var table,laypage,laytpl,layer,upload;
     var userInfo=JSON.parse(sessionStorage.getItem('userInfo'));
@@ -281,25 +292,43 @@
         var tableUrl = ctx + 'rztask/getRzTask';
         function renderTable(){
             table.render({
+                elem: '#demo'
+                ,height: 420
+                ,url: tableUrl //数据接口
+                ,title: '用户表'
+                ,page: true //开启分页
+              //  ,toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+              //  ,totalRow: true //开启合计行
+                ,cols: [[ //表头
+                    {field: 'zizeng', title: 'ID', width:'10%',type:'numbers'}
+                    ,{field: 'taskName', title: '任务名称',width:'15%',}
+                    ,{field: 'systemName', title: '系统名称',width:'15%'}
+                    ,{field: 'developDept', title: '研制单位', width:'15%',totalRow: true}
+                    ,{field: 'developDept', title: '管理单位', width:'15%',totalRow: true}
+                    ,{field: 'businessType', title: '时间', width:'10%'}
+                    ,{fixed: 'right', title: '操作',width:'15%', toolbar: '#tableBar'}
+                ]]
+            });
+           /* table.render({
                 id: 'taskQuery',
                 elem: '#taskQuery',
                 page: true, //开启分页
                 url: tableUrl,
                 where:{
-                    taskName:$("input[name='taskName']").val(),
-                    systemName:$("input[name='systemName']").val(),
-                    managerDept:$("input[name='managerDept']").val(),
-                    developDept:$("input[name='developDept']").val()
+                    taskName:$("input[name='task']").val(),
+                    systemName:$("input[name='system']").val(),
+                    managerDept:$("input[name='manager']").val(),
+                    developDept:$("input[name='develop']").val()
                 },
                 cols: [[ //表头
-                    {field: 'zizeng', title: '序号',type:'numbers', width:calcTabelCellWidth(0.1), sort: true}
+                    {field: 'zizeng', title: '序号',type:'numbers', width:65, sort: true}
                     ,{field: 'taskName', title: '任务名称',width:110}
-                    ,{field: 'systemName', title: '系统名称',width:90}
+                    ,{field: 'systemName', title: '系统名称',width:calcTabelCellWidth(0.1)}
                     ,{field: 'developDept', title: '研制单位', width:90,totalRow: true}
                     ,{field: 'developDept', title: '管理单位', width:90,totalRow: true}
                     ,{field: 'businessType', title: '时间',width:90}
-                   /* ,{field: 'applicationUserName', title: '进度',width:90}*/
-                    ,{ title: '操作', align:'center',width:180,toolbar: '#tableBar'}
+                   /!* ,{field: 'applicationUserName', title: '进度',width:90}*!/
+                    ,{ title: '操作', align:'left',width:180,toolbar: '#tableBar'}
                 ]],
                 height: 380,
                 loading: true,
@@ -309,7 +338,7 @@
                 },
                 //skin: 'line', //行边框风格
                 even: true //开启隔行背景
-            });
+            });*/
         }
         renderTable();
         window.doSearch=function(){
