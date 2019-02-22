@@ -39,17 +39,12 @@
             </button>
         </div>
     </div>
-    <div class="layui-row">
-        <div class="layui-col-md12">
-            <table class="layui-table" id="resultManageTable" lay-filter="resultManageTable"></table>
-        </div>
-        <script type="text/html" id="databar">
-            <a class="layui-btn layui-btn-xs" lay-event="enterNet">入网结论修改</a>
-            <a class="layui-btn layui-btn-xs uploadFile" lay-event="testReport" >测试报告上传</a>
-        </script>
-    </div>
+    <table class="layui-hide" id="resultManageTable" lay-filter="resultManageTable"></table>
 </div>
-
+<script type="text/html" id="databar">
+    <a class="layui-btn layui-btn-xs" lay-event="enterNet">入网结论修改</a>
+    <a class="layui-btn layui-btn-xs uploadFile" lay-event="testReport" >测试报告上传</a>
+</script>
 <div id="modalContent" style="display: none;">
     <div class="layui-fluid">
         <div class="layui-card">
@@ -116,20 +111,19 @@
             postData['managerDept']=$("input[name='managerDept']").val();
             postData['isCheck']=1;
             table.render({
-                id: 'resultManageTable',
                 elem: '#resultManageTable',
                 page: true, //开启分页
                 url: ctx + "rzbl/queryAllCheckRzApp",
                 where: postData,
                 cols: [[ //表头
-                    {field: 'applicationUserName', title: '系统名称',width:90}
-                    ,{field: 'managerDept', title: '系统管理单位',width:110}
-                    ,{field: 'developDept', title: '研制单位', width:90,totalRow: true}
-                    ,{field: 'businessType', title: '业务类型',width:90}
-                    ,{field: 'checkDate', title: '审核时间',width:90}
-                    ,{field: 'createDate', title: '申请时间', width:90}
-                    ,{field: 'result', title: '状态', width:90}
-                    ,{ title: '操作', align:'center',width:180, toolbar: '#databar'}
+                    {field: 'applicationUserName', title: '系统名称',width:'15%'}
+                    ,{field: 'managerDept', title: '系统管理单位',width:'15%'}
+                    ,{field: 'developDept', title: '研制单位', width:'10%',totalRow: true}
+                    ,{field: 'businessType', title: '业务类型',width:'10%'}
+                    ,{field: 'checkDate', title: '审核时间',width:'10%'}
+                    ,{field: 'createDate', title: '申请时间', width:'10%'}
+                    ,{field: 'result', title: '状态', width:'10%'}
+                    ,{fixed: 'right', title: '操作', align:'center',width:'20%', toolbar: '#databar'}
                 ]],
                 height: 380,
                 loading: true,
