@@ -64,7 +64,7 @@
                     <div class="layui-form-item layui-row">
                         <label class="layui-form-label">审批日期:</label>
                         <div class="layui-col-md6 middle_text" >
-                            <input type="text" name="createDate"  id="createDate" lay-verify="required|createDate" placeholder="请选择申请日期" autocomplete="off" class="layui-input" lay-key="1">
+                            <input type="text" name="createDate"  id="createDate" lay-verify="createDate" placeholder="请选择申请日期" autocomplete="off" class="layui-input" lay-key="1">
                         </div>
                     </div>
                     <div class="layui-form-item layui-form-text  layui-row">
@@ -98,7 +98,7 @@
 <script src="../../assets/layui/layui.js"></script>
 <script>
     var ctx = "${pageContext.request.contextPath}/";
-    var postData={};
+    var postData={},assetData={};
     var form,table,laypage,laytpl,laydate,upload;
     var userInfo=JSON.parse(sessionStorage.getItem('userInfo'));
     var userId=userInfo.data.userId;
@@ -170,34 +170,34 @@
                 dataType: 'json',
                 async: false,
                 success: function (resp) {
-                    var perItem=resp.rz;
+                    var perItem=resp.data.rz;
                     form.val('editModal', {
-                        "userName":perItem.userName // "name": "value"
-                        ,"createDate": perItem.createDate
+                        "userName":perItem.checkUserName // "name": "value"
+                        ,"createDate": perItem.checkDate
                         ,"suggestion": perItem.suggestion
-                        ,"agree": perItem.agree //单选选中状态
+                        ,"agree": perItem.result //单选选中状态
                     })
                 }, error: function () {
                 }
             })
         }
         form.on('submit(assetForm)', function (data) {
-            postData['applicationId']=tableData.id
-            postData['checkUserName']= $("input[name='userName']").val();
-            postData['checkDate']= data.field.checkDate;
-            postData['suggestion']= data.field.suggestion;
-            postData['result']= data.field.agree;
-            postData['userId']= userId;
+            assetData['applicationId']=tableData.id;
+            assetData['checkUserName']= $("input[name='userName']").val();
+            assetData['checkDate']= data.field.createDate;
+            assetData['suggestion']= data.field.suggestion;
+            assetData['result']= data.field.agree;
+            assetData['userId']= userId;
             $.ajax({
                 url: ctx + "rzbl/updateCheckRzApplication",
-                data: postData,
+                data: assetData,
                 type: 'post',
                 dataType: 'json',
                 async: false,
                 success: function (resp) {
                     layer.alert('提交成功');
                     layer.closeAll();
-                    table.reload('assetTable',{});
+                    table.reload('resultManageTable',{});
                 }, error: function () {
                 }
             })
@@ -236,7 +236,6 @@
                 });
                 // document.location.href = ctx + "actions/sysm/doExport.action";
             }else if(layEvent==='enterNet'){
-                console.log(tableData.id)
                 getPerReault(tableData.id)
             }
         });
