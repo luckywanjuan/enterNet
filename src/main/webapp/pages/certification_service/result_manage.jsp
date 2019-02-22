@@ -284,6 +284,9 @@
             })
             // getTableList();
         }
+        $('.canclebtn').on('click',function () {
+            layer.closeAll();
+        });
 
     });
 </script>
