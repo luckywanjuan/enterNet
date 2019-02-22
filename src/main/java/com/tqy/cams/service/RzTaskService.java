@@ -28,6 +28,12 @@ public interface RzTaskService {
     PageResult getRzTask(String taskName,String systemName,String developDept,String managerDept,String pageNo, String pageSize);
 
     /**
+     * 获取测试任务所有名称
+     * @return
+     */
+    ResultMessage getRzTaskName();
+    
+    /**
      *  根据id查询任务详细
      * @param id
      * @return
@@ -74,11 +80,4 @@ public interface RzTaskService {
      * @return
      */
     PageResult getAllPoint();
-    /**
-     * 文件上传
-     * @param file
-     * @param dirPath
-     * @return
-     */
-    ResultMessage upload(MultipartFile file, String dirPath);
 }

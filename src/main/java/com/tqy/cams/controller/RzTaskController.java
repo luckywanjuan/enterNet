@@ -29,16 +29,25 @@ public class RzTaskController {
     }
 
     /**
-     * 根据条件查询
+     * 测试任务查询
      * @param taskName
      * @param systemName
      * @param developDept
      * @param managerDept
      * @return
      */
-   @RequestMapping("getRzTask")
+    @RequestMapping("getRzTask")
     public ResultMessage getRzTask(String taskName,String systemName,String developDept,String managerDept,String page, String limit){
         return rzTaskService.getRzTask(taskName,systemName,developDept,managerDept,page,limit);
+    }
+    
+    /**
+     * 获取测试任务所有名称
+     * @return
+     */
+    @RequestMapping("getRzTaskName")
+    public ResultMessage getRzTaskName() {
+    	return rzTaskService.getRzTaskName();
     }
 
     /**
@@ -50,15 +59,7 @@ public class RzTaskController {
     public ResultMessage getRzTaskMsg(String id){
         return rzTaskService.getRzTaskMsg(id);
     }
-     /**
-     * 根据id修改详细数据
-     * @param
-     * @return
-     */
-    @RequestMapping("updateRzTaskMsg")
-    public ResultMessage updateRzTaskMsg(RzTask rz){
-        return rzTaskService.saveRzTask(rz);
-    }
+    
     /**
      * 保存添加计划
      */
@@ -124,16 +125,4 @@ public class RzTaskController {
         return rzTaskService.getAllPoint();
     }
 
-    /**  文件上传
-     *
-     * @param file
-     * @param request
-     * @return
-     */
-    @RequestMapping("/fileUpload")
-    public ResultMessage handleFormUpload(MultipartFile file, HttpServletRequest request) {
-        //设置上传文件的保存地址目录
-        String dirPath = request.getServletContext().getRealPath("/upload/");
-        return rzTaskService.upload(file,dirPath);
-    }
 }

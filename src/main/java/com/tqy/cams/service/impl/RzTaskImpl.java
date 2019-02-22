@@ -61,6 +61,12 @@ public class RzTaskImpl implements RzTaskService {
     }
     
     @Override
+    public ResultMessage getRzTaskName() {
+    	List<RzTask> info = rzTaskMapper.getRzTaskName();
+    	return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",info);
+    }
+    
+    @Override
     public PageResult getRzTaskMsg(String id){
        if(StringUtil.isNullOrBlank(id)){
            List<RzTask> info = new ArrayList<RzTask>();
@@ -144,31 +150,4 @@ public class RzTaskImpl implements RzTaskService {
         return new PageResult(BaseStatic.SUCCESS_CODE, "成功", info);
     }
     
-    /**
-     * 文件上传
-     * @param file
-     * @param dirPath
-     * @return
-     */
-    public ResultMessage upload(MultipartFile file, String dirPath){
-        File filePath = new File(dirPath);
-        //如果保存文件的地址不存在，就先创建目录
-        if(!filePath.exists()) {
-            filePath.mkdirs();
-        }
-        String path = "";
-        try {
-            //for(MultipartFile file: files) {
-            //获取上传文件的原始名称
-            String originalFilename = file.getOriginalFilename();
-            //使用MultipartFile接口的方法完成文件上传到指定位置
-            file.transferTo(new File(dirPath + originalFilename));
-            path = dirPath + originalFilename + ",";
-            //}
-        }catch(Exception e) {
-            logger.error("上传文件出错："+e.getMessage());
-            return new ResultMessage(BaseStatic.ERROR_CODE,"失败",e.getMessage());
-        }
-        return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",path.substring(0, path.length()-1));
-    }
 }

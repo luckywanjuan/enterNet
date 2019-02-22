@@ -2,6 +2,7 @@ package com.tqy.cams.dao;
 
 import com.activiti.base.entity.DelegateInfo;
 import com.activiti.base.entity.IProcess;
+import com.activiti.base.entity.common.ResultMessage;
 import com.tqy.cams.bean.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,7 +42,8 @@ public interface RzTaskMapper {
      */
     List<RzTask> getRzTask(@Param("taskName") String taskName,@Param("systemName") String systemName,@Param("developDept") String developDept,@Param("managerDept") String managerDept,@Param("start") int start, @Param("end") int end);
 
-
+    List<RzTask> getRzTaskName();
+    
     int queryCounts(@Param("taskName") String taskName,@Param("systemName") String systemName, @Param("managerDept") String managerDept,@Param("developDept") String developDept);
     /**
      * 根据id查询详细数据
