@@ -237,7 +237,7 @@
                 // document.location.href = ctx + "actions/sysm/doExport.action";
             }else if(layEvent==='enterNet'){
                 console.log(tableData.id)
-                getPerReault()
+                getPerReault(tableData.id)
             }
         });
         window.uploadFile=function(that){
