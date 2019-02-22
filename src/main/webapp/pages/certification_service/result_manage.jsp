@@ -168,10 +168,13 @@
                     var perItem=resp.data.rz;
                     form.val('editModal', {
                         "userName":perItem.checkUserName // "name": "value"
-                        ,"checkDate": perItem.checkDate
                         ,"suggestion": perItem.suggestion
                         ,"agree": perItem.result //单选选中状态
                     })
+                    laydate.render({
+                        elem: '#createDate',
+                        value:perItem.checkDate
+                    });
                 }, error: function () {
                 }
             })
