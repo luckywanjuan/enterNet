@@ -6,9 +6,8 @@ import java.io.Serializable;
 
 public class TestPoint extends ITask implements Serializable{
 	private static final long serialVersionUID = 1L;
-   private  String id;  //id
-   private String point; //要点内容
-   private String affiliationId;  //归属外键id
+    private  String id;  //要点库id
+    private String point; //要点内容
 	private  String pointName; //要点名称
 	private  String testType; //测试类型
 	private String createTime;//创建时间
@@ -32,14 +31,6 @@ public class TestPoint extends ITask implements Serializable{
 
 	public void setPoint(String point) {
 		this.point = point;
-	}
-
-	public String getAffiliationId() {
-		return affiliationId;
-	}
-
-	public void setAffiliationId(String affiliationId) {
-		this.affiliationId = affiliationId;
 	}
 
 	public String getPointName() {

@@ -11,14 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 任务创建
+ * 认证测试
  **/
 @Service
 public class RzTaskImpl implements RzTaskService {
@@ -36,7 +34,7 @@ public class RzTaskImpl implements RzTaskService {
             //生成id后，直接将信息存入数据库
             rzTaskMapper.saveRzTask(rz);
             logger.info("保存任务成功"+rz.getTaskName());
-            return new ResultMessage(BaseStatic.SUCCESS_CODE, "保存任务成功");
+            return new ResultMessage(BaseStatic.SUCCESS_CODE, "成功");
         }else{
             rz.setUpdateTime(StringUtil.getTimeStamp("yyyy-MM-dd HH:mm:ss"));
             rzTaskMapper.updateRzTask(rz);
@@ -85,19 +83,9 @@ public class RzTaskImpl implements RzTaskService {
             //生成id后，直接将信息存入数据库
             rzTaskMapper.saveRzPlan(rzp);
             logger.info("保存计划成功");
-            return new ResultMessage(BaseStatic.SUCCESS_CODE, "保存计划成功");
+            return new ResultMessage(BaseStatic.SUCCESS_CODE, "成功");
         }
-        return new ResultMessage(BaseStatic.ERROR_CODE,"保存计划失败");
-    }
-    
-    public PageResult getRzPlanMsg(String id){
-        if(StringUtil.isNullOrBlank(id)){
-            List<RzPlan> info = new ArrayList<RzPlan>();
-            info = rzTaskMapper.getRzPlanMsg(id);
-            return new PageResult(BaseStatic.SUCCESS_CODE, "成功", info);
-        }
-        logger.info("查询任务失败");
-        return new PageResult(BaseStatic.ERROR_CODE, "失败");
+        return new ResultMessage(BaseStatic.ERROR_CODE,"失败");
     }
     
     public ResultMessage saveRzReport(RzReport rzr){
@@ -108,11 +96,11 @@ public class RzTaskImpl implements RzTaskService {
             rzr.setCreateTime(StringUtil.getTimeStamp("yyyy-MM-dd HH:mm:ss"));
             rzTaskMapper.saveRzReport(rzr);
             logger.info("保存测试报告成功");
-            return new ResultMessage(BaseStatic.SUCCESS_CODE, "保存测试报告成功");
+            return new ResultMessage(BaseStatic.SUCCESS_CODE, "成功");
         }else{
             rzr.setUpdateTime(StringUtil.getTimeStamp("yyyy-MM-dd HH:mm:ss"));
             rzTaskMapper.updateRzReport(rzr);
-            logger.info("修改任务成功");
+            logger.info("修改测试报告成功");
             return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功");
         }
     }
@@ -124,12 +112,12 @@ public class RzTaskImpl implements RzTaskService {
             //生成id后，直接将信息存入数据库
             tp.setCreateTime(StringUtil.getTimeStamp("yyyy-MM-dd HH:mm:ss"));
             rzTaskMapper.savePoint(tp);
-            logger.info("保存测试报告成功");
-            return new ResultMessage(BaseStatic.SUCCESS_CODE, "保存要点测试内容成功");
+            logger.info("保存要点库成功");
+            return new ResultMessage(BaseStatic.SUCCESS_CODE, "成功");
         }else{
             tp.setUpdateTime(StringUtil.getTimeStamp("yyyy-MM-dd HH:mm:ss"));
             rzTaskMapper.updatePoint(tp);
-            logger.info("修改任务成功");
+            logger.info("修改要点库成功");
             return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功");
         }
     }
@@ -140,7 +128,7 @@ public class RzTaskImpl implements RzTaskService {
             info = rzTaskMapper.getPoint(id);
             return new PageResult(BaseStatic.SUCCESS_CODE, "成功", info);
         }
-        logger.info("查询任务失败");
+        logger.info("查询要点库失败");
         return new PageResult(BaseStatic.ERROR_CODE, "失败");
     }
     

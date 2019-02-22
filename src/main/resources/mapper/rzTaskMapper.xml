@@ -83,14 +83,6 @@
         VALUES (#{id},#{taskName},#{systemDept},#{developDept},#{testType},#{systemCheck},#{interfaceCheck},#{testPoint},#{createTime})
     </insert>
 
-    <select id="getRzPlanMsg" parameterType="java.lang.String" resultType="com.tqy.cams.bean.RzPlan">
-     select
-      task_name AS "taskName",
-      system_dept AS "systemDept",
-     develop_dept AS "developDept",
-      create_time AS "createTime"
-        from rz_test_plan WHERE id = #{id}
-    </select>
     <insert id="saveRzReport" parameterType="com.tqy.cams.bean.RzReport">
         insert into rz_test_report(id,test_name,manager_dept,develop_dept,test_data,test_path,create_time,update_time)
         VALUES (#{id},#{testName},#{managerDept},#{developDept},#{testData,jdbcType=BLOB},#{testPath},#{createTime},#{updateTime})
@@ -106,15 +98,14 @@
         WHERE id = #{id}
     </update>
     <insert id="savePoint" parameterType="com.tqy.cams.bean.TestPoint">
-        insert into test_point(id,point,affiliation_id,point_name,test_type,create_time,update_time)
-        VALUES (#{id},#{point},#{affiliationId},#{pointName},#{testType},#{createTime},#{updateTime})
+        insert into test_point(id,point,point_name,test_type,create_time,update_time)
+        VALUES (#{id},#{point},#{pointName},#{testType},#{createTime},#{updateTime})
     </insert>
     <update id="updatePoint" parameterType="com.tqy.cams.bean.TestPoint">
         UPDATE test_point SET
         point = #{point},
         point_name = #{pointName},
         test_type = #{testType},
-        affiliation_id = #{affiliationId},
         update_time = #{updateTime}
         WHERE id = #{id}
     </update>
@@ -123,8 +114,7 @@
         point_name AS "pointName",
         test_type AS "testType",
         point AS "point",
-        affiliation_id AS "affiliationId",
-         create_time AS "createTime",
+        create_time AS "createTime",
         update_time AS "updateTime"
         from test_point WHERE id = #{id}
     </select>
@@ -134,7 +124,6 @@
         point_name AS "pointName",
         test_type AS "testType",
         point AS "point",
-        affiliation_id AS "affiliationId",
         create_time AS "createTime",
         update_time AS "updateTime"
         from test_point

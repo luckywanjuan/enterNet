@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class RzReport extends ITask implements Serializable{
 	private static final long serialVersionUID = 1L;
-    private String id; //测试任务ID
+    private String id; //测试报告ID
 	private String testName;  //测试任务名称
 	private String managerDept; //系统管理单位
 	private String developDept; //研制单位

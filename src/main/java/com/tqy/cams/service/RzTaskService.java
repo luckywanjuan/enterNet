@@ -3,10 +3,9 @@ package com.tqy.cams.service;
 import com.activiti.base.entity.common.PageResult;
 import com.activiti.base.entity.common.ResultMessage;
 import com.tqy.cams.bean.*;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
- * 认证办理
+ * 认证测试
  **/
 public interface RzTaskService {
 
@@ -46,13 +45,6 @@ public interface RzTaskService {
      * @return
      */
     ResultMessage saveRzPlan(RzPlan rzp);
-
-    /**
-     * 获取2个参数---系统管理单位和研制单位
-     * @param
-     * @return
-     */
-    PageResult getRzPlanMsg(String id);
 
     /**
      * 创建测试报告

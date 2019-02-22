@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class RzPlan extends ITask implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private String id; //测试任务id
+	private String id; //测试计划id
 	private String taskName; //测试任务名称
 	private String systemDept;  //系统管理单位
 	private String developDept; //研制单位
