@@ -11,10 +11,6 @@
         .middle_text{
             line-height: 38px;
         }
-       /* .layui-table-cell {
-            height: auto;
-            white-space: normal;
-        }*/
     </style>
 </head>
 <body style="background: #fff">
@@ -65,16 +61,10 @@
             </button>
         </div>
     </div>
+    <table class="layui-hide" id="demo" lay-filter="test"></table>
 </div>
 
 
-
-<table class="layui-hide" id="demo" lay-filter="test"></table>
-<%--<script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-</script>--%>
 
 <script type="text/html" id="tableBar">
     <button class="layui-btn layui-btn-warm layui-btn-xs"  lay-event="enterNet">入网结论查看</button>
@@ -295,50 +285,25 @@
                 elem: '#demo'
                 ,height: 420
                 ,url: tableUrl //数据接口
-                ,title: '用户表'
+                ,title: '测试任务表'
                 ,page: true //开启分页
-              //  ,toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+                ,where: {
+                    "taskName":$("input[name='taskName']").val(),
+                    "systemName":$("input[name='systemName']").val(),
+                    "developDept":$("input[name='developDept']").val(),
+                    "managerDept":$("input[name='managerDept']").val(),
+                } //条件搜索
               //  ,totalRow: true //开启合计行
                 ,cols: [[ //表头
                     {field: 'zizeng', title: 'ID', width:'10%',type:'numbers'}
                     ,{field: 'taskName', title: '任务名称',width:'15%',}
                     ,{field: 'systemName', title: '系统名称',width:'15%'}
                     ,{field: 'developDept', title: '研制单位', width:'15%',totalRow: true}
-                    ,{field: 'developDept', title: '管理单位', width:'15%',totalRow: true}
-                    ,{field: 'businessType', title: '时间', width:'10%'}
+                    ,{field: 'managerDept', title: '管理单位', width:'15%',totalRow: true}
+                    ,{field: 'createTime', title: '时间', width:'10%'}
                     ,{fixed: 'right', title: '操作',width:'15%', toolbar: '#tableBar'}
                 ]]
             });
-           /* table.render({
-                id: 'taskQuery',
-                elem: '#taskQuery',
-                page: true, //开启分页
-                url: tableUrl,
-                where:{
-                    taskName:$("input[name='task']").val(),
-                    systemName:$("input[name='system']").val(),
-                    managerDept:$("input[name='manager']").val(),
-                    developDept:$("input[name='develop']").val()
-                },
-                cols: [[ //表头
-                    {field: 'zizeng', title: '序号',type:'numbers', width:65, sort: true}
-                    ,{field: 'taskName', title: '任务名称',width:110}
-                    ,{field: 'systemName', title: '系统名称',width:calcTabelCellWidth(0.1)}
-                    ,{field: 'developDept', title: '研制单位', width:90,totalRow: true}
-                    ,{field: 'developDept', title: '管理单位', width:90,totalRow: true}
-                    ,{field: 'businessType', title: '时间',width:90}
-                   /!* ,{field: 'applicationUserName', title: '进度',width:90}*!/
-                    ,{ title: '操作', align:'left',width:180,toolbar: '#tableBar'}
-                ]],
-                height: 380,
-                loading: true,
-                done:function(res){
-                    console.log(res)
-                    // ityzl_CLOSE_LOAD_LAYER(ient);
-                },
-                //skin: 'line', //行边框风格
-                even: true //开启隔行背景
-            });*/
         }
         renderTable();
         window.doSearch=function(){
