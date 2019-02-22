@@ -74,27 +74,18 @@ public class RzTaskController {
     }
 
     /**
-     * 新建要点内容
+     * 新建/更新要点库
      */
     @RequestMapping("savePoint")
     public ResultMessage savePoint(TestPoint tp){
         return rzTaskService.saveTestPoint(tp);
     }
+    
     /**
-     * 根据id修改要点内容
-     * @param
-     * @return
+     * 根据id获取要点库信息
      */
-    @RequestMapping("updatePoint")
-    public ResultMessage updatePoint(TestPoint tp){
-        return rzTaskService.saveTestPoint(tp);
-    }
-    /**
-     * 新建要点内容库
-     */
-
-    @RequestMapping("getPoint")
-    public ResultMessage getRzPoint(String id){
+    @RequestMapping("getPointById")
+    public ResultMessage getPointById(String id){
         return rzTaskService.getTestPoint(id);
     }
 
