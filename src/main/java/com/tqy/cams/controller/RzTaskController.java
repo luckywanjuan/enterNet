@@ -6,9 +6,6 @@ import com.tqy.cams.service.RzTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 认证测试
@@ -21,7 +18,7 @@ public class RzTaskController {
     private RzTaskService rzTaskService;
 
     /**
-     * 添加任务
+     * 添加/修改任务
      */
     @RequestMapping("saveRzTask")
     public ResultMessage saveRzTask(RzTask rz){
@@ -51,7 +48,7 @@ public class RzTaskController {
     }
 
     /**
-     * 根据id查询详细数据
+     * 根据id查询测试任务
      * @param id
      * @return
      */
@@ -61,37 +58,18 @@ public class RzTaskController {
     }
     
     /**
-     * 保存添加计划
+     * 保存测试计划
      */
     @RequestMapping("saveRzPlan")
-    public ResultMessage saveRzTask(RzPlan rzp){
+    public ResultMessage saveRzPlan(RzPlan rzp){
         return rzTaskService.saveRzPlan(rzp);
     }
 
     /**
-     * 根据test_name查询详细数据
-     * @param
-     * @return
-     */
-    @RequestMapping("getRzPlanMsg")
-    public ResultMessage getRzPlanMsg(String id){
-        return rzTaskService.getRzPlanMsg(id);
-    }
-
-    /**
-     * 测试报告生成
+     * 保存/修改测试报告
      */
     @RequestMapping("saveRzReport")
     public ResultMessage saveRzReport(RzReport rzr){
-        return rzTaskService.saveRzReport(rzr);
-    }
-    /**
-     * 根据id修改详细数据
-     * @param
-     * @return
-     */
-    @RequestMapping("updateRzReport")
-    public ResultMessage updateRzReport(RzReport rzr){
         return rzTaskService.saveRzReport(rzr);
     }
 

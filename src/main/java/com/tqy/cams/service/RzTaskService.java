@@ -48,13 +48,6 @@ public interface RzTaskService {
     ResultMessage saveRzPlan(RzPlan rzp);
 
     /**
-     * 获取2个参数---系统管理单位和研制单位
-     * @param
-     * @return
-     */
-    PageResult getRzPlanMsg(String id);
-
-    /**
      * 创建测试报告
      * @param rzr
      * @return

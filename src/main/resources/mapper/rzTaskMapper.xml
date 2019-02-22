@@ -83,14 +83,6 @@
         VALUES (#{id},#{taskName},#{systemDept},#{developDept},#{testType},#{systemCheck},#{interfaceCheck},#{testPoint},#{createTime})
     </insert>
 
-    <select id="getRzPlanMsg" parameterType="java.lang.String" resultType="com.tqy.cams.bean.RzPlan">
-     select
-      task_name AS "taskName",
-      system_dept AS "systemDept",
-     develop_dept AS "developDept",
-      create_time AS "createTime"
-        from rz_test_plan WHERE id = #{id}
-    </select>
     <insert id="saveRzReport" parameterType="com.tqy.cams.bean.RzReport">
         insert into rz_test_report(id,test_name,manager_dept,develop_dept,test_data,test_path,create_time,update_time)
         VALUES (#{id},#{testName},#{managerDept},#{developDept},#{testData,jdbcType=BLOB},#{testPath},#{createTime},#{updateTime})

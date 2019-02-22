@@ -90,16 +90,6 @@ public class RzTaskImpl implements RzTaskService {
         return new ResultMessage(BaseStatic.ERROR_CODE,"保存计划失败");
     }
     
-    public PageResult getRzPlanMsg(String id){
-        if(StringUtil.isNullOrBlank(id)){
-            List<RzPlan> info = new ArrayList<RzPlan>();
-            info = rzTaskMapper.getRzPlanMsg(id);
-            return new PageResult(BaseStatic.SUCCESS_CODE, "成功", info);
-        }
-        logger.info("查询任务失败");
-        return new PageResult(BaseStatic.ERROR_CODE, "失败");
-    }
-    
     public ResultMessage saveRzReport(RzReport rzr){
         //新用户进来为空 uuid 生成一个随机的id
         if(StringUtil.isNullOrBlank(rzr.getId())) {
@@ -108,11 +98,11 @@ public class RzTaskImpl implements RzTaskService {
             rzr.setCreateTime(StringUtil.getTimeStamp("yyyy-MM-dd HH:mm:ss"));
             rzTaskMapper.saveRzReport(rzr);
             logger.info("保存测试报告成功");
-            return new ResultMessage(BaseStatic.SUCCESS_CODE, "保存测试报告成功");
+            return new ResultMessage(BaseStatic.SUCCESS_CODE, "成功");
         }else{
             rzr.setUpdateTime(StringUtil.getTimeStamp("yyyy-MM-dd HH:mm:ss"));
             rzTaskMapper.updateRzReport(rzr);
-            logger.info("修改任务成功");
+            logger.info("修改测试报告成功");
             return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功");
         }
     }
