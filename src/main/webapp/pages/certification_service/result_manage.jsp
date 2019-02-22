@@ -126,8 +126,9 @@
                     ,{field: 'managerDept', title: '系统管理单位',width:110}
                     ,{field: 'developDept', title: '研制单位', width:90,totalRow: true}
                     ,{field: 'businessType', title: '业务类型',width:90}
-                    ,{field: 'businessType', title: '审核时间',width:90}
+                    ,{field: 'checkDate', title: '审核时间',width:90}
                     ,{field: 'createDate', title: '申请时间', width:90}
+                    ,{field: 'result', title: '状态', width:90}
                     ,{ title: '操作', align:'center',width:180, toolbar: '#databar'}
                 ]],
                 height: 380,
@@ -173,7 +174,7 @@
                     var perItem=resp.data.rz;
                     form.val('editModal', {
                         "userName":perItem.checkUserName // "name": "value"
-                        ,"createDate": perItem.checkDate
+                        ,"checkDate": perItem.checkDate
                         ,"suggestion": perItem.suggestion
                         ,"agree": perItem.result //单选选中状态
                     })
