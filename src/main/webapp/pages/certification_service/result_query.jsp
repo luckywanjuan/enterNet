@@ -16,40 +16,44 @@
 <body style="background: #fff">
 <div class="layui-card-header">认证结果查询</div>
 <br>
-<div class="layui-row layui-col-space10">
-    <div class="layui-col-md3">
-        <label class="layui-form-label">系统化名称：</label>
-        <div class="layui-col-md6">
-            <input type="text" name="systemName"  lay-verify="required|systemName" autocomplete="off" placeholder="请输入系统化名称" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-col-md3">
-        <label class="layui-form-label">研制单位：</label>
-        <div class="layui-col-md6">
-            <input type="text" name="developDept"  lay-verify="required|systemName" autocomplete="off" placeholder="请输入研制单位" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-col-md6">
-        <label class="layui-form-label">管理单位：</label>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space10">
         <div class="layui-col-md3">
-            <input type="text" name="managerDept"  lay-verify="required|systemName" autocomplete="off" placeholder="请输入管理单位" class="layui-input">
+            <label class="layui-form-label">系统化名称：</label>
+            <div class="layui-col-md6">
+                <input type="text" name="systemName"  lay-verify="required|systemName" autocomplete="off" placeholder="请输入系统化名称" class="layui-input">
+            </div>
         </div>
-        <div class="layui-col-md2">&nbsp;</div>
-        <button class="layui-btn layui-btn-sm" type="button"  onclick="doSearch()" lay-submit  lay-filter="component-form-demo1"  >
-            查询
-        </button>
+        <div class="layui-col-md3">
+            <label class="layui-form-label">研制单位：</label>
+            <div class="layui-col-md6">
+                <input type="text" name="developDept"  lay-verify="required|systemName" autocomplete="off" placeholder="请输入研制单位" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-col-md6">
+            <label class="layui-form-label">管理单位：</label>
+            <div class="layui-col-md3">
+                <input type="text" name="managerDept"  lay-verify="required|systemName" autocomplete="off" placeholder="请输入管理单位" class="layui-input">
+            </div>
+            <div class="layui-col-md2">&nbsp;</div>
+            <button class="layui-btn layui-btn-sm" type="button"  onclick="doSearch()" lay-submit  lay-filter="component-form-demo1"  >
+                查询
+            </button>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <table class="layui-table" id="roletable" lay-filter="roletable"></table>
+        </div>
+        <script type="text/html" id="databar">
+            <button class="layui-btn layui-btn-warm layui-btn-mini"  lay-event="enterNet">入网结论查看</button>
+            <button class="layui-btn layui-btn-mini"    lay-event="testReport">测试报告查看</button>
+            <button class="layui-btn layui-btn-danger layui-btn-mini"   lay-event="testReportLoad">测试报告下载</button>
+        </script>
     </div>
 </div>
-<div class="layui-row">
-    <div class="layui-col-md12">
-        <table class="layui-table" id="roletable" lay-filter="roletable"></table>
-    </div>
-    <script type="text/html" id="databar">
-        <button class="layui-btn layui-btn-warm layui-btn-mini"  lay-event="enterNet">入网结论查看</button>
-        <button class="layui-btn layui-btn-mini"    lay-event="testReport">测试报告查看</button>
-        <button class="layui-btn layui-btn-danger layui-btn-mini"   lay-event="testReportLoad">测试报告下载</button>
-    </script>
-</div>
+
+
 <div id="modalContent" style="display: none;">
     <div class="layui-fluid">
         <div class="layui-card">
