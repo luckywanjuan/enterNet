@@ -3,10 +3,9 @@ package com.tqy.cams.service;
 import com.activiti.base.entity.common.PageResult;
 import com.activiti.base.entity.common.ResultMessage;
 import com.tqy.cams.bean.*;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
- * 认证办理
+ * 认证测试
  **/
 public interface RzTaskService {
 
