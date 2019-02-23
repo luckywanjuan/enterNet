@@ -46,7 +46,7 @@
     
     <select id="getRzTaskName" resultType="com.tqy.cams.bean.RzTask">
         select id as "id",
-        task_name AS "taskName",
+        task_name AS "taskName"
         from rz_test_task group by task_name
     </select>
     
