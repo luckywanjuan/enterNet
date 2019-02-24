@@ -257,8 +257,8 @@ public class RzblServiceImpl implements RzblService {
     	int start = 0;
     	int end = 0;
     	if(!StringUtil.isNullOrBlank(pageNo) && !StringUtil.isNullOrBlank(pageSize)){
-    		start = Integer.parseInt(pageNo)-1;
-    		end = Integer.parseInt(pageNo) * Integer.parseInt(pageSize);
+    		start = (Integer.parseInt(pageNo)-1) * Integer.parseInt(pageSize);
+    		end = Integer.parseInt(pageSize);
     	}else{
     		end = totalSize;
     	}
@@ -275,16 +275,17 @@ public class RzblServiceImpl implements RzblService {
     }
     
     @Override
-    public PageResult queryAllCheckRzApp(String pageNo, String pageSize,String systemName, 
+    public PageResult queryAllCheckRzApp(String pageNo, String pageSize,String systemName,
     		String managerDept, String developDept,String isCheck) {
     	List<RzApplication> info = new ArrayList<RzApplication>();
+        int start = (Integer.parseInt(pageNo)-1) * Integer.parseInt(pageSize);
     	if(Integer.parseInt(isCheck) == 0) {
-    		info = rzMapper.queryNoCheckRzApp(Integer.parseInt(pageNo)-1, Integer.parseInt(pageNo) * Integer.parseInt(pageSize));
+    		info = rzMapper.queryNoCheckRzApp(start,Integer.parseInt(pageSize));
     		for(RzApplication rz : info) {
     			rz.setResult("待审核");
     		}
     	}else if(Integer.parseInt(isCheck) == 1){
-    		info = rzMapper.queryAllRzApp(Integer.parseInt(pageNo)-1, Integer.parseInt(pageNo) * Integer.parseInt(pageSize),
+    		info = rzMapper.queryAllRzApp(start,Integer.parseInt(pageSize),
     				systemName,managerDept,developDept);
     		for(RzApplication rz : info) {
 				if(rz.getResult().equals("通过")) {
@@ -349,7 +350,7 @@ public class RzblServiceImpl implements RzblService {
     public ResultMessage getCheckRzApplication(String applicationId) {
         Map<String,Object> resultMap = new HashMap<>();
         RzCheckRz checkRz = rzMapper.getCheckRzApplicationById(applicationId);
-        resultMap.put("checkRz",checkRz);
+        resultMap.put("rz",checkRz);
         return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",resultMap);
     }
     

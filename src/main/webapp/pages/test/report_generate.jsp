@@ -79,6 +79,21 @@
         laydate.render({
             elem: '#date'
         });
+        function getSelectTaskApi(){//获取任务名称select值
+            $.ajax({
+                url: ctx + "rztask/getRzTaskName",
+                data: {},
+                type: 'post',
+                dataType: 'json',
+                async: false,
+                success: function (resp) {
+
+                }, error: function () {
+                   console.log('接口错误')
+                }
+            })
+        }
+        getSelectTaskApi()
         uuid=guid();
         upload.render({
             elem: '#fileUpload',

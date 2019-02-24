@@ -13,8 +13,6 @@ import java.util.Map;
 
 /**
  * 入网认证
- * @author sunqian
- *
  */
 public interface RzblMapper {
 	

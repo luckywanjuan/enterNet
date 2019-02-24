@@ -4,3 +4,7 @@ function guid() {
     }
     return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
 }
+function calcTabelCellWidth(perc) {
+    var winwidth =document.documentElement.clientWidth;
+    return perc * winwidth;
+}

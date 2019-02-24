@@ -7,17 +7,12 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 用户
- **/
 public interface UserMapper {
 
     List<Role> getRoleUser();
 
     String getUserByName(@Param("userName") String userName, @Param("userPwd") String userPwd);
     
-    //String getIdByName(@Param("userName") String userName);
-
     List<Map<String,String>> getUsers();
 
     String[] getUserRoles(@Param("userId") String userId);

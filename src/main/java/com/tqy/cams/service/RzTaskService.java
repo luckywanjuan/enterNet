@@ -1,15 +1,16 @@
 package com.tqy.cams.service;
 
+import com.activiti.base.entity.common.PageResult;
 import com.activiti.base.entity.common.ResultMessage;
 import com.tqy.cams.bean.*;
 
 /**
- * 认证办理
+ * 认证测试
  **/
 public interface RzTaskService {
 
     /**
-     * 创教新任务
+     * 创教/更新新任务
      * @param rz
      * @return
      */
@@ -23,21 +24,20 @@ public interface RzTaskService {
      * @param managerDept
      * @return
      */
-    /*ResultMessage getRzTask(String taskName,String systemName,String developDept,String managerDept);
-*/
+    PageResult getRzTask(String taskName,String systemName,String developDept,String managerDept,String pageNo, String pageSize);
+
+    /**
+     * 获取测试任务所有名称
+     * @return
+     */
+    ResultMessage getRzTaskName();
+    
     /**
      *  根据id查询任务详细
      * @param id
      * @return
      */
-    ResultMessage getRzTaskMsg(String id);
-
-    /**
-     * 根据id修改任务详细
-     * @param id
-     * @return
-     */
-    ResultMessage updateRzTaskMsg(RzTask rz,String id);
+    PageResult getRzTaskMsg(String id);
 
     /**
      * 创教新计划
@@ -47,26 +47,11 @@ public interface RzTaskService {
     ResultMessage saveRzPlan(RzPlan rzp);
 
     /**
-     * 获取2个参数---系统管理单位和研制单位
-     * @param
-     * @return
-     */
-    ResultMessage getRzPlanMsg(String taskName);
-
-    /**
      * 创建测试报告
      * @param rzr
      * @return
      */
     ResultMessage saveRzReport(RzReport rzr);
-
-    /**
-     * 在线编辑修改测试报告
-     * @param rz
-     * @param id
-     * @return
-     */
-    ResultMessage updateRzReport(RzReport rz,String id);
 
     /**
      * 添加新的要点内容
@@ -76,17 +61,15 @@ public interface RzTaskService {
     ResultMessage saveTestPoint(TestPoint tp);
 
     /**
-     * 修改测试要点内容
-     * @param tp
+     * 根据id获取要点的详细内容
+     * @param id
      * @return
      */
-    ResultMessage updateTestPoint(TestPoint tp,String id);
+    PageResult getTestPoint(String id);
 
     /**
-     * 创建新的要点管理库
-     * @param rzb
+     * 获取所有的要点内容
      * @return
      */
-    ResultMessage saveRzBank(RzBank rzb);
-
+    PageResult getAllPoint();
 }

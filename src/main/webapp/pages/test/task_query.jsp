@@ -14,61 +14,63 @@
     </style>
 </head>
 <body style="background: #fff">
+
 <div class="layui-card-header">测试任务查询</div>
 <br>
-<div class="layui-row layui-col-space12">
-    <div class="layui-col-md3">
-        <label class="layui-form-label">任务名称：</label>
-        <div class="layui-col-md6">
-            <input type="text" name="systemName"  lay-verify="required|systemName" autocomplete="off" placeholder="请输入任务名称" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-col-md3">
-        <label class="layui-form-label">系统名称：</label>
-        <div class="layui-col-md6">
-            <input type="text" name="developDept"  lay-verify="required|systemName" autocomplete="off" placeholder="请输入系统名称" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-col-md3">
-        <label class="layui-form-label">研制单位：</label>
-        <div class="layui-col-md6">
-            <input type="text" name="developDept"  lay-verify="required|systemName" autocomplete="off" placeholder="请输入研制单位" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-col-md3 layui-form">
-        <label class="layui-form-label">进度</label>
-        <div class="layui-col-md4">
-            <select name="businessType" lay-verify="required|businessType">
-                <option value="" selected="">进行中</option>
-                <option value="业务1">完成</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="layui-col-md6">
-        <label class="layui-form-label">管理单位：</label>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space12">
         <div class="layui-col-md3">
-            <input type="text" name="managerDept"  lay-verify="required|systemName" autocomplete="off" placeholder="请输入管理单位" class="layui-input">
+            <label class="layui-form-label">任务名称：</label>
+            <div class="layui-col-md6">
+                <input type="text" name="task"  lay-verify="required|task" autocomplete="off" placeholder="请输入任务名称" class="layui-input">
+            </div>
         </div>
-        <div class="layui-col-md1">&nbsp;</div>
-        <button class="layui-btn layui-btn-sm" type="button"  onclick="doSearch()" lay-submit  lay-filter="component-form-demo1"  >
-            搜索
-        </button>
-        <button class="layui-btn layui-btn-sm" type="button"  onclick="newTask('new')" lay-submit  lay-filter="component-form-demo1"  >
-            +新建任务
-        </button>
+        <div class="layui-col-md3">
+            <label class="layui-form-label">系统名称：</label>
+            <div class="layui-col-md6">
+                <input type="text" name="system"  lay-verify="required|system" autocomplete="off" placeholder="请输入系统名称" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-col-md3">
+            <label class="layui-form-label">研制单位：</label>
+            <div class="layui-col-md6">
+                <input type="text" name="develop"  lay-verify="required|develop" autocomplete="off" placeholder="请输入研制单位" class="layui-input">
+            </div>
+        </div>
+        <%--<div class="layui-col-md3 layui-form">
+            <label class="layui-form-label">进度</label>
+            <div class="layui-col-md4">
+                <select name="businessType" lay-verify="required|businessType">
+                    <option value="" selected="">进行中</option>
+                    <option value="业务1">完成</option>
+                </select>
+            </div>
+        </div>--%>
+
+        <div class="layui-col-md6">
+            <label class="layui-form-label">管理单位：</label>
+            <div class="layui-col-md3">
+                <input type="text" name="manager"  lay-verify="required|manager" autocomplete="off" placeholder="请输入管理单位" class="layui-input">
+            </div>
+            <div class="layui-col-md1">&nbsp;</div>
+            <button class="layui-btn layui-btn-sm" type="button"  onclick="doSearch()" lay-submit  lay-filter="component-form-demo1"  onclick="doSearch()">
+                搜索
+            </button>
+            <button class="layui-btn layui-btn-sm" type="button"  onclick="newTask('new')" lay-submit  lay-filter="component-form-demo1"  >
+                +新建任务
+            </button>
+        </div>
     </div>
+    <table class="layui-hide" id="demo" lay-filter="test"></table>
 </div>
-<div class="layui-row">
-    <div class="layui-col-md12">
-        <table class="layui-table" id="roletable" lay-filter="roletable"></table>
-    </div>
-    <script type="text/html" id="databar">
-        <button class="layui-btn layui-btn-warm layui-btn-mini"  lay-event="enterNet">入网结论查看</button>
-        <button class="layui-btn layui-btn-mini"    lay-event="testReport">测试报告查看</button>
-        <button class="layui-btn layui-btn-danger layui-btn-mini"   lay-event="testReportLoad">测试报告下载</button>
-    </script>
-</div>
+
+
+
+<script type="text/html" id="tableBar">
+    <button class="layui-btn layui-btn-warm layui-btn-xs"  lay-event="enterNet">入网结论查看</button>
+    <button class="layui-btn layui-btn-xs"    lay-event="testReport">测试报告查看</button>
+    <button class="layui-btn layui-btn-danger layui-btn-xs"   lay-event="testReportLoad">测试报告下载</button>
+</script>
 <div id="modalContent" style="display: none;">
     <div class="layui-fluid">
         <div class="layui-card">
@@ -89,7 +91,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="layui-form-item layui-form-text  layui-row">
+                    <%--<div class="layui-form-item layui-form-text  layui-row">
                         <label class="layui-form-label">业务类型:</label>
                         <div class=" layui-col-md3">
                             <select name="businessType" lay-verify="required|businessType">
@@ -97,7 +99,7 @@
                                 <option value="业务类型2">业务类型2</option>
                             </select>
                         </div>
-                    </div>
+                    </div>--%>
                     <div class="layui-form-item layui-form-text  layui-row">
                         <label class="layui-form-label">系统管理单位:</label>
                         <div class=" layui-col-md3">
@@ -134,6 +136,15 @@
                         </div>
                     </div>
                 </form>
+                <div class="layui-row">
+                    <div class="layui-col-md12">
+                        <table class="layui-table" id="assetTable" lay-filter="assetTable"></table>
+                    </div>
+                    <script type="text/html" id="databar">
+                        <a class="layui-btn  layui-btn-mini" href="" download lay-event="fujian">附件下载</a>
+                        <a class="layui-btn  layui-btn-mini" data-method="offset" data-type="auto" lay-event="shenhe">审核</a>
+                    </script>
+                </div>
             </div>
         </div>
     </div>
@@ -141,8 +152,7 @@
 <script src="../../assets/common/function.js"></script>
 <script src="../../assets/layui/layui.js"></script>
 <script>
-    var ctx = "${pageContext.request.contextPath}/";
-    // var ctx = "http://192.168.0.105:8888/";
+   var ctx = "${pageContext.request.contextPath}/";
     var postData={},urlPath={'plan':[],'report':[]};
     var table,laypage,laytpl,layer,upload;
     var userInfo=JSON.parse(sessionStorage.getItem('userInfo'));
@@ -233,7 +243,7 @@
             postData['id']=taskId;
             postData['taskName']=data.field.taskName;
             postData['systemName']=data.field.systemName;
-            postData['businessType']=data.field.businessType;
+            /*postData['businessType']=data.field.businessType;*/
             postData['managerDept']=data.field.managerDept;
             postData['developDept']=data.field.developDept;
             if(urlPath['plan'][0]){
@@ -246,7 +256,6 @@
             }else{
                 postData['TestReport']='';
             }
-          console.log(data)
             var submiting=false;
             if (!submiting) {
                 submiting=true;
@@ -260,6 +269,7 @@
                         submiting = false;
                         if (resp.code==0) {
                             layer.alert('提交成功');
+                            layer.closeAll();
                         } else {
                             layer.alert(resp.errorMsg);
                         }
@@ -267,9 +277,38 @@
                         submiting = false;
                     }
                 })
-                return false;
             }
         })
+        var tableUrl = ctx + 'rztask/getRzTask';
+        function renderTable(){
+            table.render({
+                elem: '#demo'
+                ,height: 420
+                ,url: tableUrl //数据接口
+                ,title: '测试任务表'
+                ,page: true //开启分页
+                ,where: {
+                    "taskName":$("input[name='taskName']").val(),
+                    "systemName":$("input[name='systemName']").val(),
+                    "developDept":$("input[name='developDept']").val(),
+                    "managerDept":$("input[name='managerDept']").val(),
+                } //条件搜索
+              //  ,totalRow: true //开启合计行
+                ,cols: [[ //表头
+                    {field: 'zizeng', title: 'ID', width:'10%',type:'numbers'}
+                    ,{field: 'taskName', title: '任务名称',width:'15%',}
+                    ,{field: 'systemName', title: '系统名称',width:'15%'}
+                    ,{field: 'developDept', title: '研制单位', width:'15%',totalRow: true}
+                    ,{field: 'managerDept', title: '管理单位', width:'15%',totalRow: true}
+                    ,{field: 'createTime', title: '时间', width:'10%'}
+                    ,{fixed: 'right', title: '操作',width:'15%', toolbar: '#tableBar'}
+                ]]
+            });
+        }
+        renderTable();
+        window.doSearch=function(){
+            renderTable();
+        }
     });
 
 </script>

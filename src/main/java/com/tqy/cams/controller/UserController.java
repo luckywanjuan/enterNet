@@ -27,8 +27,10 @@ public class UserController {
     @RequestMapping("login")
     public ResultMessage login(String userName, String userPwd, HttpServletRequest request){
         ResultMessage rm = userService.login(userName,userPwd);
+        request.getSession().setAttribute("loginName", userName);
         return rm;
     }
+    
 
     /**
      * 获取角色用户信息

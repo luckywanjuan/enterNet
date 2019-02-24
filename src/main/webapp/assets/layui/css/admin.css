@@ -576,11 +576,11 @@ html {
 }
 
 .layui-layout-admin .layui-header .layui-nav .layui-nav-more {
-    border-top-color: #666
+    border-top-color: #fff
 }
 
 .layui-layout-admin .layui-header .layui-nav .layui-nav-mored {
-    border-color: transparent transparent #666
+    border-color: transparent transparent #fff
 }
 
 .layui-layout-admin .layui-header .layui-nav .layui-this:after,.layui-layout-admin .layui-header .layui-nav-bar {

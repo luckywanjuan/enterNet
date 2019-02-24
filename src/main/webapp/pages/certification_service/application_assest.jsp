@@ -208,6 +208,7 @@
                 even: true //开启隔行背景
             });
         }
+        renderTable();
         table.on('tool(assetTable)', function(obj) {
             tableData = obj.data ;//获得当前行数据
             layEvent = obj.event; //获得 lay-event 对应的值

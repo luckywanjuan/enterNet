@@ -3,8 +3,8 @@
 <mapper namespace="com.tqy.cams.dao.RzTaskMapper" >
 
     <insert id="saveRzTask" parameterType="com.tqy.cams.bean.RzTask">
-        insert into rz_test_task(id,task_name,system_name,business_type,manager_dept,develop_dept,test_plan,test_report)
-        VALUES (#{id},#{taskName},#{systemName},#{businessType},#{managerDept},#{developDept},#{testPlan},#{testReport})
+        insert into rz_test_task(id,task_name,system_name,business_type,manager_dept,develop_dept,test_plan,test_report,create_time,update_time)
+        VALUES (#{id},#{taskName},#{systemName},#{businessType},#{managerDept},#{developDept},#{testPlan,jdbcType=BLOB},#{testReport,jdbcType=BLOB},#{createTime},#{updateTime})
     </insert>
     <update id="updateRzTask" parameterType="com.tqy.cams.bean.RzTask">
         UPDATE rz_test_task SET
@@ -13,31 +13,58 @@
         ,business_type = #{businessType}
         ,manager_dept = #{managerDept}
         ,develop_dept = #{developDept}
-        ,test_plan = #{testPlan}
-        ,test_report = #{testReport}
-
+        ,test_plan = #{testPlan,jdbcType=BLOB}
+        ,test_report = #{testReport,jdbcType=BLOB}
+        ,update_time = #{updateTime}
         WHERE id = #{id}
     </update>
-   <!-- <select id="getRzTask" parameterType="java.lang.String" resultType="com.tqy.cams.bean.RzTask">
-        select task_name AS "taskName",
+    <select id="getRzTask" resultType="com.tqy.cams.bean.RzTask">
+        select id as "id",
+        task_name AS "taskName",
         system_name AS "systemName",
         business_type AS "businessType",
         manager_dept AS "managerDept",
         develop_dept AS "developDept",
-        test_plan AS "testPlan",
-        test_report AS "testReport"
+        create_time AS "createTime",
+        update_time AS "updateTime"
         from rz_test_task
-        <where> 1=1
-
-        　　　　　　<if test="task_name != null "> and task_name = #{taskName}</if>
-
-        　　　　　　<if test="system_name != null " >and system_name = #{systemName}</if>
-
-        　　　　　　<if test="develop_dept != null ">and develop_dept = #{developDept}</if>
-                    <if test="manager_dept != null ">and manager_dept = #{managerDept}</if>
-
-        　　　　</where>
-    </select>-->
+        where 1=1
+        <if test="taskName != null and taskName != ''.toString()">
+            and task_name like '%${taskName}%'
+        </if>
+        <if test="systemName != null and systemName != ''.toString()">
+            and system_name like '%${systemName}%'
+        </if>
+        <if test="managerDept != null and managerDept != ''.toString()">
+            and manager_dept like '%${managerDept}%'
+        </if>
+        <if test="developDept != null and developDept != ''.toString()">
+            and develop_dept like '%${developDept}%'
+        </if>
+        limit #{start},#{end}
+    </select>
+    
+    <select id="getRzTaskName" resultType="com.tqy.cams.bean.RzTask">
+        select id as "id",
+        task_name AS "taskName"
+        from rz_test_task group by task_name
+    </select>
+    
+    <select id="queryCounts" resultType="java.lang.Integer">
+        select count(1) from rz_test_task where 1=1
+        <if test="taskName != null and taskName != ''.toString()">
+            and task_name like '%${taskName}%'
+        </if>
+        <if test="systemName != null and systemName != ''.toString()">
+            and system_name like '%${systemName}%'
+        </if>
+        <if test="managerDept != null and managerDept != ''.toString()">
+            and manager_dept like '%${managerDept}%'
+        </if>
+        <if test="developDept != null and developDept != ''.toString()">
+            and develop_dept like '%${developDept}%'
+        </if>
+    </select>
     <select id="getRzTaskMsg" parameterType="java.lang.String" resultType="com.tqy.cams.bean.RzTask">
         select task_name AS "taskName",
         system_name AS "systemName",
@@ -45,263 +72,60 @@
         manager_dept AS "managerDept",
         develop_dept AS "developDept",
         test_plan AS "testPlan",
-        test_report AS "testReport"
+        test_report AS "testReport",
+        create_time AS "createTime"
         from rz_test_task WHERE id = #{id}
 
     </select>
 
     <insert id="saveRzPlan" parameterType="com.tqy.cams.bean.RzPlan">
-        insert into rz_test_plan(id,task_name,system_dept,develop_dept,test_type,system_check,interface_check,test_point)
-        VALUES (#{id},#{taskName},#{systemDept},#{developDept},#{testType},#{systemCheck},#{interfaceCheck},#{testPoint})
+        insert into rz_test_plan(id,task_name,system_dept,develop_dept,test_type,system_check,interface_check,test_point,create_time)
+        VALUES (#{id},#{taskName},#{systemDept},#{developDept},#{testType},#{systemCheck},#{interfaceCheck},#{testPoint},#{createTime})
     </insert>
 
-    <select id="getRzPlanMsg" parameterType="java.lang.String" resultType="com.tqy.cams.bean.RzPlan">
-     select  system_dept AS "systemDept",
-     develop_dept AS "developDept"
-        from rz_test_plan WHERE task_name = #{taskName}
-
-    </select>
     <insert id="saveRzReport" parameterType="com.tqy.cams.bean.RzReport">
-        insert into rz_test_report(id,test_name,manager_dept,develop_dept,test_data,test_path)
-        VALUES (#{id},#{testName},#{managerDept},#{developDept},#{testData},#{testPath})
+        insert into rz_test_report(id,test_name,manager_dept,develop_dept,test_data,test_path,create_time,update_time)
+        VALUES (#{id},#{testName},#{managerDept},#{developDept},#{testData,jdbcType=BLOB},#{testPath},#{createTime},#{updateTime})
     </insert>
     <update id="updateRzReport" parameterType="com.tqy.cams.bean.RzReport">
         UPDATE rz_test_report SET
         test_name = #{testName},
         manager_dept = #{managerDept},
         develop_dept = #{developDept},
-        test_data = #{testData},
-        test_path = #{testPath}
-
+        test_data = #{testData,jdbcType=BLOB},
+        test_path = #{testPath},
+        update_time = #{updateTime}
         WHERE id = #{id}
     </update>
     <insert id="savePoint" parameterType="com.tqy.cams.bean.TestPoint">
-        insert into test_point(id,point,affiliation_id)
-        VALUES (#{id},#{point},#{affiliationId})
+        insert into test_point(id,point,point_name,test_type,create_time,update_time)
+        VALUES (#{id},#{point},#{pointName},#{testType},#{createTime},#{updateTime})
     </insert>
     <update id="updatePoint" parameterType="com.tqy.cams.bean.TestPoint">
         UPDATE test_point SET
         point = #{point},
-        affiliation_id = #{affiliationId}
-
+        point_name = #{pointName},
+        test_type = #{testType},
+        update_time = #{updateTime}
         WHERE id = #{id}
     </update>
-    <insert id="saveRzBank" parameterType="com.tqy.cams.bean.RzBank">
-        insert into rz_bank(id,task_type,point_id,point_name,point_content)
-        VALUES (#{id},#{taskType},#{pointId},#{pointName},#{pointContent})
-    </insert>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <insert id="saveCheckRzApplication" parameterType="com.tqy.cams.bean.RzCheckRz">
-        insert into rz_check(check_username,check_date,suggestion,result,application_id)
-        VALUES (#{checkUserName},#{checkDate},#{suggestion},#{result},#{applicationId})
-    </insert>
-
-    <select id="getRzApplicationById" parameterType="java.lang.String" resultType="com.tqy.cams.bean.RzApplication">
+    <select id="getPoint" parameterType="java.lang.String" resultType="com.tqy.cams.bean.TestPoint">
         select id AS "id",
-              system_name AS "systemName",
-              business_type AS "businessType",
-              manager_dept AS "managerDept",
-              develop_dept AS "developDept",
-              application_username AS "applicationUserName",
-              phone AS "phone",
-              email AS "email",
-              create_date AS "createDate",
-              attachment AS "attachment",
-              remark AS "remark"
-        from rz_application where id=#{0}
+        point_name AS "pointName",
+        test_type AS "testType",
+        point AS "point",
+        create_time AS "createTime",
+        update_time AS "updateTime"
+        from test_point WHERE id = #{id}
     </select>
 
-    <select id="getCheckRzApplicationById" parameterType="java.lang.String" resultType="com.tqy.cams.bean.RzCheckRz">
-        select check_username AS "checkUserName",
-              check_date AS "checkDate",
-              suggestion AS "suggestion",
-              result AS "result",
-              application_id AS "applicationId",
-        from rz_check where application_id=#{0}
-    </select>
-
-    <select id="getMyApplicationByPage" parameterType="java.util.Map" resultType="com.tqy.cams.bean.MyProcInst">
-        select  t1.*,t.user_name AS "startUserName"
-        from `user` t,
-        (
-        <foreach collection="list" separator="union all" item="item" index="idx">
-            select
-            #{item.procInstId,jdbcType=VARCHAR} AS "procInstId",
-            #{item.businessKey,jdbcType=VARCHAR} AS "businessKey",
-            #{item.processDefId,jdbcType=VARCHAR} AS "processDefId",
-            #{item.startTime,jdbcType=TIMESTAMP} AS "startTime",
-            #{item.endTime,jdbcType=TIMESTAMP} AS "endTime",
-            #{item.startUserId,jdbcType=VARCHAR} AS "startUserId",
-            #{item.startActId,jdbcType=VARCHAR} AS "startActId",
-            #{item.endActId,jdbcType=VARCHAR} AS "endActId",
-            #{item.deleteReason,jdbcType=VARCHAR} AS "deleteReason",
-            #{item.name,jdbcType=VARCHAR} AS "name",
-            #{item.formKey,jdbcType=VARCHAR} AS "formKey",
-            #{idx} AS "index"
-            from dual
-        </foreach>
-        ) AS t1
-        where t.user_id = t1.startUserId
-        ORDER BY t1.index
-    </select>
-
-    <update id="updateRzApplication" parameterType="com.tqy.cams.bean.RzApplication">
-        UPDATE rz_application SET
-        business_type = #{businessType}
-        ,manager_dept = #{managerDept}
-        ,develop_dept = #{developDept}
-        ,application_username = #{applicationUserName}
-        ,phone = #{phone}
-        ,email = #{email}
-        <if test="attachment != null and attachment != ''.toString()">
-            ,attachment = #{attachment}
-        </if>
-        <if test="remark != null and remark != ''.toString()">
-            ,remark = #{remark}
-        </if>
-        WHERE id = #{id}
-    </update>
-
-    <update id="updateCheckRzApplication" parameterType="com.tqy.cams.bean.RzApplication">
-        UPDATE rz_check SET
-        check_username = #{checkUserName}
-        ,check_date = #{checkDate}
-        <if test="suggestion != null and suggestion != ''.toString()">
-            ,suggestion = #{suggestion}
-        </if>
-        <if test="result != null and result != ''.toString()">
-            ,result = #{result}
-        </if>
-        WHERE application_id = #{applicationId}
-    </update>
-
-    <select id="getMyTaskByPage" parameterType="java.util.Map" resultType="com.tqy.cams.bean.RzApplication">
-        select
-        task_table.*,
-        t.application_username AS "applicationUserName"
-        from rz_application t,
-        (
-        <foreach collection="list" separator="union all" item="item" index="idx">
-            select
-            #{item.procInstId,jdbcType=VARCHAR} AS "procInstId",
-            #{item.modelName,jdbcType=VARCHAR} AS "modelName",
-            #{item.activityId,jdbcType=VARCHAR} AS "activityId",
-            #{item.processDefKey,jdbcType=VARCHAR} AS "processDefKey",
-            #{item.formKey,jdbcType=VARCHAR} AS "formKey",
-            #{item.deploymentId,jdbcType=VARCHAR} AS "deploymentId",
-            #{item.activityName,jdbcType=VARCHAR} AS "activityName",
-            #{item.startTime,jdbcType=TIMESTAMP} AS "startTime",
-            #{item.isOverTime,jdbcType=VARCHAR} AS "isOverTime",
-            #{item.state,jdbcType=VARCHAR} AS "state",
-            #{item.processDefId,jdbcType=VARCHAR} AS "processDefId",
-            #{item.taskId,jdbcType=VARCHAR} AS "taskId",
-            #{item.endTime,jdbcType=TIMESTAMP} AS "endTime",
-            #{item.assignee,jdbcType=VARCHAR} AS "assignee",
-            #{item.bussinessKey,jdbcType=VARCHAR} AS "bussinessKey",
-            #{item.startUserId,jdbcType=VARCHAR} AS "startUserId",
-            #{item.owner,jdbcType=VARCHAR} AS "owner",
-            #{item.attorney,jdbcType=VARCHAR} AS "attorney",
-            #{item.delegater,jdbcType=VARCHAR} AS "delegater",
-            #{item.delegateId,jdbcType=VARCHAR} AS "delegateId",
-            #{idx} AS "index"
-            from dual
-        </foreach>
-        ) AS task_table
-        where t.id = task_table.bussinessKey
-        ORDER BY task_table.index
-    </select>
-
-    <select id="queryHiTaskAllByPage" parameterType="java.util.Map" resultType="com.tqy.cams.bean.MyTaskInst">
-        select  t1.*,t.user_name AS "assigneeName",t2.user_name AS "attorneyName"
-        from `user` t,
-        (
-        <foreach collection="list" separator="union all" item="item" index="idx">
-            select #{item.id,jdbcType=VARCHAR} AS "id",
-            #{item.processDefId,jdbcType=VARCHAR} AS "processDefId",
-            #{item.taskName,jdbcType=VARCHAR} AS "taskName",
-            #{item.assignee,jdbcType=VARCHAR} AS "assignee",
-            #{item.startTime,jdbcType=TIMESTAMP} AS "startTime",
-            #{item.endTime,jdbcType=TIMESTAMP} AS "endTime",
-            #{item.startUserId,jdbcType=VARCHAR} AS "startUserId",
-            #{item.duration,jdbcType=VARCHAR} AS "duration",
-            #{item.deleteReason,jdbcType=VARCHAR} AS "deleteReason",
-            #{item.taskResult,jdbcType=VARCHAR} AS "taskResult",
-            #{item.taskResultDesc,jdbcType=VARCHAR} AS "taskResultDesc",
-            #{item.hisTaskTime,jdbcType=VARCHAR} AS "hisTaskTime",
-            #{item.procInstId,jdbcType=VARCHAR} AS "procInstId",
-            #{item.businessKey,jdbcType=VARCHAR} AS "businessKey",
-            #{item.procName,jdbcType=VARCHAR} AS "procName",
-            #{item.attorney,jdbcType=VARCHAR} AS "attorney",
-            #{item.formKey,jdbcType=VARCHAR} AS "formKey",
-            #{idx} AS "index"
-            from dual
-        </foreach>
-        ) AS t1 LEFT JOIN `user` t2 ON t1.attorney = t2.user_id
-        where t.user_id = t1.assignee
-        ORDER BY t1.index
-    </select>
-
-    <select id="queryStartupProcess" parameterType="java.util.Map" resultType="com.activiti.base.entity.IProcess">
-        select  t1.*
-        from (
-        <foreach collection="list" separator="union all" item="item" index="idx">
-            select #{item.id,jdbcType=VARCHAR} AS "id",
-            #{item.name,jdbcType=VARCHAR} AS "name",
-            #{item.deploymentId,jdbcType=VARCHAR} AS "deploymentId",
-            #{item.key,jdbcType=VARCHAR} AS "key",
-            #{item.version,jdbcType=VARCHAR} AS "version",
-            #{item.updateTime,jdbcType=TIMESTAMP} AS "updateTime",
-            #{item.modelId,jdbcType=VARCHAR} AS "modelId",
-            #{item.type,jdbcType=VARCHAR} AS "type",
-            #{item.pid,jdbcType=VARCHAR} AS "pid",
-            #{item.userIds,jdbcType=VARCHAR} AS "userIds",
-            #{item.processCatalog,jdbcType=VARCHAR} AS "processCatalog",
-            #{item.deployTime,jdbcType=VARCHAR} AS "deployTime",
-            #{idx} AS "index"
-            from dual
-        </foreach>
-        ) AS t1
-        ORDER BY t1.index
-    </select>
-
-    <select id="queryDelegateInfoListByPage" parameterType="java.util.List" resultType="com.activiti.base.entity.DelegateInfo">
-        select  t1.*,
-        u.user_name AS "attorneyName"
-        from (
-        <foreach collection="list" separator="union all" item="item" index="idx">
-            select #{item.delegateInfoId,jdbcType=VARCHAR} AS "delegateInfoId",
-            #{item.assignee,jdbcType=VARCHAR} AS "assignee",
-            #{item.attorney,jdbcType=VARCHAR} AS "attorney",
-            #{item.startTime,jdbcType=TIMESTAMP} AS "startTime",
-            #{item.endTime,jdbcType=TIMESTAMP} AS "endTime",
-            #{item.processName,jdbcType=VARCHAR} AS "processName",
-            #{item.processDefId,jdbcType=VARCHAR} AS "processDefId",
-            #{item.activityId,jdbcType=VARCHAR} AS "activityId",
-            #{item.status,jdbcType=VARCHAR} AS "status",
-            #{item.activityName,jdbcType=VARCHAR} AS "activityName",
-            #{idx} AS "index"
-            from dual
-        </foreach>
-        ) AS t1,
-        user u
-        where u.user_id=t1.attorney
-        ORDER BY t1.index
+    <select id="getAllPoint" parameterType="java.lang.String" resultType="com.tqy.cams.bean.TestPoint">
+        select id AS "id",
+        point_name AS "pointName",
+        test_type AS "testType",
+        point AS "point",
+        create_time AS "createTime",
+        update_time AS "updateTime"
+        from test_point
     </select>
 </mapper>

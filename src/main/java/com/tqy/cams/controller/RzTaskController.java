@@ -1,29 +1,24 @@
 package com.tqy.cams.controller;
 
-import com.activiti.base.entity.common.PageResult;
 import com.activiti.base.entity.common.ResultMessage;
 import com.tqy.cams.bean.*;
 import com.tqy.cams.service.RzTaskService;
-import com.tqy.cams.service.RzblService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
- * 认证办理
+ * 认证测试
  **/
 @RestController
 @RequestMapping("rztask")
 public class RzTaskController {
 
-
     @Autowired
     private RzTaskService rzTaskService;
 
     /**
-     * 添加任务
+     * 添加/修改任务
      */
     @RequestMapping("saveRzTask")
     public ResultMessage saveRzTask(RzTask rz){
@@ -31,20 +26,29 @@ public class RzTaskController {
     }
 
     /**
-     * 根据条件查询
+     * 测试任务查询
      * @param taskName
      * @param systemName
      * @param developDept
      * @param managerDept
      * @return
      */
-   /* @RequestMapping("getRzTask")
-    public ResultMessage getRzTask(String taskName,String systemName,String developDept,String managerDept){
-        return rzTaskService.getRzTask(taskName,systemName,developDept,managerDept);
-    }*/
+    @RequestMapping("getRzTask")
+    public ResultMessage getRzTask(String taskName,String systemName,String developDept,String managerDept,String page, String limit){
+        return rzTaskService.getRzTask(taskName,systemName,developDept,managerDept,page,limit);
+    }
+    
+    /**
+     * 获取测试任务所有名称
+     * @return
+     */
+    @RequestMapping("getRzTaskName")
+    public ResultMessage getRzTaskName() {
+    	return rzTaskService.getRzTaskName();
+    }
 
     /**
-     * 根据id查询详细数据
+     * 根据id查询测试任务
      * @param id
      * @return
      */
@@ -52,71 +56,42 @@ public class RzTaskController {
     public ResultMessage getRzTaskMsg(String id){
         return rzTaskService.getRzTaskMsg(id);
     }
-     /**
-     * 根据id修改详细数据
-     * @param id
-     * @return
-     */
-    @RequestMapping("updateRzTaskMsg")
-    public ResultMessage updateRzTaskMsg(RzTask rz,String id){
-        return rzTaskService.updateRzTaskMsg(rz,id);
-    }
+    
     /**
-     * 保存添加计划
+     * 保存测试计划
      */
     @RequestMapping("saveRzPlan")
-    public ResultMessage saveRzTask(RzPlan rzp){
+    public ResultMessage saveRzPlan(RzPlan rzp){
         return rzTaskService.saveRzPlan(rzp);
     }
 
     /**
-     * 根据test_name查询详细数据
-     * @param
-     * @return
-     */
-    @RequestMapping("getRzPlanMsg")
-    public ResultMessage getRzPlanMsg(String taskName){
-        return rzTaskService.getRzPlanMsg(taskName);
-    }
-
-    /**
-     * 测试报告生成
+     * 保存/修改测试报告
      */
     @RequestMapping("saveRzReport")
     public ResultMessage saveRzReport(RzReport rzr){
         return rzTaskService.saveRzReport(rzr);
     }
-    /**
-     * 根据id修改详细数据
-     * @param id
-     * @return
-     */
-    @RequestMapping("updateRzReport")
-    public ResultMessage updateRzReport(RzReport rzr,String id){
-        return rzTaskService.updateRzReport(rzr,id);
-    }
 
     /**
-     * 新建要点内容
+     * 新建/更新要点库
      */
     @RequestMapping("savePoint")
     public ResultMessage savePoint(TestPoint tp){
         return rzTaskService.saveTestPoint(tp);
     }
+    
     /**
-     * 根据id修改要点内容
-     * @param id
-     * @return
+     * 根据id获取要点库信息
      */
-    @RequestMapping("updatePoint")
-    public ResultMessage updateRzReport(TestPoint tp,String id){
-        return rzTaskService.updateTestPoint(tp,id);
+    @RequestMapping("getPointById")
+    public ResultMessage getPointById(String id){
+        return rzTaskService.getTestPoint(id);
     }
-    /**
-     * 新建要点内容库
-     */
-    @RequestMapping("saveRzBank")
-    public ResultMessage saveRzBank(RzBank rzb){
-        return rzTaskService.saveRzBank(rzb);
+
+    @RequestMapping("getAllPoint")
+    public ResultMessage getAllPoint(){
+        return rzTaskService.getAllPoint();
     }
+
 }

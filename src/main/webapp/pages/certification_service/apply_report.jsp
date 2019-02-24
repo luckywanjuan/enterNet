@@ -109,6 +109,7 @@
     </div>
 </div>--%>
 <script src="../../assets/layui/layui.js"></script>
+<script src="../../assets/common/function.js"></script>
 <script>
     var uuid="";
     var initFlag=true;
@@ -120,12 +121,6 @@
     var userInfo=JSON.parse(sessionStorage.getItem('userInfo'));
     var userId=userInfo.data.userId;
     var postData={};
-    function guid() {
-        function S4() {
-            return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-        }
-        return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
-    }
     layui.use(['form', 'layedit', 'laydate', 'table', 'upload','layer'], function () {
         var $ = layui.jquery;
         var form = layui.form, laydate = layui.laydate, upload = layui.upload,layer=layui.layer;
@@ -204,7 +199,11 @@
                     success: function (resp) {
                         submiting = false;
                         if (resp.code==0) {
-                            layer.alert('提交成功');
+                            layer.alert('提交成功',function(index){
+                                //do something
+                                layer.close(index);
+                                $("button[type=reset]").trigger("click");
+                            });
                         } else {
                             layer.alert(resp.errorMsg);
                         }
