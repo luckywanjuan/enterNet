@@ -22,22 +22,17 @@
     <div class="layui-card">
         <div class="layui-card-header">测试报告生成</div>
         <div class="layui-card-body" style="padding: 15px;">
-            <form class="layui-form" action="" lay-filter="component-form-group">
+            <form class="layui-form" action="" lay-filter="reportFrom">
                 <div class="layui-form-item layui-row">
                     <label class="layui-form-label">测试任务名称(必填)</label>
                     <div class="layui-col-md4">
-                        <select name="businessType" lay-verify="required|businessType">
-                            <option value="" selected="">请选择测试任务</option>
-                            <option value="业务1">任务1</option>
-                            <option value="业务2" >任务2</option>
-                            <option value="业务3">任务3</option>
-                        </select>
+                        <select name="businessType"  lay-filter="businessType"  lay-verify="required|businessType"></select>
                     </div>
                 </div>
                 <div class="layui-form-item layui-row">
                     <label class="layui-form-label">系统管理单位(必填)</label>
                     <div class="layui-col-md4">
-                        <input type="text" name="managerDept"  lay-verify="required|managerDept" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                        <input type="text" name="managerDept"  lay-verify="required|managerDept" autocomplete="off" placeholder="请输入系统管理单位" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item layui-row">
@@ -73,6 +68,7 @@
 <script src="../../assets/common/function.js"></script>
 <script>
     var ctx = "${pageContext.request.contextPath}/";
+    var postData={},urlPath=[];;
     layui.use(['form', 'layedit', 'laydate', 'table', 'upload','layer'], function () {
         var $ = layui.jquery;
         var form = layui.form, laydate = layui.laydate, upload = layui.upload,layer=layui.layer;
@@ -87,7 +83,13 @@
                 dataType: 'json',
                 async: false,
                 success: function (resp) {
-
+                    var html='<option value="" selected="">请选择测试任务</option>';
+                    resp.data.forEach(function(element,index){
+                        console.log(element.taskName)
+                        html+='<option value="'+element.taskName+'">'+element.taskName+'</option>'
+                    })
+                    $("select[name='businessType']").html(html);
+                    form.render('select', 'reportFrom');
                 }, error: function () {
                    console.log('接口错误')
                 }
@@ -124,40 +126,20 @@
         });
         form.on('submit(commitReport)', function (data) {
             fileNames="",filesPath="";
-            if(null!=fileNameArr&&fileNameArr.length>0){
-                fileNameArr.forEach(function (item, index){
-                    fileNames+=item+",";
-                    filesPath+="upload/"+uuid+"/"+item+","
-                });
-                if(null!=fileNames&&fileNames!=""&&fileNames.length>=1){
-                    fileNames=fileNames.substr(0,fileNames.length-1);
-                }
-                if(null!=filesPath&&filesPath!=""&&filesPath.length>=1){
-                    filesPath=filesPath.substr(0,filesPath.length-1);
-                }
-            }
-            postData['userId']=userId;
-            postData['systemName']=data.field.systemName;
+
             postData['businessType']=data.field.businessType;
             postData['managerDept']=data.field.managerDept;
             postData['developDept']=data.field.developDept;
-            postData['applicationUserName']=data.field.applicationUserName;
-            postData['phone']=data.field.phone;
-            postData['email']=data.field.email;
-            postData['createDate']=data.field.createDate;
-            postData['email']=data.field.email;
             if(urlPath[0]){
                 postData['attachment']=urlPath[0];
             }else{
                 postData['attachment']='';
             }
-            postData['remark']=data.field.remark;
-            postData['email']=data.field.email;
             var submiting=false;
             if (!submiting) {
                 submiting=true;
                 $.ajax({
-                    url: ctx + "rzbl/updateRzApplication",
+                    url: ctx + "rztask/saveRzReport",
                     data: postData,
                     type: 'post',
                     dataType: 'json',
