@@ -54,7 +54,7 @@
                             <button class="layui-btn" type="button" lay-submit lay-filter="commitReport" id="submit">
                                 生成
                             </button>
-                            <button type="button" class="layui-btn layui-btn-primary">在线编辑</button>
+                            <%--<button type="button" class="layui-btn layui-btn-primary">在线编辑</button>--%>
                             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                         </div>
                     </div>
@@ -95,7 +95,7 @@
                 }
             })
         }
-        getSelectTaskApi()
+        getSelectTaskApi();
         uuid=guid();
         upload.render({
             elem: '#fileUpload',

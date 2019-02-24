@@ -25,22 +25,17 @@
     <div class="layui-card">
         <div class="layui-card-header">测试报告生成</div>
         <div class="layui-card-body" style="padding: 15px;">
-            <form class="layui-form" action="" lay-filter="component-form-group">
+            <form class="layui-form" action="" lay-filter="testPlan">
                 <div class="layui-form-item layui-row">
                     <label class="layui-form-label">测试任务名称(必填)</label>
                     <div class="layui-col-md4">
-                        <select name="businessType" lay-verify="required|businessType">
-                            <option value="" selected="">请选择测试任务</option>
-                            <option value="业务1">任务1</option>
-                            <option value="业务2" >任务2</option>
-                            <option value="业务3">任务3</option>
-                        </select>
+                        <select name="taskTest" lay-verify="required|taskTest"></select>
                     </div>
                 </div>
                 <div class="layui-form-item layui-row">
                     <label class="layui-form-label">系统管理单位(必填)</label>
                     <div class="layui-col-md4">
-                        <input type="text" name="managerDept"  lay-verify="required|managerDept" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                        <input type="text" name="systemDept"  lay-verify="required|systemDept" autocomplete="off" placeholder="请输入标题" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item layui-row">
@@ -52,7 +47,7 @@
                 <div class="layui-form-item layui-row">
                     <label class="layui-form-label">测试类型（必填）</label>
                     <div class="layui-col-md4">
-                        <select name="businessType" lay-verify="required|businessType">
+                        <select name="testType" lay-verify="required|testType">
                             <option value="" selected="">请选择测试类型</option>
                             <option value="类型1">类型1</option>
                             <option value="类型2" >类型2</option>
@@ -63,25 +58,20 @@
                 <div class="layui-form-item layui-row">
                     <label class="layui-form-label">系统形式审查</label>
                     <div class="layui-col-md4">
-                        <input type="radio" name="systemSitua" value="软件包格式校验" title="软件包格式校验" checked="">
-                        <input type="radio" name="systemSitua" value="基础数据项审查" title="基础数据项审查">
+                        <input type="radio" name="systemCheck" value="软件包格式校验" title="软件包格式校验" checked="">
+                        <input type="radio" name="systemCheck" value="基础数据项审查" title="基础数据项审查">
                     </div>
                 </div>
                 <div class="layui-form-item layui-row">
                     <label class="layui-form-label">接口规范审查</label>
                     <div class="layui-col-md4">
-                        <input type="radio" name="interface" value="服务接口命名规则" title="服务接口命名规则" checked="">
-                        <input type="radio" name="interface" value="交互格式" title="交互格式">
+                        <input type="radio" name="interfaceCheck" value="服务接口命名规则" title="服务接口命名规则" checked="">
+                        <input type="radio" name="interfaceCheck" value="交互格式" title="交互格式">
                     </div>
                 </div>
                 <div class="layui-form-item layui-row">
                     <label class="layui-form-label">测试要点</label>
-                        <div class="layui-col-md8">
-                            <input type="checkbox" name="like1[write]" lay-skin="primary" title="要点1" checked="">
-                            <input type="checkbox" name="like1[write]" lay-skin="primary" title="要点1" checked="">
-                            <input type="checkbox" name="like1[read]" lay-skin="primary" title="要点2">
-                            <input type="checkbox" name="like1[game]" lay-skin="primary" title="要点3" disabled="">
-                        </div>
+                        <div class="layui-col-md8" id="mainPoint"></div>
                 </div>
                 <div class="layui-form-item layui-row">
                     <label class="layui-form-label">测试数据上传</label>
@@ -93,7 +83,7 @@
                 <div class="layui-form-item layui-layout-admin">
                     <div class="layui-input-block">
                         <div style="text-align: center">
-                            <button class="layui-btn" type="button" lay-submit lay-filter="commitReport" id="submit">
+                            <button class="layui-btn" type="button" lay-submit lay-filter="commitPlan" id="submit">
                                 生成
                             </button>
                             <button type="button" class="layui-btn layui-btn-primary">预览</button>
@@ -110,12 +100,59 @@
 <script src="../../assets/common/function.js"></script>
 <script>
     var ctx = "${pageContext.request.contextPath}/";
+    var postData={},urlPath=[];
     layui.use(['form', 'layedit', 'laydate', 'table', 'upload','layer'], function () {
         var $ = layui.jquery;
         var form = layui.form, laydate = layui.laydate, upload = layui.upload,layer=layui.layer;
         laydate.render({
             elem: '#date'
         });
+        function getSelectTaskApi(){//获取任务名称select值
+            $.ajax({
+                url: ctx + "rztask/getRzTaskName",
+                data: {},
+                type: 'post',
+                dataType: 'json',
+                async: false,
+                success: function (resp) {
+                    var html='<option value="" selected="">请选择测试任务</option>';
+                    resp.data.forEach(function(element,index){
+                        console.log(element.taskName)
+                        html+='<option value="'+element.taskName+'">'+element.taskName+'</option>'
+                    })
+                    $("select[name='taskTest']").html(html);
+                    form.render('select', 'testPlan');
+                }, error: function () {
+                    console.log('接口错误')
+                }
+            })
+        }
+        getSelectTaskApi();
+        function getMainPoint(){
+            $.ajax({
+                url: ctx + "rztask/getAllPoint",
+                data: {},
+                type: 'post',
+                dataType: 'json',
+                async: false,
+                success: function (resp) {
+                    var html='';
+                    resp.data.forEach(function(element,index){
+                        console.log(element.taskName)
+                        if(index==0){
+                            html+='<input type="radio" name="interfaceCheck" value="'+element.pointName+'" title="'+element.pointName+'" checked>'
+                        }else{
+                            html+='<input type="radio" name="interfaceCheck" value="'+element.pointName+'" title="'+element.pointName+'" >'
+                        }
+                    })
+                    $("#mainPoint").html(html);
+                    form.render();
+                }, error: function () {
+                    console.log('接口错误')
+                }
+            })
+        }
+        getMainPoint();
         uuid=guid();
         upload.render({
             elem: '#fileUpload',
@@ -144,30 +181,13 @@
                 //演示失败状态，并实现重传
             }
         });
-        form.on('submit(commitReport)', function (data) {
-            fileNames="",filesPath="";
-            if(null!=fileNameArr&&fileNameArr.length>0){
-                fileNameArr.forEach(function (item, index){
-                    fileNames+=item+",";
-                    filesPath+="upload/"+uuid+"/"+item+","
-                });
-                if(null!=fileNames&&fileNames!=""&&fileNames.length>=1){
-                    fileNames=fileNames.substr(0,fileNames.length-1);
-                }
-                if(null!=filesPath&&filesPath!=""&&filesPath.length>=1){
-                    filesPath=filesPath.substr(0,filesPath.length-1);
-                }
-            }
-            postData['userId']=userId;
-            postData['systemName']=data.field.systemName;
-            postData['businessType']=data.field.businessType;
-            postData['managerDept']=data.field.managerDept;
+        form.on('submit(commitPlan)', function (data) {
+            postData['taskName']=data.field.taskTest;
+            postData['testType']=data.field.testType;
+            postData['systemDept']=data.field.systemDept;
             postData['developDept']=data.field.developDept;
-            postData['applicationUserName']=data.field.applicationUserName;
-            postData['phone']=data.field.phone;
-            postData['email']=data.field.email;
-            postData['createDate']=data.field.createDate;
-            postData['email']=data.field.email;
+            postData['interfaceCheck']=data.field.interfaceCheck;
+            postData['testPoint']=data.field.testPoint;
             if(urlPath[0]){
                 postData['attachment']=urlPath[0];
             }else{

@@ -39,12 +39,7 @@
                 </div>
                 <div class="layui-form-item layui-row">
                     <label class="layui-form-label">测试要点</label>
-                    <div class="layui-col-md8">
-                        <button class="layui-btn" type="button" onclick="newPoints('edit')">要点1</button>
-                        <button class="layui-btn" type="button"  onclick="newPoints('edit')">要点2</button>
-                        <button class="layui-btn" type="button" onclick="newPoints('edit')" >要点3</button>
-                        <button class="layui-btn" type="button"  onclick="newPoints('new')">新增要点</button>
-                    </div>
+                    <div class="layui-col-md8" id="addPoint"></div>
                 </div>
                 <div class="layui-form-item layui-layout-admin">
                     <div class="layui-input-block">
@@ -69,19 +64,19 @@
                     <div class="layui-form-item layui-row">
                         <label class="layui-form-label">要点名称:</label>
                         <div class=" layui-col-md3">
-                            <input type="text" name="taskName" lay-verify="required|taskName"  class="layui-input" >
+                            <input type="text" name="pointName" lay-verify="required|pointName"  class="layui-input" >
                         </div>
                     </div>
                     <div class="layui-form-item layui-form-text  layui-row">
                         <label class="layui-form-label">要点内容:</label>
                         <div class=" layui-col-md3">
-                            <input type="text" name="managerDept" lay-verify="required|managerDept"  class="layui-input" >
+                            <input type="text" name="Point" lay-verify="required|Point"  class="layui-input" >
                         </div>
                     </div>
                     <div class="layui-form-item layui-layout-admin">
                         <div class="layui-input-block">
                             <div style="text-align: center">
-                                <button class="layui-btn" type="button" lay-submit lay-filter="newReport" id="submitEdit">
+                                <button class="layui-btn" type="button" lay-submit lay-filter="newReport" id="newReport">
                                     确定
                                 </button>
                             </div>
@@ -96,19 +91,44 @@
 <script src="../../assets/common/function.js"></script>
 <script>
     var ctx = "${pageContext.request.contextPath}/";
+    var pointData={};
     layui.use(['form', 'layedit', 'laydate', 'table', 'upload','layer'], function () {
         var $ = layui.jquery;
         var form = layui.form, laydate = layui.laydate, upload = layui.upload,layer=layui.layer;
-        window.newPoints=function(title){
-            if(title=='new'){
-                title="新建要点"
+        function getMainPoint(){
+            $.ajax({
+                url: ctx + "rztask/getAllPoint",
+                data: {},
+                type: 'post',
+                dataType: 'json',
+                async: false,
+                success: function (resp) {
+                    var html='';
+                    resp.data.forEach(function(element,index){
+                        html+='<button class="layui-btn" type="button" onclick="newPoints('+JSON.stringify(element).replace(/\"/g,"'")+')">'+element.pointName+'</button>';
+                    });
+                    html+='<button class="layui-btn" type="button"  onclick="newPoints(\'new\')">新增要点</button>';
+                    $("#addPoint").html(html);
+                    // form.render('select', 'testPlan');
+                }, error: function () {
+                    console.log('接口错误')
+                }
+            })
+        }
+        getMainPoint();
+        var title='';
+        window.newPoints=function(item){
+            if(item=='new'){
+                title="新建要点";
+                pointData['id']='';
             }else{
-                title="编辑要点"
+                title="编辑要点";
+                pointData['id']=item;
             }
             layer.open({
                 type: 1
                 ,title: title
-                ,area: ['800px', '600px']
+                ,area: ['800px', '480px']
                 ,offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
                 ,id: 'layerDemo'+title //防止重复弹出
                 ,content: $('#modalContent')
@@ -118,7 +138,36 @@
                     layer.closeAll();
                 }
             });
-        }
+        };
+        form.on('submit(newReport)', function (data) {
+            pointData['pointName']=data.field.pointName;
+            pointData['Point']=data.field.Point;
+            var submiting=false;
+            if (!submiting) {
+                submiting=true;
+                $.ajax({
+                    url: ctx + "rztask/savePoint",
+                    data: pointData,
+                    type: 'post',
+                    dataType: 'json',
+                    async: false,
+                    success: function (resp) {
+                        submiting = false;
+                        if (resp.code==0) {
+                            layer.alert('提交成功',function () {
+                                layer.closeAll();
+                                getMainPoint();
+                            });
+                        } else {
+                            layer.alert(resp.errorMsg);
+                        }
+                    }, error: function () {
+                        submiting = false;
+                    }
+                })
+                return false;
+            }
+        })
     });
 </script>
 </body>
