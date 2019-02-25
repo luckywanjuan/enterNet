@@ -13,8 +13,8 @@ import java.util.List;
 public class Config {
 	
 	@Bean
-    public FilterRegistrationBean<DomainFilter> filterRegistrationBean() {
-        FilterRegistrationBean<DomainFilter> registrationBean = new FilterRegistrationBean<DomainFilter>();
+    public FilterRegistrationBean filterRegistrationBean() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         DomainFilter domainFilter = new DomainFilter();
         registrationBean.setFilter(domainFilter);
         List<String> urlPatterns = new ArrayList<String>();

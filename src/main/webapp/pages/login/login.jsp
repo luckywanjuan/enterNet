@@ -41,8 +41,8 @@
 <script src="${pageContext.request.contextPath}/assets/layui/layui.js"></script>
 <script>
     var ctx = "${pageContext.request.contextPath}/";
-    var ctx = "http://localhost:8888/";
-    //192.168.0.105
+    console.log(ctx);
+    //var ctx = "http://localhost:8080/cams/";
     layui.use(['form', 'layedit', 'laydate', 'table', 'upload'], function () {
         var $ = layui.jquery;
         var form = layui.form, laydate = layui.laydate, upload = layui.upload;

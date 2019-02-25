@@ -31,7 +31,6 @@ public class UserController {
         return rm;
     }
     
-
     /**
      * 获取角色用户信息
      * @return
