@@ -32,13 +32,13 @@
                 <div class="layui-form-item layui-row">
                     <label class="layui-form-label">系统管理单位(必填)</label>
                     <div class="layui-col-md4">
-                        <input type="text" name="managerDept"  lay-verify="required|managerDept" autocomplete="off" placeholder="请输入系统管理单位" class="layui-input">
+                        <input type="text" name="managerDept" readonly lay-verify="required|managerDept" autocomplete="off" placeholder="请输入系统管理单位" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item layui-row">
                     <label class="layui-form-label">研制单位(必填)</label>
                     <div class="layui-col-md4">
-                        <input type="text" name="developDept" lay-verify="required|developDept" autocomplete="off" placeholder="请输入研制单位" class="layui-input">
+                        <input type="text" name="developDept" readonly lay-verify="required|developDept" autocomplete="off" placeholder="请输入研制单位" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item layui-row">
@@ -68,7 +68,7 @@
 <script src="../../assets/common/function.js"></script>
 <script>
     var ctx = "${pageContext.request.contextPath}/";
-    var postData={},urlPath=[];;
+    var postData={},urlPath=[];
     layui.use(['form', 'layedit', 'laydate', 'table', 'upload','layer'], function () {
         var $ = layui.jquery;
         var form = layui.form, laydate = layui.laydate, upload = layui.upload,layer=layui.layer;
@@ -86,7 +86,7 @@
                     var html='<option value="" selected="">请选择测试任务</option>';
                     resp.data.forEach(function(element,index){
                         console.log(element.taskName)
-                        html+='<option value="'+element.taskName+'">'+element.taskName+'</option>'
+                        html+='<option value="'+element.taskName+'" taskid="'+element.id+'">'+element.taskName+'</option>'
                     })
                     $("select[name='businessType']").html(html);
                     form.render('select', 'reportFrom');
@@ -123,6 +123,33 @@
             , error: function () {
                 //演示失败状态，并实现重传
             }
+        });
+        function getRzTaskMsg(taskID){//根据测试任务获取管理单位、研制单位
+            $.ajax({
+                url: ctx + "rztask/getRzTaskMsg",
+                data: {
+                    id:taskID
+                },
+                type: 'post',
+                dataType: 'json',
+                async: false,
+                success: function (resp) {
+                    if(resp.data){
+                        $("input[name='managerDept']").val(resp.data.managerDept);
+                        $("input[name='developDept']").val(resp.data.developDept);
+                    }else{
+                        $("input[name='managerDept']").val('');
+                        $("input[name='developDept']").val('');
+                    }
+
+                }, error: function () {
+                    console.log('接口错误')
+                }
+            })
+        }
+        form.on('select(businessType)', function(data){
+            getRzTaskMsg($(data.elem[data.elem.selectedIndex]).attr('taskid'))
+
         });
         form.on('submit(commitReport)', function (data) {
             fileNames="",filesPath="";
