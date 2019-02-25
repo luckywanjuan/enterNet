@@ -29,19 +29,19 @@
                 <div class="layui-form-item layui-row">
                     <label class="layui-form-label">测试任务名称(必填)</label>
                     <div class="layui-col-md4">
-                        <select name="taskTest" lay-verify="required|taskTest"></select>
+                        <select name="taskTest" lay-filter="taskTest" lay-verify="required|taskTest"></select>
                     </div>
                 </div>
                 <div class="layui-form-item layui-row">
                     <label class="layui-form-label">系统管理单位(必填)</label>
                     <div class="layui-col-md4">
-                        <input type="text" name="systemDept"  lay-verify="required|systemDept" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                        <input type="text" name="systemDept"  lay-verify="required|systemDept" readonly autocomplete="off" placeholder="请输入标题" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item layui-row">
                     <label class="layui-form-label">研制单位(必填)</label>
                     <div class="layui-col-md4">
-                        <input type="text" name="developDept" lay-verify="required|developDept" autocomplete="off" placeholder="请输入研制单位" class="layui-input">
+                        <input type="text" name="developDept" lay-verify="required|developDept" readonly autocomplete="off" placeholder="请输入研制单位" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item layui-row">
@@ -71,14 +71,7 @@
                 </div>
                 <div class="layui-form-item layui-row">
                     <label class="layui-form-label">测试要点</label>
-                        <div class="layui-col-md8" id="mainPoint"></div>
-                </div>
-                <div class="layui-form-item layui-row">
-                    <label class="layui-form-label">测试数据上传</label>
-                    <div class="layui-col-md4 layui-upload">
-                        <span id="files"></span>
-                        <button class="layui-btn layui-btn-normal " type="button" id="fileUpload">选择文件</button>
-                    </div>
+                    <div class="layui-col-md8" id="mainPoint"></div>
                 </div>
                 <div class="layui-form-item layui-layout-admin">
                     <div class="layui-input-block">
@@ -86,7 +79,7 @@
                             <button class="layui-btn" type="button" lay-submit lay-filter="commitPlan" id="submit">
                                 生成
                             </button>
-                            <button type="button" class="layui-btn layui-btn-primary">预览</button>
+                            <%--<button type="button" class="layui-btn layui-btn-primary">预览</button>--%>
                             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                         </div>
                     </div>
@@ -100,7 +93,7 @@
 <script src="../../assets/common/function.js"></script>
 <script>
     var ctx = "${pageContext.request.contextPath}/";
-    var postData={},urlPath=[];
+    var postData={};
     layui.use(['form', 'layedit', 'laydate', 'table', 'upload','layer'], function () {
         var $ = layui.jquery;
         var form = layui.form, laydate = layui.laydate, upload = layui.upload,layer=layui.layer;
@@ -118,7 +111,7 @@
                     var html='<option value="" selected="">请选择测试任务</option>';
                     resp.data.forEach(function(element,index){
                         console.log(element.taskName)
-                        html+='<option value="'+element.taskName+'">'+element.taskName+'</option>'
+                        html+='<option value="'+element.taskName+'" taskid="'+element.id+'">'+element.taskName+'</option>'
                     })
                     $("select[name='taskTest']").html(html);
                     form.render('select', 'testPlan');
@@ -128,6 +121,34 @@
             })
         }
         getSelectTaskApi();
+        function getRzTaskMsg(taskID){//根据测试任务获取管理单位、研制单位
+            $.ajax({
+                url: ctx + "rztask/getRzTaskMsg",
+                data: {
+                    id:taskID
+                },
+                type: 'post',
+                dataType: 'json',
+                async: false,
+                success: function (resp) {
+                    if(resp.data){
+                        $("input[name='systemDept']").val(resp.data.systemDept);
+                        $("input[name='developDept']").val(resp.data.developDept);
+                    }else{
+                        $("input[name='managerDept']").val('');
+                        $("input[name='developDept']").val('');
+                    }
+
+                }, error: function () {
+                    console.log('接口错误')
+                }
+            })
+        }
+        form.on('select(taskTest)', function(data){
+            console.log(data)
+            getRzTaskMsg($(data.elem[data.elem.selectedIndex]).attr('taskid'))
+
+        });
         function getMainPoint(){
             $.ajax({
                 url: ctx + "rztask/getAllPoint",
@@ -138,11 +159,10 @@
                 success: function (resp) {
                     var html='';
                     resp.data.forEach(function(element,index){
-                        console.log(element.taskName)
                         if(index==0){
-                            html+='<input type="radio" name="interfaceCheck" value="'+element.pointName+'" title="'+element.pointName+'" checked>'
+                            html+='<input type="radio" name="testPoint" value="'+element.pointName+'" title="'+element.pointName+'" checked>'
                         }else{
-                            html+='<input type="radio" name="interfaceCheck" value="'+element.pointName+'" title="'+element.pointName+'" >'
+                            html+='<input type="radio" name="testPoint" value="'+element.pointName+'" title="'+element.pointName+'" >'
                         }
                     })
                     $("#mainPoint").html(html);
@@ -153,48 +173,14 @@
             })
         }
         getMainPoint();
-        uuid=guid();
-        upload.render({
-            elem: '#fileUpload',
-            url:ctx + "rzbl/fileUpload",
-            data: {
-                applicationId: uuid
-            }
-            ,accept:'file'
-            , before: function (obj) {
-                fileNameArr=[];
-                //预读本地文件示例，不支持ie8
-                obj.preview(function (index, file, result) {//异步
-                    fileNameArr.push(file.name);
-                    // $('#files').html(fileNameArr[0])
-                });
-            }
-            , done: function (res) {
-                //如果上传失败
-                urlPath=[];
-                if (res.code == 0) {
-                    urlPath.push(res.data)
-                }
-                //上传成功
-            }
-            , error: function () {
-                //演示失败状态，并实现重传
-            }
-        });
         form.on('submit(commitPlan)', function (data) {
             postData['taskName']=data.field.taskTest;
             postData['testType']=data.field.testType;
             postData['systemDept']=data.field.systemDept;
             postData['developDept']=data.field.developDept;
             postData['interfaceCheck']=data.field.interfaceCheck;
+            postData['systemCheck']=data.field.systemCheck;
             postData['testPoint']=data.field.testPoint;
-            if(urlPath[0]){
-                postData['attachment']=urlPath[0];
-            }else{
-                postData['attachment']='';
-            }
-            postData['remark']=data.field.remark;
-            postData['email']=data.field.email;
             var submiting=false;
             if (!submiting) {
                 submiting=true;
