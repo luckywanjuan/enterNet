@@ -35,13 +35,13 @@
                 <div class="layui-form-item layui-row">
                     <label class="layui-form-label">系统管理单位(必填)</label>
                     <div class="layui-col-md4">
-                        <input type="text" name="systemDept"  lay-verify="required|systemDept" readonly autocomplete="off" placeholder="请输入标题" class="layui-input">
+                        <input type="text" name="systemDept"  lay-verify="systemDept" readonly autocomplete="off" placeholder="请输入标题" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item layui-row">
                     <label class="layui-form-label">研制单位(必填)</label>
                     <div class="layui-col-md4">
-                        <input type="text" name="developDept" lay-verify="required|developDept" readonly autocomplete="off" placeholder="请输入研制单位" class="layui-input">
+                        <input type="text" name="developDept" lay-verify="developDept" readonly autocomplete="off" placeholder="请输入研制单位" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item layui-row">
