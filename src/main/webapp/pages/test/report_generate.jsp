@@ -174,7 +174,8 @@
                     success: function (resp) {
                         submiting = false;
                         if (resp.code==0) {
-                            layer.alert('提交成功',function () {
+                            layer.alert('提交成功',function (index) {
+                                layer.close(index);
                                 $("button[type=reset]").trigger("click");
                             });
                         } else {
