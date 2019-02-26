@@ -66,7 +66,7 @@ public class RzTaskImpl implements RzTaskService {
     
     @Override
     public ResultMessage getRzTaskMsg(String id){
-       if(StringUtil.isNullOrBlank(id)){
+       if(!StringUtil.isNullOrBlank(id)){
            RzTask info = rzTaskMapper.getRzTaskMsg(id);
            return new ResultMessage(BaseStatic.SUCCESS_CODE, "成功", info);
        }
