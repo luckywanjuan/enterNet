@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="../../assets/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/layui/css/layui.css" media="all">
     <style>
         .layui-form-label{
             width: 90px;
@@ -149,8 +149,8 @@
         </div>
     </div>
 </div>
-<script src="../../assets/common/function.js"></script>
-<script src="../../assets/layui/layui.js"></script>
+<script src="${pageContext.request.contextPath}/assets/common/function.js"></script>
+<script src="${pageContext.request.contextPath}/assets/layui/layui.js"></script>
 <script>
    var ctx = "${pageContext.request.contextPath}/";
     var postData={},urlPath={'plan':[],'report':[]};

@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>入网申请填报</title>
-    <link rel="stylesheet" href="../../assets/layui/css/layui.css" media="all">
-    <link rel="stylesheet" href="../../assets/css/common.css" media="all">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common.css" media="all">
     <style>
         .layui-form-label {
             width: 130px;
@@ -146,7 +146,7 @@
         </div>
     </div>
 </div>
-<script src="../../assets/layui/layui.js"></script>
+<script src="${pageContext.request.contextPath}/assets/layui/layui.js"></script>
 <script>
     var ctx = "${pageContext.request.contextPath}/";
     //var ctx = "http://192.168.0.105:8888/";

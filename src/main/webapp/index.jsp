@@ -1,4 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <html>
 <head>
     <meta charset="utf-8">
@@ -6,8 +10,8 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="assets/layui/css/layui.css" media="all">
-    <link rel="stylesheet" href="assets/layui/css/admin.css" media="all">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/layui/css/layui.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/layui/css/admin.css">
     <link id="layuicss-layer" rel="stylesheet" href="https://www.layui.com/admin/std/dist/layuiadmin/layui/css/modules/layer/default/layer.css?v=3.1.1" media="all">
 </head>
 
@@ -182,8 +186,8 @@
         <div class="layadmin-body-shade" layadmin-event="shade"></div>
     </div>
 </div>
-<script src="assets/jquery.min.js"></script>
-<script src="assets/layui/layui.js"></script>
+<script src="${pageContext.request.contextPath}/assets/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/layui/layui.js"></script>
 <script>
     layui.config({
         base: 'assets/' //静态资源所在路径
