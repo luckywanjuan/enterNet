@@ -37,7 +37,7 @@ public interface RzTaskService {
      * @param id
      * @return
      */
-    PageResult getRzTaskMsg(String id);
+    ResultMessage getRzTaskMsg(String id);
 
     /**
      * 创教新计划

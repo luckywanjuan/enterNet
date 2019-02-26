@@ -35,7 +35,7 @@ public interface RzTaskMapper {
     /**
      * 根据id查询详细数据
      */
-    List<RzTask> getRzTaskMsg(String id);
+    RzTask getRzTaskMsg(String id);
 
     /**
      * 保存计划表

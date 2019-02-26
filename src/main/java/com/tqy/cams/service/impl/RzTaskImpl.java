@@ -65,14 +65,13 @@ public class RzTaskImpl implements RzTaskService {
     }
     
     @Override
-    public PageResult getRzTaskMsg(String id){
+    public ResultMessage getRzTaskMsg(String id){
        if(StringUtil.isNullOrBlank(id)){
-           List<RzTask> info = new ArrayList<RzTask>();
-           info = rzTaskMapper.getRzTaskMsg(id);
-           return new PageResult(BaseStatic.SUCCESS_CODE, "成功", info);
+           RzTask info = rzTaskMapper.getRzTaskMsg(id);
+           return new ResultMessage(BaseStatic.SUCCESS_CODE, "成功", info);
        }
        logger.info("查询任务失败");
-       return new PageResult(BaseStatic.ERROR_CODE, "失败");
+       return new ResultMessage(BaseStatic.ERROR_CODE, "失败");
     }
 
     public ResultMessage saveRzPlan(RzPlan rzp){
