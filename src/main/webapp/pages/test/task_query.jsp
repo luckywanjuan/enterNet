@@ -61,15 +61,11 @@
             </button>
         </div>
     </div>
-    <table class="layui-hide" id="demo" lay-filter="test"></table>
+    <table class="layui-hide" id="demo" lay-filter="demo"></table>
 </div>
-
-
-
 <script type="text/html" id="tableBar">
-    <button class="layui-btn layui-btn-warm layui-btn-xs"  lay-event="enterNet">入网结论查看</button>
-    <button class="layui-btn layui-btn-xs"    lay-event="testReport">测试报告查看</button>
-    <button class="layui-btn layui-btn-danger layui-btn-xs"   lay-event="testReportLoad">测试报告下载</button>
+    <button class="layui-btn layui-btn-xs"  lay-event="taskEdit">编辑</button>
+    <button class="layui-btn layui-btn-xs"   lay-event="taskLook">查看</button>
 </script>
 <div id="modalContent" style="display: none;">
     <div class="layui-fluid">
@@ -91,15 +87,6 @@
                             </select>
                         </div>
                     </div>
-                    <%--<div class="layui-form-item layui-form-text  layui-row">
-                        <label class="layui-form-label">业务类型:</label>
-                        <div class=" layui-col-md3">
-                            <select name="businessType" lay-verify="required|businessType">
-                                <option value="业务类型1" selected="">业务类型1</option>
-                                <option value="业务类型2">业务类型2</option>
-                            </select>
-                        </div>
-                    </div>--%>
                     <div class="layui-form-item layui-form-text  layui-row">
                         <label class="layui-form-label">系统管理单位:</label>
                         <div class=" layui-col-md3">
@@ -136,15 +123,41 @@
                         </div>
                     </div>
                 </form>
-                <div class="layui-row">
-                    <div class="layui-col-md12">
-                        <table class="layui-table" id="assetTable" lay-filter="assetTable"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="look" style="display: none;">
+    <div class="layui-fluid">
+        <div class="layui-card">
+            <div  class="layui-card-body">
+                <form class="layui-form" lay-filter="ensureModal">
+                    <div class="layui-form-item layui-row">
+                        <label class="layui-form-label">测试任务名称:</label>
+                        <div class=" layui-col-md3" style="margin-top: 5px" name="taskNameLook"></div>
                     </div>
-                    <script type="text/html" id="databar">
-                        <a class="layui-btn  layui-btn-mini" href="" download lay-event="fujian">附件下载</a>
-                        <a class="layui-btn  layui-btn-mini" data-method="offset" data-type="auto" lay-event="shenhe">审核</a>
-                    </script>
-                </div>
+                    <div class="layui-form-item layui-row">
+                        <label class="layui-form-label">关联系统名称:</label>
+                        <div class=" layui-col-md3" style="margin-top: 5px" name="systemNameLook"></div>
+                    </div>
+                    <div class="layui-form-item layui-form-text  layui-row">
+                        <label class="layui-form-label">系统管理单位:</label>
+                        <div class=" layui-col-md3" style="margin-top: 5px" name="managerDeptLook"></div>
+                    </div>
+                    <div class="layui-form-item layui-form-text  layui-row">
+                        <label class="layui-form-label">研制单位:</label>
+                        <div class=" layui-col-md3" style="margin-top: 5px" name="developDeptLook"></div>
+                    </div>
+                    <div class="layui-form-item layui-layout-admin">
+                        <div class="layui-input-block">
+                            <div style="text-align: center">
+                                <button class="layui-btn" type="button" id="ensureBtn">
+                                    确定
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -220,6 +233,8 @@
         window.newTask=function(title){
             if(title=='new'){
                 title="新建测试任务"
+            }else{
+                title="编辑测试任务"
             }
             layer.open({
                 type: 1
@@ -236,9 +251,9 @@
             });
         }
         form.on('submit(newReport)', function (data) {
-            var taskId='';
+             var taskId='';
             if($('.layui-layer-title').html()=='编辑测试任务'){
-                taskId=''
+                taskId=tableData.id
             }
             postData['id']=taskId;
             postData['taskName']=data.field.taskName;
@@ -270,6 +285,7 @@
                         if (resp.code==0) {
                             layer.alert('提交成功');
                             layer.closeAll();
+                            renderTable();
                         } else {
                             layer.alert(resp.errorMsg);
                         }
@@ -288,10 +304,10 @@
                 ,title: '测试任务表'
                 ,page: true //开启分页
                 ,where: {
-                    "taskName":$("input[name='taskName']").val(),
-                    "systemName":$("input[name='systemName']").val(),
-                    "developDept":$("input[name='developDept']").val(),
-                    "managerDept":$("input[name='managerDept']").val(),
+                    "taskName":$("input[name='task']").val(),
+                    "systemName":$("input[name='system']").val(),
+                    "developDept":$("input[name='develop']").val(),
+                    "managerDept":$("input[name='manager']").val(),
                 } //条件搜索
               //  ,totalRow: true //开启合计行
                 ,cols: [[ //表头
@@ -306,6 +322,38 @@
             });
         }
         renderTable();
+        table.on('tool(demo)', function(obj) {
+            tableData = obj.data; //获得当前行数据
+            layEvent = obj.event; //获得 lay-event 对应的值
+            if(layEvent==='taskEdit'){
+                newTask('edit');
+                $('input[name=taskName]').val(tableData.taskName)
+                $('select[name=systemName]').val(tableData.systemName)
+                $('input[name=managerDept]').val(tableData.managerDept)
+                $('input[name=developDept]').val(tableData.developDept)
+            }else{
+                layer.open({
+                    type: 1
+                    ,title:'edit'
+                    ,area: ['800px', '600px']
+                    ,offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                    ,id: 'layerDemoedit' //防止重复弹出
+                    ,content: $('#look')
+                    ,btnAlign: 'c' //按钮居中
+                    ,shade:  [0.5,'#000'] //不显示遮罩
+                    ,yes: function(){
+                        layer.closeAll();
+                    }
+                });
+                $('div[name=taskNameLook]').html(tableData.taskName);
+                $('div[name=systemNameLook]').html(tableData.systemName);
+                $('div[name=managerDeptLook]').html(tableData.managerDept);
+                $('div[name=developDeptLook]').html(tableData.developDept);
+            }
+        });
+        $('#ensureBtn').on('click',function(){
+            layer.closeAll();
+        });
         window.doSearch=function(){
             renderTable();
         }
