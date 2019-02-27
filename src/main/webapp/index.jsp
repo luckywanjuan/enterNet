@@ -213,11 +213,11 @@
     $('#userName').html(userInfo.userName);
     if(userInfo.data.role==0){//管理员
         $('.user').hide();
-        $('#LAY_app_tabsheader').html('<li lay-id="pages/staticis/admin.jsp" lay-attr="pages/staticis/admin.jsp" class="layui-this admin"><span>审批数据统计</span><i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>')
+        $('#LAY_app_tabsheader').html('<li lay-id="pages/staticis/admin.jsp" lay-attr="pages/staticis/admin.jsp" class="layui-this admin"><span>首页</span><i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>')
         $('#mainBody').attr('src','pages/staticis/admin.jsp');
     }else{
         $('.admin').hide();
-        $('#LAY_app_tabsheader').html('<li lay-id="pages/staticis/user.jsp" lay-attr="pages/staticis/user.jsp" class="layui-this user"><span>申请数据统计</span><i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>\n')
+        $('#LAY_app_tabsheader').html('<li lay-id="pages/staticis/user.jsp" lay-attr="pages/staticis/user.jsp" class="layui-this user"><span>首页</span><i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>\n')
         $('#mainBody').attr('src','pages/staticis/user.jsp');
     }
     $('#logout').on('click',function () {
