@@ -145,7 +145,6 @@
             })
         }
         form.on('select(taskTest)', function(data){
-            console.log(data)
             getRzTaskMsg($(data.elem[data.elem.selectedIndex]).attr('taskid'))
 
         });
@@ -185,7 +184,7 @@
             if (!submiting) {
                 submiting=true;
                 $.ajax({
-                    url: ctx + "rzbl/updateRzApplication",
+                    url: ctx + "rztask/saveRzPlan",
                     data: postData,
                     type: 'post',
                     dataType: 'json',
