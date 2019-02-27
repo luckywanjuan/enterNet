@@ -104,7 +104,8 @@
                             ],
                             series : [
                                 {
-                                    name:'测试任务',
+                                    barMaxWidth:68,
+                                    name:'审核统计',
                                     type:'bar',
                                     barWidth: '60%',
                                     data:value

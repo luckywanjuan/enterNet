@@ -41,17 +41,9 @@
             <div class="title_sta cgrey">未通过数：</div>
         </div>
     </div>
-    <div class="layui-row">
-        <div class="col-md-6">
-            <div id="asset_hart" style="height: 480px">
-
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div id="testChart" style="height: 480px">
-
-            </div>
-        </div>
+    <div class="disflex">
+        <div class="itemflex bgf" id="asset_chart" style="width:400px;height: 480px"></div>
+        <div class="itemflex bgf" id="test_chart"style="width:400px;height: 480px"></div>
     </div>
 </div>
 <script src="${pageContext.request.contextPath}/assets/layui/layui.js"></script>
@@ -61,7 +53,7 @@
     var userInfo=JSON.parse(sessionStorage.getItem('userInfo'));
     layui.use(['table'], function () {
         var $ = layui.jquery;
-        var asset_chart= echarts.init(document.getElementById('asset_hart'));
+        var assetChart= echarts.init(document.getElementById('asset_chart'));
         function getUserPassMissionApi(){
             $.ajax({
                 url: ctx + "statistics/getUserPassMission",
@@ -71,16 +63,80 @@
                 async: false,
                 success: function (resp) {
                     if(resp.code==0){
-                        $('#awaitUser').html(resp['data']['待审核']);
-                        $('#accessUser').html(resp['data']['审核通过']);
-                        $('#unassessUser').html(resp['data']['审核不通过']);
+                        $('#awaitUser').html(resp['data']['AUDIT']);
+                        $('#accessUser').html(resp['data']['PASS']);
+                        $('#unassessUser').html(resp['data']['NOPASS']);
                     }
                 }, error: function () {
                     console.log('接口错误')
                 }
             })
         }
-        getUserPassMissionApi()
+        getUserPassMissionApi();
+        function getRzDateNumApi(){
+            $.ajax({
+                url: ctx + "statistics/getRzDateNum",
+                data: {userId:userInfo.data.userId},
+                type: 'post',
+                dataType: 'json',
+                async: false,
+                success: function (resp) {
+                    if(resp.code==0){
+                        var xaris=[];
+                        var value=[];
+                        resp.data.forEach(function(element,index){
+                            xaris.push(element.create_date)
+                            value.push(element.num)
+                        })
+                        var optionAsset = {
+                            color: ['#188df0'],
+                            tooltip : {
+                                trigger: 'axis',
+                                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                                }
+                            },
+                            title:{
+                                text: '申请统计'
+                            },
+                            grid: {
+                                left: '3%',
+                                right: '4%',
+                                bottom: '3%',
+                                containLabel: true
+                            },
+                            xAxis : [
+                                {
+                                    type : 'category',
+                                    data : xaris,
+                                    axisTick: {
+                                        alignWithLabel: true
+                                    }
+                                }
+                            ],
+                            yAxis : [
+                                {
+                                    type : 'value'
+                                }
+                            ],
+                            series : [
+                                {
+                                    barMaxWidth:68,
+                                    name:'申请统计',
+                                    type:'bar',
+                                    barWidth: '60%',
+                                    data:value
+                                }
+                            ]
+                        };
+                        assetChart.setOption(optionAsset);
+                    }
+                }, error: function () {
+                    console.log('接口错误')
+                }
+            })
+        }
+        getRzDateNumApi();
     })
 </script>
 </body>
