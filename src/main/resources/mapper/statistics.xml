@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqy.cams.dao.StatisticsMapper" >
+    <select id="getUserPassMission" resultType="java.lang.Integer">
+        select count(*)
+
+        from rz_application a,rz_check b where a.id=b.application_id and b.user_id= #{userId} and result = "通过"
+    </select>
+    <select id="getUserNoPassMission" resultType="java.lang.Integer">
+        select count(*)
+
+        from rz_application a,rz_check b where a.id=b.application_id and b.user_id= #{userId} and result = "未通过"
+
+    </select>
+    <select id="getUserAuditMission" resultType="java.lang.Integer">
+        select count(*)
+
+        from rz_application a,rz_check b where a.id=b.application_id and b.user_id= #{userId} and result is null
+    </select>
+    <select id="getRole" resultType="com.tqy.cams.bean.RoleUser">
+        select role_id AS roleId
+
+        from role_user where user_id= #{userId}
+    </select>
+    <select id="getAdminAuditMission" resultType="java.lang.Integer">
+        select count(*)
+
+        from rz_check
+    </select>
+    <select id="getAdminNoAuditMission" resultType="java.lang.Integer">
+           select count(*)
+
+        from rz_application
+
+
+    </select>
+    <select id="getTaskCount" resultType="java.lang.Integer">
+           select count(*)
+
+        from rz_test_task
+
+
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>
