@@ -62,13 +62,13 @@ public interface StatisticsMapper {
      * @param userId
      * @return
      */
-    List<Map<String,String>> getUserRzDateNum(String userId);
+    List<Map<String,Object>> getUserRzDateNum(String userId);
 
     /**
      * 管理员柱状图日期和申请次数
      * @param userId
      * @return
      */
-    List<Map<String,String>> getAdminRzDateNum(String userId);
+    List<Map<String,Object>> getAdminRzDateNum(String userId);
 
 }
