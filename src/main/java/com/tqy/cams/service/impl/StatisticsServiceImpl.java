@@ -29,36 +29,49 @@ public class StatisticsServiceImpl implements StatisticsService {
     @Autowired
     private StatisticsMapper statisticsMapper;
 
-
     @Override
     public ResultMessage getStatistics(String userId) {
-
         RoleUser roleId=statisticsMapper.getRole(userId);
+        Map<String, Integer> params = new HashMap<>();
         //员工级别查询统计
         if(roleId.getRoleId().equals("3")){
-            Map<String, Integer> params = new HashMap<>();
            Integer passCount= statisticsMapper.getUserPassMission(userId);
            Integer NoPassCount= statisticsMapper.getUserNoPassMission(userId);
-            Integer auditCount= statisticsMapper.getUserAuditMission(userId);
-           params.put("员工审核通过条数",passCount);
-            params.put("员工审核不通过条数",NoPassCount);
-            params.put("员工待审核条数",auditCount);
-            return new ResultMessage(BaseStatic.SUCCESS_CODE,"查询员工统计状态条数成功",params);
+           Integer auditCount= statisticsMapper.getUserAuditMission(userId);
+            params.put("审核通过",passCount);
+            params.put("审核不通过",NoPassCount);
+            params.put("待审核",auditCount);
         }
         //管理员 领导级别查询统计
         if(roleId.getRoleId().equals("1")||roleId.getRoleId().equals("2")){
-            Map<String, Integer> params = new HashMap<>();
             Integer AdminAuditCount= statisticsMapper.getAdminAuditMission(userId);
             Integer AdminNoAuditCount= statisticsMapper.getAdminNoAuditMission(userId);
             Integer TaskCount = statisticsMapper.getTaskCount(userId);
-            params.put("管理员已审核条数",AdminAuditCount);
-            params.put("管理员未审核条数",AdminNoAuditCount);
-            params.put("测试任务条数",TaskCount);
-            return new ResultMessage(BaseStatic.SUCCESS_CODE,"查询管理员统计状态条数成功",params);
+            params.put("已审核",AdminAuditCount);
+            params.put("未审核",AdminNoAuditCount);
+            params.put("测试任务",TaskCount);
         }
+        return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",params);
+    }
 
-
-        return null;
+    public ResultMessage getUserDateNum(String userId){
+        RoleUser roleId=statisticsMapper.getRole(userId);
+        Map<String, String> params = new HashMap<>();
+        //员工级别查询统计
+        if(roleId.getRoleId().equals("3")){
+            List<Map<String,String>> dateNum = statisticsMapper.getUserRzDateNum(userId);
+            for(Map<String,String> map : dateNum){
+                params.put(map.get("create_date"),map.get("num"));
+            }
+        }
+        //管理员 领导级别查询统计
+        if(roleId.getRoleId().equals("1")||roleId.getRoleId().equals("2")){
+            List<Map<String,String>> dateNum = statisticsMapper.getAdminRzDateNum(userId);
+            for(Map<String,String> map : dateNum){
+                params.put(map.get("create_date"),map.get("num"));
+            }
+        }
+        return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",params);
     }
 
     public ResultMessage getRztaskDateCount(String userId){

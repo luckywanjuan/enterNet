@@ -4,9 +4,10 @@ import com.tqy.cams.bean.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
- * 认证测试过程管理
+ * 认证统计
  */
 public interface StatisticsMapper {
 
@@ -57,12 +58,17 @@ public interface StatisticsMapper {
     Integer getTaskCount(String userId);
 
     /**
-     * 根据时间统计测试任务数量
+     * 用户柱状图日期和申请次数
+     * @param userId
+     * @return
      */
+    List<Map<String,String>> getUserRzDateNum(String userId);
 
-
-   Integer getRztaskDateCount(String userId);
-
-
+    /**
+     * 管理员柱状图日期和申请次数
+     * @param userId
+     * @return
+     */
+    List<Map<String,String>> getAdminRzDateNum(String userId);
 
 }

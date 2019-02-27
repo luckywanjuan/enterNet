@@ -132,7 +132,7 @@
                 async: false,
                 success: function (resp) {
                     if(resp.data){
-                        $("input[name='systemDept']").val(resp.data.systemDept);
+                        $("input[name='systemDept']").val(resp.data.managerDept);
                         $("input[name='developDept']").val(resp.data.developDept);
                     }else{
                         $("input[name='managerDept']").val('');

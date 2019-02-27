@@ -12,12 +12,17 @@ import com.tqy.cams.bean.TestPoint;
  **/
 public interface StatisticsService {
     /**
-     * 统计用户审核通过的条数
+     * 获取首页统计数量
      * @param userId
      * @return
      */
     ResultMessage getStatistics(String userId);
 
+    /**
+     * 获取认证申请柱状图
+     * @param userId
+     * @return
+     */
+    ResultMessage getUserDateNum(String userId);
 
-    ResultMessage getRztaskDateCount(String userId);
 }
