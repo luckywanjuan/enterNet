@@ -22,8 +22,8 @@
         from rz_check where user_id= #{userId}
     </select>
     <select id="getAdminNoAuditMission" resultType="java.lang.Integer">
-           select count(*) from rz_application a
-        LEFT OUTER JOIN rz_check b on a.id=b.application_id where b.user_id= #{userId} and b.result is null
+           select * from rz_application a
+            LEFT JOIN rz_check b on a.id=b.application_id where b.result is null
     </select>
     <select id="getTaskCount" resultType="java.lang.Integer">
            select count(*)
