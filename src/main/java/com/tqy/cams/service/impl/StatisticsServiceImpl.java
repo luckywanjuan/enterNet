@@ -56,19 +56,19 @@ public class StatisticsServiceImpl implements StatisticsService {
 
     public ResultMessage getUserDateNum(String userId){
         RoleUser roleId=statisticsMapper.getRole(userId);
-        Map<String, String> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         //员工级别查询统计
         if(roleId.getRoleId().equals("3")){
-            List<Map<String,String>> dateNum = statisticsMapper.getUserRzDateNum(userId);
-            for(Map<String,String> map : dateNum){
-                params.put(map.get("create_date"),map.get("num"));
+            List<Map<String,Object>> dateNum = statisticsMapper.getUserRzDateNum(userId);
+            for(Map<String,Object> map : dateNum){
+                params.put(map.get("create_date").toString(),map.get("num").toString());
             }
         }
         //管理员 领导级别查询统计
         if(roleId.getRoleId().equals("1")||roleId.getRoleId().equals("2")){
-            List<Map<String,String>> dateNum = statisticsMapper.getAdminRzDateNum(userId);
-            for(Map<String,String> map : dateNum){
-                params.put(map.get("create_date"),map.get("num"));
+            List<Map<String,Object>> dateNum = statisticsMapper.getAdminRzDateNum(userId);
+            for(Map<String,Object> map : dateNum){
+                params.put(map.get("check_date").toString(),map.get("num").toString());
             }
         }
         return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",params);
