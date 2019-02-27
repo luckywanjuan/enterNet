@@ -78,7 +78,7 @@ public class RzTaskImpl implements RzTaskService {
         //新用户进来为空 uuid 生成一个随机的id
         if(StringUtil.isNullOrBlank(rzp.getId())) {
             rzp.setId(StringUtil.getUUID());
-            rzp.setCreateTime(StringUtil.getTimeStamp("yyyy-MM-dd HH:mm:ss"));
+            rzp.setCreateTime(StringUtil.getTimeStamp("yyyy-MM-dd"));
             //生成id后，直接将信息存入数据库
             rzTaskMapper.saveRzPlan(rzp);
             logger.info("保存计划成功");
