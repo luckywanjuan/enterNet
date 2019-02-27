@@ -39,5 +39,14 @@ public class StatisticsController {
     public ResultMessage getRzDateNum(String userId){
       return statisticsService.getUserDateNum(userId);
     }
+    /**
+     * 获取测试任务柱状图
+     * @param userId
+     * @return
+     */
+    @RequestMapping("getRzTaskNum")
+    public ResultMessage getRzTaskNum(String userId){
+        return statisticsService.getRztaskDateCount(userId);
+    }
 
 }

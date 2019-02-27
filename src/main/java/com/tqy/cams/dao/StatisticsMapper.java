@@ -71,4 +71,12 @@ public interface StatisticsMapper {
      */
     List<Map<String,Object>> getAdminRzDateNum(String userId);
 
+
+    /**
+     * 管理员测试任务柱状图日期
+     * @param
+     * @return
+     */
+    List<Map<String,Object>> getRztaskDateCount();
+
 }

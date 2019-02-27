@@ -30,13 +30,13 @@ public class RzTaskImpl implements RzTaskService {
         //新用户进来为空 uuid 生成一个随机的id
         if(StringUtil.isNullOrBlank(rz.getId())) {
             rz.setId(StringUtil.getUUID());
-            rz.setCreateTime(StringUtil.getTimeStamp("yyyy-MM-dd HH:mm:ss"));
+            rz.setCreateTime(StringUtil.getTimeStamp("yyyy-MM-dd"));
             //生成id后，直接将信息存入数据库
             rzTaskMapper.saveRzTask(rz);
             logger.info("保存任务成功"+rz.getTaskName());
             return new ResultMessage(BaseStatic.SUCCESS_CODE, "成功");
         }else{
-            rz.setUpdateTime(StringUtil.getTimeStamp("yyyy-MM-dd HH:mm:ss"));
+            rz.setUpdateTime(StringUtil.getTimeStamp("yyyy-MM-dd"));
             rzTaskMapper.updateRzTask(rz);
             logger.info("修改任务成功");
             return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功");
@@ -92,12 +92,12 @@ public class RzTaskImpl implements RzTaskService {
         if(StringUtil.isNullOrBlank(rzr.getId())) {
             rzr.setId(StringUtil.getUUID());
             //生成id后，直接将信息存入数据库
-            rzr.setCreateTime(StringUtil.getTimeStamp("yyyy-MM-dd HH:mm:ss"));
+            rzr.setCreateTime(StringUtil.getTimeStamp("yyyy-MM-dd"));
             rzTaskMapper.saveRzReport(rzr);
             logger.info("保存测试报告成功");
             return new ResultMessage(BaseStatic.SUCCESS_CODE, "成功");
         }else{
-            rzr.setUpdateTime(StringUtil.getTimeStamp("yyyy-MM-dd HH:mm:ss"));
+            rzr.setUpdateTime(StringUtil.getTimeStamp("yyyy-MM-dd"));
             rzTaskMapper.updateRzReport(rzr);
             logger.info("修改测试报告成功");
             return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功");
@@ -109,12 +109,12 @@ public class RzTaskImpl implements RzTaskService {
         if(StringUtil.isNullOrBlank(tp.getId())) {
             tp.setId(StringUtil.getUUID());
             //生成id后，直接将信息存入数据库
-            tp.setCreateTime(StringUtil.getTimeStamp("yyyy-MM-dd HH:mm:ss"));
+            tp.setCreateTime(StringUtil.getTimeStamp("yyyy-MM-dd"));
             rzTaskMapper.savePoint(tp);
             logger.info("保存要点库成功");
             return new ResultMessage(BaseStatic.SUCCESS_CODE, "成功");
         }else{
-            tp.setUpdateTime(StringUtil.getTimeStamp("yyyy-MM-dd HH:mm:ss"));
+            tp.setUpdateTime(StringUtil.getTimeStamp("yyyy-MM-dd"));
             rzTaskMapper.updatePoint(tp);
             logger.info("修改要点库成功");
             return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功");

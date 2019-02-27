@@ -73,15 +73,25 @@ public class StatisticsServiceImpl implements StatisticsService {
         }
         return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",params);
     }
-
     public ResultMessage getRztaskDateCount(String userId){
-         Map<String,Map<String,Integer>> params = new HashMap<>();
-         Map<String,Integer> params1 = new HashMap<>();
-        Integer count = statisticsMapper.getRztaskDateCount(userId);
-        StringUtil.getTimeStamp("yyyy-MM-dd");
-        params1.put("sj",count);
-        params.put("测试任务时间统计条数",params1);
+        RoleUser roleId=statisticsMapper.getRole(userId);
+        Map<String, Object> params = new HashMap<>();
+        logger.info("1");
+        if(roleId.getRoleId().equals("1")||roleId.getRoleId().equals("2")){
+            List<Map<String,Object>> dateNum = statisticsMapper.getRztaskDateCount();
+            for(Map<String,Object> map : dateNum){
+                params.put(map.get("create_time").toString(),map.get("num").toString());
+            }
+            return new ResultMessage(BaseStatic.SUCCESS_CODE,"查询测试任务统计时间成功",params);
 
-        return new ResultMessage(BaseStatic.SUCCESS_CODE,"查询测试任务统计时间成功",params);
+        }
+
+
+        return null;
     }
+
+
+
+
+
 }

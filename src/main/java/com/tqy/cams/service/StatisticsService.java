@@ -25,4 +25,10 @@ public interface StatisticsService {
      */
     ResultMessage getUserDateNum(String userId);
 
+    /**
+     * 获取测试任务申请柱状图
+     * @param userId
+     * @return
+     */
+    ResultMessage getRztaskDateCount(String userId);
 }

@@ -37,4 +37,7 @@
     <select id="getAdminRzDateNum" resultType="java.util.Map">
           select count(1) as num,check_date from rz_check where user_id=#{userId} group by check_date
     </select>
+    <select id="getRztaskDateCount" resultType="java.util.Map">
+          select count(1) as num,create_time  from rz_test_task  group by create_time
+    </select>
 </mapper>
