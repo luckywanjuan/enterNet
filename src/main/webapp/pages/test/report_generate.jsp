@@ -148,6 +148,7 @@
             })
         }
         form.on('select(businessType)', function(data){
+            console.log('select(businessType)')
             getRzTaskMsg($(data.elem[data.elem.selectedIndex]).attr('taskid'))
 
         });

@@ -1,6 +1,32 @@
 .bgf{
     background: #fff;
 }
+.cgrey{
+    color: #8a8a8a;
+}
+.cblue{
+    color:#1e88e5 ;
+}
+.f18{
+    font-size: 18px;
+}
+.fontw{
+    font-weight: bold;
+}
+.tr{
+    text-align: right;
+}
 .shodow{
+    margin-right: 10px;
+    padding: 10px;
     box-shadow: 0 1px 4px 0 rgba(0,0,0,.1)
+}
+.title_sta{
+    margin-top: 10px;
+}
+.disflex{
+    display: flex;
+}
+.itemflex{
+    flex: 1;
 }
