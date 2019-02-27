@@ -20,10 +20,12 @@ public class StatisticsController {
   @Autowired
     StatisticsService statisticsService;
 
-    @RequestMapping("getUserPassMission")
+    @RequestMapping("getStatistics")
     public ResultMessage getUserPassMission(String userId){
         return statisticsService.getStatistics(userId);
     }
-
+    public ResultMessage getRztaskDateCount(String userId){
+      return statisticsService.getStatistics(userId);
+    }
 
 }

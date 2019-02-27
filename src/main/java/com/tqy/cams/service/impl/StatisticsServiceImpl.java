@@ -60,4 +60,15 @@ public class StatisticsServiceImpl implements StatisticsService {
 
         return null;
     }
+
+    public ResultMessage getRztaskDateCount(String userId){
+         Map<String,Map<String,Integer>> params = new HashMap<>();
+         Map<String,Integer> params1 = new HashMap<>();
+        Integer count = statisticsMapper.getRztaskDateCount(userId);
+        StringUtil.getTimeStamp("yyyy-MM-dd");
+        params1.put("sj",count);
+        params.put("测试任务时间统计条数",params1);
+
+        return new ResultMessage(BaseStatic.SUCCESS_CODE,"查询测试任务统计时间成功",params);
+    }
 }

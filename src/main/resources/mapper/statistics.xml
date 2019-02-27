@@ -43,6 +43,13 @@
     </select>
 
 
+    <select id="getRztaskDateCount" resultType="java.lang.Integer"  >
+           select count(*)
+
+        from rz_test_task group by create_time where cerate_time like '%${createTime}%'
+
+
+    </select>
 
 
 

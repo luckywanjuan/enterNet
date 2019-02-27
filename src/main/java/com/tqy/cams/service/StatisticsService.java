@@ -19,5 +19,5 @@ public interface StatisticsService {
     ResultMessage getStatistics(String userId);
 
 
-
+    ResultMessage getRztaskDateCount(String userId);
 }
