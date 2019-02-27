@@ -34,7 +34,7 @@ public class LoginInterceptor implements HandlerInterceptor{
         System.out.println("当前用户已登录，登录的用户名为： " + userName);
         return true;
     }
-    
+
 	/**
      * 在请求被处理后，视图渲染之前调用
      * @param request
@@ -47,7 +47,7 @@ public class LoginInterceptor implements HandlerInterceptor{
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 
     }
- 
+
 	/**
      * 在整个请求结束后调用
      * @param request
@@ -59,7 +59,7 @@ public class LoginInterceptor implements HandlerInterceptor{
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
     }
-    
+
    /* @Bean
     public WebMvcConfigurerAdapter customMvcConfigurerAdapter (){
         return new WebMvcConfigurerAdapter() {

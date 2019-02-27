@@ -38,18 +38,18 @@ public class StatisticsServiceImpl implements StatisticsService {
            Integer passCount= statisticsMapper.getUserPassMission(userId);
            Integer NoPassCount= statisticsMapper.getUserNoPassMission(userId);
            Integer auditCount= statisticsMapper.getUserAuditMission(userId);
-            params.put("审核通过",passCount);
-            params.put("审核不通过",NoPassCount);
-            params.put("待审核",auditCount);
+            params.put("PASS",passCount);    //审核通过
+            params.put("NOPASS",NoPassCount);   //审核不通过
+            params.put("AUDIT",auditCount);  //待审核
         }
         //管理员 领导级别查询统计
         if(roleId.getRoleId().equals("1")||roleId.getRoleId().equals("2")){
             Integer AdminAuditCount= statisticsMapper.getAdminAuditMission(userId);
             Integer AdminNoAuditCount= statisticsMapper.getAdminNoAuditMission(userId);
             Integer TaskCount = statisticsMapper.getTaskCount(userId);
-            params.put("已审核",AdminAuditCount);
-            params.put("未审核",AdminNoAuditCount);
-            params.put("测试任务",TaskCount);
+            params.put("ONAUDIT",AdminAuditCount);    //已审核
+            params.put("NOAUDIT",AdminNoAuditCount);  //未审核
+            params.put("TASK",TaskCount);  //测试任务
         }
         return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",params);
     }
@@ -63,6 +63,7 @@ public class StatisticsServiceImpl implements StatisticsService {
             for(Map<String,Object> map : dateNum){
                 params.put(map.get("create_date").toString(),map.get("num").toString());
             }
+            return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",dateNum);
         }
         //管理员 领导级别查询统计
         if(roleId.getRoleId().equals("1")||roleId.getRoleId().equals("2")){
@@ -70,8 +71,9 @@ public class StatisticsServiceImpl implements StatisticsService {
             for(Map<String,Object> map : dateNum){
                 params.put(map.get("check_date").toString(),map.get("num").toString());
             }
+            return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",dateNum);
         }
-        return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",params);
+       return null;
     }
     public ResultMessage getRztaskDateCount(String userId){
         RoleUser roleId=statisticsMapper.getRole(userId);
@@ -82,7 +84,7 @@ public class StatisticsServiceImpl implements StatisticsService {
             for(Map<String,Object> map : dateNum){
                 params.put(map.get("create_time").toString(),map.get("num").toString());
             }
-            return new ResultMessage(BaseStatic.SUCCESS_CODE,"查询测试任务统计时间成功",params);
+            return new ResultMessage(BaseStatic.SUCCESS_CODE,"查询测试任务统计时间成功",dateNum);
 
         }
 

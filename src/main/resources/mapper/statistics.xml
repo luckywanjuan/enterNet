@@ -31,13 +31,15 @@
     </select>
 
     <select id="getUserRzDateNum" resultType="java.util.Map">
-          select count(1) as num,create_date from rz_application where user_id=#{userId} group by create_date
+          select count(1) as num,create_date from rz_application where user_id=#{userId} group by create_date ORDER BY create_date
     </select>
 
     <select id="getAdminRzDateNum" resultType="java.util.Map">
-          select count(1) as num,check_date from rz_check where user_id=#{userId} group by check_date
+          select count(1) as num,check_date from rz_check where user_id=#{userId} group by check_date ORDER BY check_date
+
     </select>
     <select id="getRztaskDateCount" resultType="java.util.Map">
-          select count(1) as num,create_time  from rz_test_task  group by create_time
+          select count(1) as num,create_time  from rz_test_task  group by create_time ORDER BY create_time
+
     </select>
 </mapper>
