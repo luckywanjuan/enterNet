@@ -123,7 +123,9 @@
                 pointData['id']='';
             }else{
                 title="编辑要点";
-                pointData['id']=item;
+                pointData['id']=item.id;
+                $('input[name=pointName]').val(item.pointName);
+                $('input[name=Point]').val(item.point);
             }
             layer.open({
                 type: 1
