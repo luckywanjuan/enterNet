@@ -3,62 +3,38 @@
 <mapper namespace="com.tqy.cams.dao.StatisticsMapper" >
     <select id="getUserPassMission" resultType="java.lang.Integer">
         select count(*)
-
-        from rz_application a,rz_check b where a.id=b.application_id and b.user_id= #{userId} and result = "通过"
+        from rz_application a,rz_check b where a.id=b.application_id and a.user_id= #{userId} and b.result = "通过"
     </select>
     <select id="getUserNoPassMission" resultType="java.lang.Integer">
         select count(*)
-
-        from rz_application a,rz_check b where a.id=b.application_id and b.user_id= #{userId} and result = "未通过"
-
+        from rz_application a,rz_check b where a.id=b.application_id and a.user_id= #{userId} and b.result = "未通过"
     </select>
     <select id="getUserAuditMission" resultType="java.lang.Integer">
-        select count(*)
-
-        from rz_application a,rz_check b where a.id=b.application_id and b.user_id= #{userId} and result is null
+        select count(*) from rz_application a
+        LEFT OUTER JOIN rz_check b on a.id=b.application_id where a.user_id= #{userId} and b.result is null
     </select>
     <select id="getRole" resultType="com.tqy.cams.bean.RoleUser">
         select role_id AS roleId
-
         from role_user where user_id= #{userId}
     </select>
     <select id="getAdminAuditMission" resultType="java.lang.Integer">
         select count(*)
-
-        from rz_check
+        from rz_check where user_id= #{userId}
     </select>
     <select id="getAdminNoAuditMission" resultType="java.lang.Integer">
-           select count(*)
-
-        from rz_application
-
-
+           select count(*) from rz_application a
+        LEFT OUTER JOIN rz_check b on a.id=b.application_id where b.user_id= #{userId} and b.result is null
     </select>
     <select id="getTaskCount" resultType="java.lang.Integer">
            select count(*)
-
         from rz_test_task
-
-
     </select>
 
+    <select id="getUserRzDateNum" resultType="java.util.Map">
+          select count(1) as num,create_date from rz_application where user_id=#{userId} group by create_date
+    </select>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <select id="getAdminRzDateNum" resultType="java.util.Map">
+          select count(1) as num,check_date from rz_check where user_id=#{userId} group by check_date
+    </select>
 </mapper>

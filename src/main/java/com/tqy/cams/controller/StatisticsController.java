@@ -12,18 +12,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 认证测试
+ * 认证统计
  **/
 @RestController
 @RequestMapping("statistics")
 public class StatisticsController {
-  @Autowired
+    @Autowired
     StatisticsService statisticsService;
 
+  /**
+   * 获取首页统计数量
+   * @param userId
+   * @return
+   */
     @RequestMapping("getUserPassMission")
     public ResultMessage getUserPassMission(String userId){
         return statisticsService.getStatistics(userId);
     }
 
+  /**
+   * 获取认证申请柱状图
+   * @param userId
+   * @return
+   */
+    @RequestMapping("getRzDateNum")
+    public ResultMessage getRzDateNum(String userId){
+      return statisticsService.getUserDateNum(userId);
+    }
 
 }
