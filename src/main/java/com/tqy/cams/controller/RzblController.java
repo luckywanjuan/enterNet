@@ -23,39 +23,41 @@ public class RzblController {
     @Autowired
     private RzblService rzblService;
 
-    /**
+    /* *//**
      * 我的任务
-     */
+     *//*
     @RequestMapping("queryMyTask")
     public PageResult queryMyTask(String userId, String processDefKey){
         return rzblService.queryMyTask(userId,processDefKey);
-    }
-    
+    }*/
+
     /**
-    * 上传
-    * @param file
-    * @param request
-    * @return
-    */
+     * 上传
+     *
+     * @param file
+     * @param request
+     * @return
+     */
     @RequestMapping("/fileUpload")
-    public ResultMessage handleFormUpload(MultipartFile file,HttpServletRequest request) {
+    public ResultMessage handleFormUpload(MultipartFile file, HttpServletRequest request) {
         //设置上传文件的保存地址目录
         String dirPath = request.getServletContext().getRealPath("/upload/");
-        return rzblService.upload(file,dirPath);
+        return rzblService.upload(file, dirPath);
     }
-    
+
     /**
      * 下载
+     *
      * @param request
-     * @param filename
+     * @param
      * @return
      * @throws Exception
      */
     @RequestMapping("/fileDownload")
-    public ResultMessage getFilePath(String applicationId,HttpServletRequest request) {
-    	//设置下载文件的本地保存地址
+    public ResultMessage getFilePath(String applicationId, HttpServletRequest request) {
+        //设置下载文件的本地保存地址
         String dirPath = request.getServletContext().getRealPath("/download/");
-    	return rzblService.download(applicationId,dirPath);
+        return rzblService.download(applicationId, dirPath);
     }
     /*public ResponseEntity<byte[]> fileDownload(HttpServletRequest request,String filename) throws Exception {
 	    //指定要下载的文件所在路径
@@ -72,26 +74,26 @@ public class RzblController {
 	    headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 	    return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),headers,HttpStatus.OK);
     }*/
-    
-    
+
+
     /**
      * 根据浏览器的不同进行编码设置，返回编码后文件名
-     * */
-    public String getFilename(HttpServletRequest request,String filename) throws Exception {
+     */
+    public String getFilename(HttpServletRequest request, String filename) throws Exception {
         //IE不同版本User-Agent中出现的关键词
-        String[] IEBrowserKeyWords = {"MSIE","Trident","Edge"};
+        String[] IEBrowserKeyWords = {"MSIE", "Trident", "Edge"};
         //获取请求头代理信息
         String userAgent = request.getHeader("User-Agent");
-        for(String keyWord : IEBrowserKeyWords) {
-            if(userAgent.contains(keyWord)) {
+        for (String keyWord : IEBrowserKeyWords) {
+            if (userAgent.contains(keyWord)) {
                 //IE内核浏览器，统一为UTF-8编码显示
-                return URLEncoder.encode(filename,"UTF-8");
+                return URLEncoder.encode(filename, "UTF-8");
             }
         }
         //火狐等其他浏览器统一为ISO-8859-1编码显示
-        return new String(filename.getBytes("UTF-8"),"ISO-8859-1");
+        return new String(filename.getBytes("UTF-8"), "ISO-8859-1");
     }
-    
+
     /**
      * 新增入网认证申请表单数据
      */
@@ -99,23 +101,23 @@ public class RzblController {
     public ResultMessage updateRzApplication(RzApplication rz) {
         return rzblService.updateRzApplication(rz);
     }
-    
+
     /**
      * 获取用户对应的入网认证申请表单数据
      */
     @RequestMapping("queryAllRzApp")
     public PageResult queryAllRzApp(String userId, String systemName,
-    		String managerDept, String developDept, String page, String limit) {
-        return rzblService.queryAllRzApp(page,limit,systemName,managerDept,developDept,userId);
+                                    String managerDept, String developDept, String page, String limit) {
+        return rzblService.queryAllRzApp(page, limit, systemName, managerDept, developDept, userId);
     }
-    
+
     /**
      * 获取所有待审核的用户入网认证申请
      */
     @RequestMapping("queryAllCheckRzApp")
-    public PageResult queryAllCheckRzApp(String page, String limit,String systemName, 
-    		String managerDept, String developDept,String isCheck) {
-        return rzblService.queryAllCheckRzApp(page,limit,systemName,managerDept,developDept,isCheck);
+    public PageResult queryAllCheckRzApp(String page, String limit, String systemName,
+                                         String managerDept, String developDept, String isCheck) {
+        return rzblService.queryAllCheckRzApp(page, limit, systemName, managerDept, developDept, isCheck);
     }
 
     /**
@@ -125,7 +127,7 @@ public class RzblController {
     public ResultMessage getRzApplication(String id) {
         return rzblService.getCheckRzApplication(id);
     }
-    
+
     /**
      * 新增入网认证审核表单数据
      */
@@ -133,7 +135,7 @@ public class RzblController {
     public ResultMessage updateCheckRzApplication(RzCheckRz check) {
         return rzblService.updateCheckRzApplication(check);
     }
-
+}
     /**
      * 获取入网认证审核表单数据
      */
@@ -143,81 +145,81 @@ public class RzblController {
     }*/
 
 
-    /**
+   /* *//**
      * 可发起的流程
-     */
+     *//*
     @RequestMapping("queryStartupProcess")
     public PageResult queryStartupProcess(String userId){
         return rzblService.queryStartupProcess(userId);
     }
 
-    /**
+    *//**
      * 启动流程
-     */
+     *//*
     @RequestMapping("startProcess")
     public ResultMessage startProcess(String userId,String processDefKey,String buzId){
         return rzblService.startProcess(userId,processDefKey,buzId);
     }
 
-    /**
+    *//**
      * 签收任务
-     */
+     *//*
     @RequestMapping("claimTask")
     public ResultMessage claimTask(String taskId,String userId) {
         return rzblService.claimTask(taskId, userId);
     }
 
-    /**
+    *//**
      * 取消签收任务
-     */
+     *//*
     @RequestMapping("unclaimTask")
     public ResultMessage unclaimTask(String taskId) {
         return rzblService.unclaimTask(taskId);
     }
 
-    /**
+    *//**
      * 发送任务
-     */
+     *//*
     @RequestMapping("sendTask")
     public ResultMessage sendTask(String taskId,String userId,String result,String resultDesc) {
         return rzblService.sendTask(taskId, userId,result,resultDesc);
     }
 
-    /**
+    *//**
      * 回退任务
-     */
+     *//*
     @RequestMapping("backTask")
     public ResultMessage backTask(String taskId,String userId,String result,String resultDesc) {
         return rzblService.backTask(taskId, userId,result,resultDesc);
     }
 
-    /**
+    *//**
      * 中止流程
-     */
+     *//*
     @RequestMapping("deleteProcess")
     public ResultMessage deleteProcess(String prciId) {
         return rzblService.deleteProcess(prciId);
     }
 
-    /**
+    *//**
      * 给流程实例设置业务id
-     */
+     *//*
     @RequestMapping("setBusinessId")
     public ResultMessage setBusinessId(String prciId, String buzId) {
         return rzblService.setBusinessId(prciId, buzId);
     }
 
-    /**
+    *//**
      * 设置流程变量
-     */
+     *//*
     @RequestMapping("setVariables")
     public ResultMessage setVariables(String prciId) {
         return rzblService.setVariables(prciId);
     }
 
-    /**
+    *//**
      * 获取流程变量
-     */
+     *//*
     @RequestMapping("getVariables")
     public ResultMessage getVariables(String prciId) {
         return rzblService.getVariables(prciId);
@@ -229,71 +231,71 @@ public class RzblController {
         return rzblService.getFootpoint(prciId);
     }
 
-    /**
+    *//**
      * 我的申请
-     */
+     *//*
     @RequestMapping("myApplication")
     public PageResult myApplication(String userId, String processDefKey){
         return rzblService.myApplication(userId,processDefKey);
     }
 
-    /**
+    *//**
      * 我的已办任务
-     */
+     *//*
     @RequestMapping("queryHiTaskAll")
     public PageResult queryHiTaskAll(String userId){
         return rzblService.queryHiTaskAll(userId);
     }
 
-    /**
+    *//**
      * 获取委托权限
      * @param userId
      * @return
-     */
+     *//*
     @RequestMapping("getAuth")
     public ResultMessage getAuth(String userId) {
         return rzblService.getAuth(userId);
     }
 
-    /**
+    *//**
      * 新增一条委托
-     */
+     *//*
     @RequestMapping("addDelegate")
     public ResultMessage addDelegate(String jsonStr){
         return rzblService.addDelegate(jsonStr);
     }
 
-    /**
+    *//**
      * 查询委托列表
      * @return
-     */
+     *//*
     @RequestMapping("queryDelegateInfoList")
     public ResultMessage queryDelegateInfoList(HttpServletRequest request){
         String userId = request.getParameter("userId");
         return rzblService.queryDelegateInfoList(userId);
     }
     
-    /**
+    *//**
      * 被委托人发送任务
-     */
+     *//*
     @RequestMapping("sendTaskDelegate")
     public ResultMessage sendTaskDelegate(String taskId,String userId,String result,String resultDesc
     		,String delegater, String delegateId) {
         return rzblService.sendTaskDelegate(taskId, userId,result,resultDesc,delegater,delegateId);
     }
     
-    /**
+    *//**
      * 删除委托
      * @param id
      * @return
-     */
+     *//*
     @RequestMapping("deleteDelegate")
     public ResultMessage deleteDelegate(String id){
     	rzblService.deleteDelegate(id);
     	return new ResultMessage(0, "删除成功");
     }
     
-    /**
+    *//**
      * 被委托人回退任务
      * @param taskId
      * @param userId
@@ -302,19 +304,20 @@ public class RzblController {
      * @param delegater
      * @param delegateId
      * @return
-     */
+     *//*
     @RequestMapping("backTaskDelegate")
     public ResultMessage backTaskDelegate(String taskId,String userId,String result,String resultDesc
     		,String delegater, String delegateId) {
     	return rzblService.backTaskDelegate(taskId, userId, result, resultDesc, delegater, delegateId);
     }
 
-    /**
+    *//**
      * 获取委托的业务规则
-     */
+     *//*
     @RequestMapping("queryDelegateList")
     public ResultMessage queryDelegateList(String processDefId, String activityId) {
         return rzblService.queryDelegateList(processDefId,activityId);
     }
 
 }
+*/

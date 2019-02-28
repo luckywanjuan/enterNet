@@ -42,10 +42,10 @@ public class Test {
 
     /**
      * 展示流程图
-     */
+     *//*
     @RequestMapping("showImg")
     public void showImg(String prciId, String procDefId, HttpServletResponse response){
     	rzblService.showImg(prciId,procDefId,response);
-    }
+    }*/
     
 }
