@@ -11,8 +11,8 @@ public class RzPlan extends ITask implements Serializable{
 	private String systemDept;  //系统管理单位
 	private String developDept; //研制单位
 	private String testType; //测试类型
-	private Integer systemCheck;  //系统形式检查
-	private Integer interfaceCheck;  //接口规范检查
+	private String systemCheck;  //系统形式检查
+	private String interfaceCheck;  //接口规范检查
 	private String testPoint; //测试要点
 	private String createTime;//创建时间
 
@@ -60,19 +60,20 @@ public class RzPlan extends ITask implements Serializable{
 		this.testType = testType;
 	}
 
-	public Integer getSystemCheck() {
+
+	public String getSystemCheck() {
 		return systemCheck;
 	}
 
-	public void setSystemCheck(Integer systemCheck) {
+	public void setSystemCheck(String systemCheck) {
 		this.systemCheck = systemCheck;
 	}
 
-	public Integer getInterfaceCheck() {
+	public String getInterfaceCheck() {
 		return interfaceCheck;
 	}
 
-	public void setInterfaceCheck(Integer interfaceCheck) {
+	public void setInterfaceCheck(String interfaceCheck) {
 		this.interfaceCheck = interfaceCheck;
 	}
 
