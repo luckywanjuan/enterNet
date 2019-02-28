@@ -192,6 +192,7 @@
                         ],
                         series: [
                             {
+                                barMaxWidth: 68,
                                 name: '测试任务',
                                 type: 'bar',
                                 barWidth: '60%',
