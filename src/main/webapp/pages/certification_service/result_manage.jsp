@@ -12,7 +12,7 @@
     </style>
 </head>
 <body style="background: #fff">
-<div class="layui-card-header">认证申请管理</div>
+<div class="layui-card-header">认证结果管理</div>
 <br>
 <div class="layui-fluid ">
     <div class="layui-row layui-col-space10">

@@ -19,21 +19,21 @@
 <body >
 <div class="layui-fluid">
     <div class="layui-row" style="padding: 15px">
-        <div class="layui-col-md2 bgf shodow" >
+        <div class="layui-col-md2 bgf shodow" data-src="pages/certification_service/result_query.jsp" data-title="认证结果查询" onclick="linkPage(this)">
             <div class="layui-row">
                 <i class="layui-col-md6 fa fa-copy  fa-2x cgrey"></i>
                 <div class="layui-col-md6 cblue f18 fontw tr" id="awaitUser"></div>
             </div>
             <div class="title_sta cgrey">未审核数</div>
         </div>
-        <div class="layui-col-md2  bgf shodow">
+        <div class="layui-col-md2  bgf shodow" data-src="pages/certification_service/result_query.jsp" data-title="认证结果查询" onclick="linkPage(this)">
             <div class="layui-row">
                 <i class="layui-col-md6  fa fa-copy  fa-2x cgrey"></i>
                 <div class="layui-col-md6 cblue f18 fontw tr" id="accessUser"></div>
             </div>
             <div class="title_sta cgrey">已通过数：</div>
         </div>
-        <div class="layui-col-md2  bgf shodow">
+        <div class="layui-col-md2  bgf shodow" data-src="pages/certification_service/result_query.jsp" data-title="认证结果查询" onclick="linkPage(this)">
             <div class="layui-row">
                 <i class="layui-col-md6  fa fa-copy  fa-2x"></i>
                 <div class="layui-col-md6 cblue f18 fontw tr" id="unassessUser"></div>
@@ -87,7 +87,7 @@
                         resp.data.forEach(function(element,index){
                             xaris.push(element.create_date)
                             value.push(element.num)
-                        })
+                        });
                         var optionAsset = {
                             color: ['#188df0'],
                             tooltip : {
@@ -137,6 +137,28 @@
             })
         }
         getRzDateNumApi();
+        window.linkPage = function (that) {
+            var endFlag = true;
+            var _that=$(that);
+            var url =_that.attr('data-src'), y = url.replace(/(^http(s*):)|(\?[\s\S]*$)/g, "");
+            parent.$('#LAY_app_tabsheader').find('li').each(function (item) {
+                if ($(this).attr("lay-id") === url) {
+                    endFlag = false;
+                    parent.$('iframe[src="'+url+'"]').parent().siblings().removeClass('layui-show');
+                    parent.$('iframe[src="'+url+'"]').parent().addClass('layui-show');
+                    return;
+                }
+            });
+            if (endFlag) {
+                parent.$('#LAY_app_body').append(['<div class="layadmin-tabsbody-item layui-show">', '<iframe src="' + url + '" frameborder="0"  class="layadmin-iframe"></iframe>', "</div>"].join(""))
+                parent.element.tabAdd('layadmin-layout-tabs', {
+                    title: "<span>"+_that.attr('data-title')+"</span>",
+                    attr: y,
+                    id: url
+                })
+            }
+            parent.element.tabChange('layadmin-layout-tabs', url);
+        }
     })
 </script>
 </body>

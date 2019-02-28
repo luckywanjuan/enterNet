@@ -11,31 +11,32 @@
     <title>审核统计</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/layui/css/layui.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/static.css">
 </head>
-<body >
+<body>
 <div class="layui-fluid">
     <div class="layui-row" style="padding: 15px">
-        <div class="layui-col-md2 bgf shodow" >
+        <div class="layui-col-md2 bgf shodow" data-src="pages/certification_service/result_manage.jsp" data-title="认证结果管理" onclick="linkPage(this)">
             <div class="layui-row">
                 <i class="layui-col-md6 fa fa-copy  fa-2x cgrey"></i>
                 <div class="layui-col-md6 cblue f18 fontw tr" id="alreadly"></div>
             </div>
             <div class="title_sta cgrey">已审核次数</div>
         </div>
-        <div class="layui-col-md2  bgf shodow">
+        <div class="layui-col-md2  bgf shodow" data-src="pages/certification_service/application_assest.jsp" data-title="认证申请审批"   onclick="linkPage(this)">
             <div class="layui-row">
                 <i class="layui-col-md6  fa fa-copy  fa-2x cgrey"></i>
                 <div class="layui-col-md6 cblue f18 fontw tr" id="noAsset"></div>
             </div>
             <div class="title_sta cgrey">未审核次数：</div>
         </div>
-        <div class="layui-col-md2  bgf shodow">
+        <div class="layui-col-md2  bgf shodow" data-src="pages/test/task_query.jsp"  data-title="测试任务查询"  onclick="linkPage(this)">
             <div class="layui-row">
-                <i class="layui-col-md6  fa fa-copy  fa-2x"></i>
+                <i class="layui-col-md6  fa fa-copy  fa-2x cgrey"></i>
                 <div class="layui-col-md6 cblue f18 fontw tr" id="testTask"></div>
             </div>
             <div class="title_sta cgrey">测试任务：</div>
@@ -43,7 +44,7 @@
     </div>
     <div class="disflex">
         <div class="itemflex bgf" id="asset_chart" style="width:400px;height: 480px"></div>
-        <div class="itemflex bgf" id="test_chart"style="width:400px;height: 480px"></div>
+        <div class="itemflex bgf" id="test_chart" style="width:400px;height: 480px"></div>
     </div>
 </div>
 <script src="${pageContext.request.contextPath}/assets/layui/layui.js"></script>
@@ -51,35 +52,36 @@
 <script src="${pageContext.request.contextPath}/assets/common/function.js"></script>
 <script>
     var ctx = "${pageContext.request.contextPath}/";
-    var userInfo=JSON.parse(sessionStorage.getItem('userInfo'));
+    var userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
     layui.use(['table'], function () {
         var $ = layui.jquery;
-        var assetChart= echarts.init(document.getElementById('asset_chart'));
-        var testChart= echarts.init(document.getElementById('test_chart'));
-        function getRzDateNumApi(){
+        var assetChart = echarts.init(document.getElementById('asset_chart'));
+        var testChart = echarts.init(document.getElementById('test_chart'));
+
+        function getRzDateNumApi() {
             $.ajax({
                 url: ctx + "statistics/getRzDateNum",
-                data: {userId:userInfo.data.userId},
+                data: {userId: userInfo.data.userId},
                 type: 'post',
                 dataType: 'json',
                 async: false,
                 success: function (resp) {
-                    if(resp.code==0){
-                        var xaris=[];
-                        var value=[];
-                        resp.data.forEach(function(element,index){
+                    if (resp.code == 0) {
+                        var xaris = [];
+                        var value = [];
+                        resp.data.forEach(function (element, index) {
                             xaris.push(element.check_date)
                             value.push(element.num)
                         })
                         var optionAsset = {
                             color: ['#188df0'],
-                            tooltip : {
+                            tooltip: {
                                 trigger: 'axis',
-                                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
                                 }
                             },
-                            title:{
+                            title: {
                                 text: '审核统计'
                             },
                             grid: {
@@ -88,27 +90,27 @@
                                 bottom: '3%',
                                 containLabel: true
                             },
-                            xAxis : [
+                            xAxis: [
                                 {
-                                    type : 'category',
-                                    data : xaris,
+                                    type: 'category',
+                                    data: xaris,
                                     axisTick: {
                                         alignWithLabel: true
                                     }
                                 }
                             ],
-                            yAxis : [
+                            yAxis: [
                                 {
-                                    type : 'value'
+                                    type: 'value'
                                 }
                             ],
-                            series : [
+                            series: [
                                 {
-                                    barMaxWidth:68,
-                                    name:'审核统计',
-                                    type:'bar',
+                                    barMaxWidth: 68,
+                                    name: '审核统计',
+                                    type: 'bar',
                                     barWidth: '60%',
-                                    data:value
+                                    data: value
                                 }
                             ]
                         };
@@ -119,16 +121,18 @@
                 }
             })
         }
+
         getRzDateNumApi();
-        function getUserPassMissionApi(){
+
+        function getUserPassMissionApi() {
             $.ajax({
                 url: ctx + "statistics/getUserPassMission",
-                data: {userId:userInfo.data.userId},
+                data: {userId: userInfo.data.userId},
                 type: 'post',
                 dataType: 'json',
                 async: false,
                 success: function (resp) {
-                    if(resp.code==0){
+                    if (resp.code == 0) {
                         $('#alreadly').html(resp['data']['ONAUDIT'])
                         $('#noAsset').html(resp['data']['NOAUDIT'])
                         $('#testTask').html(resp['data']['TASK'])
@@ -138,30 +142,32 @@
                 }
             })
         }
+
         getUserPassMissionApi();
-        function getRzTaskNumApi(){//管理员测试任务柱状图
+
+        function getRzTaskNumApi() {//管理员测试任务柱状图
             $.ajax({
                 url: ctx + "statistics/getRzTaskNum",
-                data: {userId:userInfo.data.userId},
+                data: {userId: userInfo.data.userId},
                 type: 'post',
                 dataType: 'json',
                 async: false,
                 success: function (resp) {
-                    var xaris=[];
-                    var value=[];
-                    resp.data.forEach(function(element,index){
+                    var xaris = [];
+                    var value = [];
+                    resp.data.forEach(function (element, index) {
                         xaris.push(format(element.create_time))
                         value.push(element.num)
                     })
                     var optionTest = {
                         color: ['#188df0'],
-                        tooltip : {
+                        tooltip: {
                             trigger: 'axis',
-                            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
                             }
                         },
-                        title:{
+                        title: {
                             text: '测试任务统计'
                         },
                         grid: {
@@ -170,26 +176,26 @@
                             bottom: '3%',
                             containLabel: true
                         },
-                        xAxis : [
+                        xAxis: [
                             {
-                                type : 'category',
-                                data : xaris,
+                                type: 'category',
+                                data: xaris,
                                 axisTick: {
                                     alignWithLabel: true
                                 }
                             }
                         ],
-                        yAxis : [
+                        yAxis: [
                             {
-                                type : 'value'
+                                type: 'value'
                             }
                         ],
-                        series : [
+                        series: [
                             {
-                                name:'测试任务',
-                                type:'bar',
+                                name: '测试任务',
+                                type: 'bar',
                                 barWidth: '60%',
-                                data:value
+                                data: value
                             }
                         ]
                     };
@@ -199,7 +205,30 @@
                 }
             })
         }
+
         getRzTaskNumApi();
+        window.linkPage = function (that) {
+            var endFlag = true;
+            var _that=$(that);
+            var url =_that.attr('data-src'), y = url.replace(/(^http(s*):)|(\?[\s\S]*$)/g, "");
+            parent.$('#LAY_app_tabsheader').find('li').each(function (item) {
+                if ($(this).attr("lay-id") === url) {
+                    endFlag = false;
+                    parent.$('iframe[src="'+url+'"]').parent().siblings().removeClass('layui-show');
+                    parent.$('iframe[src="'+url+'"]').parent().addClass('layui-show');
+                    return;
+                }
+            });
+            if (endFlag) {
+                parent.$('#LAY_app_body').append(['<div class="layadmin-tabsbody-item layui-show">', '<iframe src="' + url + '" frameborder="0"  class="layadmin-iframe"></iframe>', "</div>"].join(""))
+                parent.element.tabAdd('layadmin-layout-tabs', {
+                    title: "<span>"+_that.attr('data-title')+"</span>",
+                    attr: y,
+                    id: url
+                })
+            }
+            parent.element.tabChange('layadmin-layout-tabs', url);
+        }
     })
 </script>
 </body>
