@@ -22,14 +22,14 @@ public interface RzblService {
      * @param leave
      * @return
      */
-    PageResult queryMyTask(String userId, String processDefKey);
+  //  PageResult queryMyTask(String userId, String processDefKey);
 
     /**
      * 查询可启动流程
      * @param userId
      * @return
      */
-    PageResult queryStartupProcess(String userId);
+    //PageResult queryStartupProcess(String userId);
 
     /**
      * 启动流程
@@ -38,7 +38,7 @@ public interface RzblService {
      * @param buzId    业务id
      * @return
      */
-    ResultMessage startProcess(String userId, String processDefKey, String buzId);
+   // ResultMessage startProcess(String userId, String processDefKey, String buzId);
 
     /**
      * 签收任务
@@ -46,14 +46,14 @@ public interface RzblService {
      * @param userId
      * @return
      */
-    ResultMessage claimTask(String taskId, String userId);
+  //  ResultMessage claimTask(String taskId, String userId);
 
     /**
      * 取消签收任务
      * @param taskId	任务id
      * @return
      */
-    ResultMessage unclaimTask(String taskId);
+ //   ResultMessage unclaimTask(String taskId);
 
     /**
      * 发送任务
@@ -62,16 +62,16 @@ public interface RzblService {
      * @param result
      *@param resultDesc @return
      */
-    ResultMessage sendTask(String taskId, String userId, String result, String resultDesc);
+ //   ResultMessage sendTask(String taskId, String userId, String result, String resultDesc);
 
     /**
      * 回退任务
-     * @param taskId	
-     * @param userId	
+     * @param taskId
+     * @param userId
      * @param result
      *@param resultDesc @return
      */
-    ResultMessage backTask(String taskId, String userId, String result, String resultDesc);
+  //  ResultMessage backTask(String taskId, String userId, String result, String resultDesc);
 
     /**
      * 给流程实例设置业务id
@@ -79,22 +79,22 @@ public interface RzblService {
      * @param buzId     业务id
      * @return
      */
-    ResultMessage setBusinessId(String prciId, String buzId);
+  //  ResultMessage setBusinessId(String prciId, String buzId);
 
     /**
      * 设置流程变量
      * @param prciId	流程实例ID
      * @return
      */
-    ResultMessage setVariables(String prciId);
+  //  ResultMessage setVariables(String prciId);
 
     /**
      * 获取流程变量
      * @param prciId	流程实例ID
      * @return
      */
-    ResultMessage getVariables(String prciId);
-    
+  //  ResultMessage getVariables(String prciId);
+
     /**
      * 文件上传
      * @param file
@@ -161,7 +161,7 @@ public interface RzblService {
      * @param processDefKey
      * @return
      */
-    PageResult myApplication(String userId, String processDefKey);
+   // PageResult myApplication(String userId, String processDefKey);
 
     /**
      * 我的已办任务
@@ -169,22 +169,22 @@ public interface RzblService {
      * @param rz
      * @return
      */
-    PageResult queryHiTaskAll(String userId);
+  //  PageResult queryHiTaskAll(String userId);
 
-    void showImg(String prciId, String procDefId, HttpServletResponse response);
+ //   void showImg(String prciId, String procDefId, HttpServletResponse response);
 
-    ResultMessage deleteProcess(String prciId);
+//    ResultMessage deleteProcess(String prciId);
 
-    ResultMessage getAuth(String userId);
+ //   ResultMessage getAuth(String userId);
 
     /**
      * 新增委托
     */
-    ResultMessage addDelegate(String jsonStr);
+ //   ResultMessage addDelegate(String jsonStr);
     /**
      * 委托列表
      */
-    ResultMessage queryDelegateInfoList(String userId);
+   // ResultMessage queryDelegateInfoList(String userId);
 
 	/**
 	 * 被委托人发送任务
@@ -196,14 +196,14 @@ public interface RzblService {
 	 * @param delegateId
 	 * @return
 	 */
-	ResultMessage sendTaskDelegate(String taskId, String userId, String result,
-                                   String resultDesc, String delegater, String delegateId);
+	//ResultMessage sendTaskDelegate(String taskId, String userId, String result,
+                                //   String resultDesc, String delegater, String delegateId);
 
 	/**
 	 * 删除委托
 	 * @param id
 	 */
-	void deleteDelegate(String id);
+//	void deleteDelegate(String id);
 
 	/**
 	 * 被委托人回退任务
@@ -215,16 +215,16 @@ public interface RzblService {
 	 * @param delegateId
 	 * @return
 	 */
-	ResultMessage backTaskDelegate(String taskId, String userId, String result,
-                                   String resultDesc, String delegater, String delegateId);
+//	ResultMessage backTaskDelegate(String taskId, String userId, String result,
+                               //    String resultDesc, String delegater, String delegateId);
 
     /**
      * 获取委托的业务规则
      * @return
      */
-    ResultMessage queryDelegateList(String processDefId, String activityId);
+  //  ResultMessage queryDelegateList(String processDefId, String activityId);
 
-    ResultMessage addDelegateRule(List<DelegateRule> rules);
+  //  ResultMessage addDelegateRule(List<DelegateRule> rules);
 
-    ResultMessage getFootpoint(String prciId);
+   // ResultMessage getFootpoint(String prciId);
 }
