@@ -16,7 +16,6 @@
 </head>
 
 <body class="layui-layout-body" layadmin-themealias="default">
-
 <div id="LAY_app">
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
@@ -104,31 +103,31 @@
                             <span class="layui-nav-more"></span>
                         </a>
                         <dl class="layui-nav-child">
-                            <dd data-name="console" class="layui-this user">
+                            <dd data-name="statics_user" class="layui-this user">
                                 <a lay-href="pages/staticis/user.jsp">申请数据统计</a>
                             </dd>
-                            <dd data-name="console" class="layui-this admin">
+                            <dd data-name="statics_admin" class="layui-this admin">
                                 <a lay-href="pages/staticis/admin.jsp">审批数据统计</a>
                             </dd>
                         </dl>
                     </li>
-                    <li data-name="component" class="layui-nav-item">
+                    <li data-name="renzheng" class="layui-nav-item">
                         <a href="javascript:;" lay-tips="组件" lay-direction="2">
                             <i class="layui-icon layui-icon-component"></i>
                             <cite>认证管理管理</cite>
                             <span class="layui-nav-more"></span>
                         </a>
                         <dl class="layui-nav-child">
-                            <dd data-name="console" class="user">
+                            <dd data-name="pages/certification_service/apply_report.jsp" class="user">
                                 <a lay-href="pages/certification_service/apply_report.jsp">认证申请填报</a>
                             </dd>
-                            <dd data-name="console" class="user">
+                            <dd data-name="pages/certification_service/result_query.jsp" class="user">
                                 <a lay-href="pages/certification_service/result_query.jsp">认证结果查询</a>
                             </dd>
-                            <dd data-name="console" class="admin">
+                            <dd data-name="application_assest" class="admin">
                                 <a lay-href="pages/certification_service/application_assest.jsp">认证申请审批</a>
                             </dd>
-                            <dd data-name="console" class="admin">
+                            <dd data-name="result_manage" class="admin">
                                 <a lay-href="pages/certification_service/result_manage.jsp">认证结果管理</a>
                             </dd>
                         </dl>
@@ -141,7 +140,7 @@
                         </a>
                         <dl class="layui-nav-child">
                             <dd data-name="button">
-                                <a lay-href="pages/test/report_generate.jsp">测试报告生成</a>
+                                <a lay-href="pages/test/report_generate.jsp" >测试报告生成</a>
                             </dd>
                             <dd data-name="nav">
                                 <a lay-href="pages/test/plan_generate.jsp">测试计划生成</a>
@@ -176,24 +175,18 @@
             </div>
             <div class="layui-tab" lay-unauto="" lay-allowclose="true" lay-filter="layadmin-layout-tabs">
                 <ul class="layui-tab-title" id="LAY_app_tabsheader">
-<%--
-                    <li lay-id="home/console.html" lay-attr="home/console.html" class="layui-this"><i class="layui-icon layui-icon-home"></i><i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>
---%>
-<%--
-                    <li lay-id="pages/certification_service/apply_report.jsp" lay-attr="pages/certification_service/apply_report.jsp" class="layui-this user"><span>认证申请填报</span><i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>
---%>
-<%--
-                    <li lay-id="pages/certification_service/application_assest.jsp" lay-attr="pages/certification_service/application_assest.jsp" class="layui-this admin"><span>认证申请审批</span><i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>
---%>
                 </ul>
             </div>
         </div>
 
 
         <!-- 主体内容 -->
-        <div class="layui-body" id="LAY_app_body">
-            <div class="layadmin-tabsbody-item layui-show">
-                <iframe src="" id="mainBody" frameborder="0" class="layadmin-iframe"></iframe>
+        <div class="layui-body" id="LAY_app_body" >
+            <div class="layadmin-tabsbody-item layui-show" id="adminMain">
+                <iframe src="pages/staticis/admin.jsp"  frameborder="0" class="layadmin-iframe"></iframe>
+            </div>
+            <div class="layadmin-tabsbody-item layui-show user" id="userMain">
+                <iframe src="pages/staticis/user.jsp"  frameborder="0" class="layadmin-iframe"></iframe>
             </div>
         </div>
 
@@ -204,26 +197,40 @@
 <script src="${pageContext.request.contextPath}/assets/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/layui/layui.js"></script>
 <script>
+    var num=[0,0,0];
+    var ctx = "${pageContext.request.contextPath}/";
+    sessionStorage.setItem('num',JSON.stringify(num))
+    var userInfo=JSON.parse(sessionStorage.getItem('userInfo'));
     layui.config({
         base: 'assets/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
     }).use('index');
-    var userInfo=JSON.parse(sessionStorage.getItem('userInfo'));
-    $('#userName').html(userInfo.userName);
-    if(userInfo.data.role==0){//管理员
-        $('.user').hide();
-        $('#LAY_app_tabsheader').html('<li lay-id="pages/staticis/admin.jsp" lay-attr="pages/staticis/admin.jsp" class="layui-this admin"><span>首页</span><i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>')
-        $('#mainBody').attr('src','pages/staticis/admin.jsp');
-    }else{
-        $('.admin').hide();
-        $('#LAY_app_tabsheader').html('<li lay-id="pages/staticis/user.jsp" lay-attr="pages/staticis/user.jsp" class="layui-this user"><span>首页</span><i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>\n')
-        $('#mainBody').attr('src','pages/staticis/user.jsp');
-    }
-    $('#logout').on('click',function () {
-        window.location='${pageContext.request.contextPath}/pages/login/login.jsp';
-        sessionStorage.removeItem('userInfo');
+    var element;
+    layui.use(['element'],function(){
+        element=layui.element
+        var $ = layui.jquery;
+        $('#userName').html(userInfo.userName);
+        if(userInfo.data.role==0){//管理员
+            $('#userMain').remove();
+            $('.user').hide();
+            $('.admin').show();
+            $('#adminMain').show();
+            $('#LAY_app_tabsheader').html('<li lay-id="pages/staticis/admin.jsp" lay-attr="pages/staticis/admin.jsp" class="layui-this admin"><span>首页</span><i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>')
+        }else{
+            $('.admin').hide();
+            $('.user').show();
+            $('#adminMain').remove();
+            $('#userMain').show();
+            $('#LAY_app_tabsheader').html('<li lay-id="pages/staticis/user.jsp" lay-attr="pages/staticis/user.jsp" class="layui-this user"><span>首页</span><i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>')
+        }
+        $('#logout').on('click',function () {
+            window.location='${pageContext.request.contextPath}/pages/login/login.jsp';
+            sessionStorage.removeItem('userInfo');
+        })
     })
+
+
 </script>
 
 <!-- 百度统计 -->
