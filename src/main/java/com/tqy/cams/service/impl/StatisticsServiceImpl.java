@@ -47,9 +47,12 @@ public class StatisticsServiceImpl implements StatisticsService {
             Integer AdminAuditCount= statisticsMapper.getAdminAuditMission(userId);
             Integer AdminNoAuditCount= statisticsMapper.getAdminNoAuditMission(userId);
             Integer TaskCount = statisticsMapper.getTaskCount(userId);
+
+            Integer NoPassCount= statisticsMapper.getUserNoPassMission(userId);
             params.put("ONAUDIT",AdminAuditCount);    //已审核
             params.put("NOAUDIT",AdminNoAuditCount);  //未审核
             params.put("TASK",TaskCount);  //测试任务
+            params.put("NOPASS",NoPassCount);   //审核不通过
         }
         return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",params);
     }
