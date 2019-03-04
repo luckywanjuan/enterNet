@@ -79,4 +79,17 @@ public interface StatisticsMapper {
      */
     List<Map<String,Object>> getRztaskDateCount();
 
+    /**
+     * 根据管理单位和研制单位查询信息
+     * @param
+     * @return
+     */
+    List<Map<String,Object>> getManagerMission(@Param("userId") String userId,@Param("state")String state);
+    /**
+     * 根据管理单位和研制单位查询信息
+     * @param
+     * @return
+     */
+    List<Map<String,Object>> getDevelopMission(@Param("userId")String userId,@Param("state")String state);
+
 }

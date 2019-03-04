@@ -31,4 +31,13 @@ public interface StatisticsService {
      * @return
      */
     ResultMessage getRztaskDateCount(String userId);
+
+
+    /**
+     * 根据管理单位查询信息
+     * @param userId
+     * @return
+     */
+    ResultMessage getManagerMission(String userId,String state);
+
 }

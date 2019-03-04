@@ -42,4 +42,13 @@
           select count(1) as num,create_time  from rz_test_task  group by create_time ORDER BY create_time
 
     </select>
+    <select id="getManagerMission" resultType="java.util.Map">
+        select count(*) as num,manager_dept,create_date
+        from rz_application a,rz_check b where a.id=b.application_id and a.user_id= #{userId} and b.result = "通过" group by create_date ORDER BY create_date
+    </select>
+
+    <select id="getDevelopMission" resultType="java.util.Map">
+        select count(*) as num, develop_dept,create_date
+        from rz_application a,rz_check b where a.id=b.application_id and a.user_id= #{userId} and b.result = "通过" group by create_date ORDER BY create_date
+    </select>
 </mapper>

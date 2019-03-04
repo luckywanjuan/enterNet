@@ -48,5 +48,15 @@ public class StatisticsController {
     public ResultMessage getRzTaskNum(String userId){
         return statisticsService.getRztaskDateCount(userId);
     }
+    /**
+     * 获取研制单位
+     * @param userId
+     * @return
+     */
+    @RequestMapping("getRzTotalMsg")
+    public ResultMessage getRzTotalMsg(String userId,String state){
+        return statisticsService.getManagerMission(userId,state);
+    }
+
 
 }

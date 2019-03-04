@@ -95,8 +95,45 @@ public class StatisticsServiceImpl implements StatisticsService {
         return null;
     }
 
+    @Override
+    public ResultMessage getManagerMission(String userId, String state) {
+        RoleUser roleId=statisticsMapper.getRole(userId);
+        Map<String, Object> params = new HashMap<>();
+        if(roleId.getRoleId().equals("1")||roleId.getRoleId().equals("2")){
+            if(state.equals("系统管理单位")){
+                List<Map<String,Object>> dateNum =statisticsMapper.getManagerMission(userId,state);
+                for(Map<String,Object> map : dateNum){
+                     params.put(map.get("create_date").toString(),map.get("num"));
+                }
+                return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",dateNum);
+            }
+            if(state.equals("研制单位")){
+                List<Map<String,Object>> dateNum = statisticsMapper.getDevelopMission(userId,state);
+                for(Map<String,Object> map : dateNum){
+                    params.put(map.get("create_date").toString(),map.get("num"));
+                }
+                return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",dateNum);
+            }
+        }
+        if(roleId.getRoleId().equals("3")){
+            if(state.equals("系统管理单位")){
+                List<Map<String,Object>> dateNum =statisticsMapper.getManagerMission(userId,state);
+                for(Map<String,Object> map : dateNum){
+                    params.put(map.get("create_date").toString(),map.get("num"));
+                }
+                return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",dateNum);
+            }
+            if(state.equals("研制单位")){
+                List<Map<String,Object>> dateNum = statisticsMapper.getDevelopMission(userId,state);
+                for(Map<String,Object> map : dateNum){
+                    params.put(map.get("create_date").toString(),map.get("num"));
+                }
+                return new ResultMessage(BaseStatic.SUCCESS_CODE,"成功",dateNum);
+            }
+        }
 
-
+        return null;
+    }
 
 
 }
