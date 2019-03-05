@@ -49,7 +49,7 @@ public class StatisticsController {
         return statisticsService.getRztaskDateCount(userId);
     }
     /**
-     * 获取研制单位
+     * 获取管理单位和研制单位信息
      * @param userId
      * @return
      */
@@ -57,6 +57,5 @@ public class StatisticsController {
     public ResultMessage getRzTotalMsg(String userId,String state){
         return statisticsService.getManagerMission(userId,state);
     }
-
 
 }

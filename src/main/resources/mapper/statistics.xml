@@ -25,6 +25,10 @@
            select count(1) from rz_application a
             LEFT JOIN rz_check b on a.id=b.application_id where b.result is null
     </select>
+    <select id="getAdminNoPassMission" resultType="java.lang.Integer">
+        select count(*)
+        from rz_application a,rz_check b where a.id=b.application_id and b.user_id= #{userId} and b.result = "未通过"
+    </select>
     <select id="getTaskCount" resultType="java.lang.Integer">
            select count(*)
         from rz_test_task
@@ -44,11 +48,20 @@
     </select>
     <select id="getManagerMission" resultType="java.util.Map">
         select count(*) as num,manager_dept,create_date
-        from rz_application a,rz_check b where a.id=b.application_id and a.user_id= #{userId} and b.result = "通过" group by create_date ORDER BY create_date
+        from rz_application a,rz_check b where a.id=b.application_id and b.user_id= #{userId} and b.result = "通过" group by manager_dept ORDER BY create_date
     </select>
 
     <select id="getDevelopMission" resultType="java.util.Map">
         select count(*) as num, develop_dept,create_date
-        from rz_application a,rz_check b where a.id=b.application_id and a.user_id= #{userId} and b.result = "通过" group by create_date ORDER BY create_date
+        from rz_application a,rz_check b where a.id=b.application_id and b.user_id= #{userId} and b.result = "通过" group by manager_dept ORDER BY create_date
+    </select>
+     <select id="getUserManagerMission" resultType="java.util.Map">
+        select count(*) as num,manager_dept,create_date
+        from rz_application a,rz_check b where a.id=b.application_id and a.user_id= #{userId} and b.result = "通过" group by manager_dept ORDER BY create_date
+    </select>
+
+    <select id="getUserDevelopMission" resultType="java.util.Map">
+        select count(*) as num, develop_dept,create_date
+        from rz_application a,rz_check b where a.id=b.application_id and a.user_id= #{userId} and b.result = "通过" group by manager_dept ORDER BY create_date
     </select>
 </mapper>

@@ -51,6 +51,12 @@ public interface StatisticsMapper {
      */
     Integer getAdminNoAuditMission(String userId);
     /**
+     * 管理员审核未通过
+     * @param userId
+     * @return
+     */
+    Integer getAdminNoPassMission(String userId);
+    /**
      * 管理员级别查询测试任务数量
      * @param
      * @return
@@ -80,16 +86,28 @@ public interface StatisticsMapper {
     List<Map<String,Object>> getRztaskDateCount();
 
     /**
-     * 根据管理单位和研制单位查询信息
+     * 管理员根据管理单位查询信息
      * @param
      * @return
      */
     List<Map<String,Object>> getManagerMission(@Param("userId") String userId,@Param("state")String state);
     /**
-     * 根据管理单位和研制单位查询信息
+     * 管理员根据研制单位查询信息
      * @param
      * @return
      */
     List<Map<String,Object>> getDevelopMission(@Param("userId")String userId,@Param("state")String state);
+    /**
+     * 用户根据管理单位查询信息
+     * @param
+     * @return
+     */
+    List<Map<String,Object>> getUserManagerMission(@Param("userId") String userId,@Param("state")String state);
+    /**
+     * 用户根据研制单位查询信息
+     * @param
+     * @return
+     */
+    List<Map<String,Object>> getUserDevelopMission(@Param("userId")String userId,@Param("state")String state);
 
 }

@@ -135,15 +135,16 @@ public class RzblController {
     public ResultMessage updateCheckRzApplication(RzCheckRz check) {
         return rzblService.updateCheckRzApplication(check);
     }
-}
+    
     /**
      * 获取入网认证审核表单数据
      */
-/*    @RequestMapping("getCheckRzApplication")
+    @RequestMapping("getCheckRzApplication")
     public ResultMessage getCheckRzApplication(String applicationId) {
         return rzblService.getCheckRzApplication(applicationId);
-    }*/
-
+    }
+    
+}
 
    /* *//**
      * 可发起的流程
