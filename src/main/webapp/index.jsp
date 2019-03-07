@@ -153,6 +153,21 @@
                             </dd>
                         </dl>
                     </li>
+                    <li data-name="component" class="layui-nav-item admin">
+                        <a href="javascript:;" lay-tips="入网认证证书管理" lay-direction="3">
+                            <i class="layui-icon layui-icon-component"></i>
+                            <cite>入网认证证书管理</cite>
+                            <span class="layui-nav-more"></span>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd data-name="zhengshu">
+                                <a lay-href="" >入网证书库管理</a>
+                            </dd>
+                            <dd data-name="nav">
+                                <a lay-href="">入网证书生成</a>
+                            </dd>
+                        </dl>
+                    </li>
                     <span class="layui-nav-bar" style="top: 382px; height: 0px; opacity: 0;"></span></ul>
             </div>
         </div>
