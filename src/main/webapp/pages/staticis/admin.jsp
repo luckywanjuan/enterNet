@@ -221,7 +221,7 @@
                                 {
                                     name: '入网情况统计',
                                     type: 'pie',
-                                    radius : '55%',
+                                    radius : '50%',
                                     center: ['50%', '60%'],
                                     data:[
                                         {value:resp['data']['PASS'], name:'已入网'},
