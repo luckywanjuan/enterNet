@@ -257,7 +257,7 @@
                                 {
                                     name: '入网情况统计',
                                     type: 'pie',
-                                    radius : '55%',
+                                    radius : '50%',
                                     center: ['50%', '60%'],
                                     data:[
                                         {value:2, name:'功能测试'},
