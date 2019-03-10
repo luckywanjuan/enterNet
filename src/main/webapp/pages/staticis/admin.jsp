@@ -75,7 +75,7 @@
             <div class="layui-tab"  lay-filter="tab">
                 <ul class="layui-tab-title">
                     <li class="layui-this" dataTag="xtgldw">入网阶段统计</li>
-                    <li dataTag="yzdw">测试进度统计</li>
+                    <li dataTag="yzdw">测试任务统计</li>
                 </ul>
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
@@ -120,7 +120,8 @@
     layui.use(['table','element'], function () {
         var $ = layui.jquery,table=layui.table,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块;
         //var assetChart = echarts.init(document.getElementById('asset_chart'));
-        var testChart = echarts.init(document.getElementById('enter_charts'));
+        var netChart = echarts.init(document.getElementById('enter_charts'));
+        var testChart = echarts.init(document.getElementById('test_chart'));
        /* function getRzDateNumApi(type) {
             $.ajax({
                 url: ctx + "statistics/getRzTotalMsg",
@@ -202,7 +203,7 @@
                         $('#noAsset').html(resp['data']['NOAUDIT']);
                         $('#testTask').html(resp['data']['TASK']);
                         $('#noAccess').html(resp['data']['NOPASS']);
-                        var optionTest = {
+                        var optionNet = {
                             title : {
                                 text: '入网情况统计',
                                 x:'center'
@@ -226,6 +227,44 @@
                                         {value:resp['data']['PASS'], name:'已入网'},
                                         {value:resp['data']['NOAUDIT'], name:'在办'},
                                         {value:resp['data']['NOPASS'], name:'未通过'}
+                                    ],
+                                    itemStyle: {
+                                        emphasis: {
+                                            shadowBlur: 10,
+                                            shadowOffsetX: 0,
+                                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                        }
+                                    }
+                                }
+                            ]
+                        };
+                        netChart.setOption(optionNet);
+                        var optionTest = {
+                            title : {
+                                text: '测试类型统计',
+                                x:'center'
+                            },
+                            tooltip : {
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                            },
+                            legend: {
+                                orient: 'vertical',
+                                left: 'left',
+                                data: ['功能测试','性能测试','兼容性测试','安全测试','可靠性测试']
+                            },
+                            series : [
+                                {
+                                    name: '入网情况统计',
+                                    type: 'pie',
+                                    radius : '55%',
+                                    center: ['50%', '60%'],
+                                    data:[
+                                        {value:2, name:'功能测试'},
+                                        {value:1, name:'性能测试'},
+                                        {value:3, name:'兼容性测试'},
+                                        {value:2, name:'安全测试'},
+                                        {value:4, name:'可靠性测试'}
                                     ],
                                     itemStyle: {
                                         emphasis: {
