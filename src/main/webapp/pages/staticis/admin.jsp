@@ -52,7 +52,29 @@
             <div class="title_sta cgrey">未通过数量：</div>
         </div>
     </div>
-    <div class="disflex">
+    <div class="layui-row bgf">
+        <div class="layui-col-md6">
+            <h5 style="font-size:18px;font-weight:bold;padding-left: 15px;">属性统计</h5>
+            <div class="layui-tab"  lay-filter="tab">
+                <ul class="layui-tab-title">
+                    <li class="layui-this" dataTag="xtgldw">系统管理单位</li>
+                    <li dataTag="yzdw">研制单位</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <table class="layui-hide" id="manages" lay-filter="manageTable"></table>
+                    </div>
+                    <div class="layui-tab-item">
+                        <table class="layui-hide" id="delevope" lay-filter="delevopeTable"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md6">
+            <div class="" id="test_chart" style="width:400px;height: 480px;padding: 10px"></div>
+        </div>
+    </div>
+    <%--<div class="disflex">
         <div class="itemflex bgf" id="asset_chart" style="padding: 10px">
             <h5 style="font-size:18px;font-weight:bold;padding-left: 15px;">属性统计</h5>
             <div class="layui-tab"  lay-filter="tab">
@@ -72,7 +94,7 @@
 
         </div>
         <div class="itemflex bgf" id="test_chart" style="width:400px;height: 480px;padding: 10px"></div>
-    </div>
+    </div>--%>
 </div>
 <script src="${pageContext.request.contextPath}/assets/layui/layui.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/echarts/echarts.min.js"></script>
@@ -221,7 +243,7 @@
                         ],
                         series: [
                             {
-                                barMaxWidth: 68,
+                                barMaxWidth: 35,
                                 name: '测试任务',
                                 type: 'bar',
                                 barWidth: '60%',

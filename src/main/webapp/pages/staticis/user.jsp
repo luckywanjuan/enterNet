@@ -121,7 +121,7 @@
                             ],
                             series : [
                                 {
-                                    barMaxWidth:68,
+                                    barMaxWidth:35,
                                     name:'申请统计',
                                     type:'bar',
                                     barWidth: '60%',
