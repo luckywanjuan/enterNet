@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common.css" media="all">
     <style>
         .layui-form-label{
-            width: 95px;
+            width:87px;
         }
         .layui-table-view .layui-table {width:100%}
     </style>
