@@ -26,14 +26,14 @@
         <div class="layui-col-md2 bgf shodow" data-src="pages/certification_service/application_assest.jsp" data-title="认证申请审批" onclick="linkPage(this)">
             <div class="layui-row">
                 <i class="layui-col-md6 fa fa-copy  fa-2x cgrey"></i>
-                <div class="layui-col-md6 cblue f18 fontw tr" id="alreadly"></div>
+                <div class="layui-col-md6 cblue f18 fontw tr" id="noAsset"></div>
             </div>
             <div class="title_sta cgrey">在办数量</div>
         </div>
         <div class="layui-col-md2  bgf shodow" data-src="pages/certification_service/result_manage.jsp" data-title="认证结果管理"   onclick="linkPage(this)">
             <div class="layui-row">
                 <i class="layui-col-md6  fa fa-copy  fa-2x cgrey"></i>
-                <div class="layui-col-md6 cblue f18 fontw tr" id="noAsset"></div>
+                <div class="layui-col-md6 cblue f18 fontw tr" id="alreadly"></div>
             </div>
             <div class="title_sta cgrey">已入网数量：</div>
         </div>
@@ -70,8 +70,23 @@
                 </div>
             </div>
         </div>
-        <div class="layui-col-md6">
-            <div class="" id="test_chart" style="width:400px;height: 480px;padding: 10px"></div>
+        <div class="layui-col-md6" style="padding-left: 10px;">
+            <h5 style="font-size:18px;font-weight:bold;padding-left: 15px;">阶段统计</h5>
+            <div class="layui-tab"  lay-filter="tab">
+                <ul class="layui-tab-title">
+                    <li class="layui-this" dataTag="xtgldw">入网阶段统计</li>
+                    <li dataTag="yzdw">测试进度统计</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                       <div id="enter_charts" style="width:400px;height: 480px;padding: 10px"></div>
+                    </div>
+                    <div class="layui-tab-item">
+                        <div id="test_chart" style="width:400px;height: 480px;padding: 10px"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="" ></div>
         </div>
     </div>
     <%--<div class="disflex">
@@ -105,7 +120,7 @@
     layui.use(['table','element'], function () {
         var $ = layui.jquery,table=layui.table,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块;
         //var assetChart = echarts.init(document.getElementById('asset_chart'));
-        var testChart = echarts.init(document.getElementById('test_chart'));
+        var testChart = echarts.init(document.getElementById('enter_charts'));
        /* function getRzDateNumApi(type) {
             $.ajax({
                 url: ctx + "statistics/getRzTotalMsg",
@@ -183,10 +198,46 @@
                 async: false,
                 success: function (resp) {
                     if (resp.code == 0) {
-                        $('#alreadly').html(resp['data']['PASS'])
-                        $('#noAsset').html(resp['data']['NOAUDIT'])
-                        $('#testTask').html(resp['data']['TASK'])
-                        $('#noAccess').html(resp['data']['NOPASS'])
+                        $('#alreadly').html(resp['data']['PASS']);
+                        $('#noAsset').html(resp['data']['NOAUDIT']);
+                        $('#testTask').html(resp['data']['TASK']);
+                        $('#noAccess').html(resp['data']['NOPASS']);
+                        var optionTest = {
+                            title : {
+                                text: '入网情况统计',
+                                x:'center'
+                            },
+                            tooltip : {
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                            },
+                            legend: {
+                                orient: 'vertical',
+                                left: 'left',
+                                data: ['已入网','在办','未通过']
+                            },
+                            series : [
+                                {
+                                    name: '入网情况统计',
+                                    type: 'pie',
+                                    radius : '55%',
+                                    center: ['50%', '60%'],
+                                    data:[
+                                        {value:resp['data']['PASS'], name:'已入网'},
+                                        {value:resp['data']['NOAUDIT'], name:'在办'},
+                                        {value:resp['data']['NOPASS'], name:'未通过'}
+                                    ],
+                                    itemStyle: {
+                                        emphasis: {
+                                            shadowBlur: 10,
+                                            shadowOffsetX: 0,
+                                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                        }
+                                    }
+                                }
+                            ]
+                        };
+                        testChart.setOption(optionTest);
                     }
                 }, error: function () {
                     console.log('接口错误')
@@ -209,55 +260,54 @@
                     resp.data.forEach(function (element, index) {
                         xaris.push(format(element.create_time))
                         value.push(element.num)
-                    })
-                    var optionTest = {
-                        color: ['#188df0'],
-                        tooltip: {
-                            trigger: 'axis',
-                            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                            }
-                        },
-                        title: {
-                            text: '测试任务统计'
-                        },
-                        grid: {
-                            left: '3%',
-                            right: '4%',
-                            bottom: '3%',
-                            containLabel: true
-                        },
-                        xAxis: [
-                            {
-                                type: 'category',
-                                data: xaris,
-                                axisTick: {
-                                    alignWithLabel: true
-                                }
-                            }
-                        ],
-                        yAxis: [
-                            {
-                                type: 'value'
-                            }
-                        ],
-                        series: [
-                            {
-                                barMaxWidth: 35,
-                                name: '测试任务',
-                                type: 'bar',
-                                barWidth: '60%',
-                                data: value
-                            }
-                        ]
-                    };
-                    testChart.setOption(optionTest);
+                    });
+
+                    /*  var optionTest = {
+                          color: ['#188df0'],
+                          tooltip: {
+                              trigger: 'axis',
+                              axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                                  type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                              }
+                          },
+                          title: {
+                              text: '测试任务统计'
+                          },
+                          grid: {
+                              left: '3%',
+                              right: '4%',
+                              bottom: '3%',
+                              containLabel: true
+                          },
+                          xAxis: [
+                              {
+                                  type: 'category',
+                                  data: xaris,
+                                  axisTick: {
+                                      alignWithLabel: true
+                                  }
+                              }
+                          ],
+                          yAxis: [
+                              {
+                                  type: 'value'
+                              }
+                          ],
+                          series: [
+                              {
+                                  barMaxWidth: 35,
+                                  name: '测试任务',
+                                  type: 'bar',
+                                  barWidth: '60%',
+                                  data: value
+                              }
+                          ]
+                      };*/
                 }, error: function () {
                     console.log('接口错误')
                 }
             })
         }
-
         getRzTaskNumApi();
         window.linkPage = function (that) {
             var endFlag = true;
