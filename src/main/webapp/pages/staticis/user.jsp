@@ -43,7 +43,6 @@
     </div>
     <div class="disflex">
         <div class="itemflex bgf" id="asset_chart" style="width:400px;height: 480px"></div>
-        <div class="itemflex bgf" id="test_chart"style="width:400px;height: 480px"></div>
     </div>
 </div>
 <script src="${pageContext.request.contextPath}/assets/layui/layui.js"></script>
@@ -63,7 +62,7 @@
                 async: false,
                 success: function (resp) {
                     if(resp.code==0){
-                        $('#awaitUser').html(resp['data']['AUDIT']);
+                        $('#awaitUser').html(resp['data']['NOAUDIT']);
                         $('#accessUser').html(resp['data']['PASS']);
                         $('#unassessUser').html(resp['data']['NOPASS']);
                     }
