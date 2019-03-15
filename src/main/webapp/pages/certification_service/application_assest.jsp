@@ -4,6 +4,7 @@
     <title>入网申请填报</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common.css" media="all">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/static.css">
     <style>
         .layui-form-label {
             width: 130px;
@@ -11,8 +12,8 @@
         .layui-table-view .layui-table {width:100%}
     </style>
 </head>
-<body style="background: #fff">
-<div class="layui-fluid ">
+<body>
+<div class="layui-fluid">
     <%--<div class="layui-card ">
         <div class="layui-card-header">入网认证审批</div>
         <div class="layui-card-body" style="padding: 15px;">
@@ -92,7 +93,7 @@
             </form>
         </div>
     </div>--%>
-    <div class="layui-row">
+    <div class="layui-row shodow" style="padding: 10px">
         <div class="layui-col-md12">
             <table class="layui-table" id="assetTable" lay-filter="assetTable"></table>
         </div>

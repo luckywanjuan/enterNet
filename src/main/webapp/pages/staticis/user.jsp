@@ -19,30 +19,30 @@
 <body >
 <div class="layui-fluid">
     <div class="layui-row" style="padding: 15px">
-        <div class="layui-col-md2 bgf shodow" data-src="pages/certification_service/result_query.jsp" data-title="认证结果查询" onclick="linkPage(this)">
+        <div class="layui-col-md2 bgf shodow padMar" data-src="pages/certification_service/result_query.jsp" data-title="认证结果查询" onclick="linkPage(this)">
             <div class="layui-row">
-                <i class="layui-col-md6 fa fa-copy  fa-2x cgrey"></i>
-                <div class="layui-col-md6 cblue f18 fontw tr" id="awaitUser"></div>
+                <i class="layui-col-md6 fa fa-copy  fa-2x cf"></i>
+                <div class="layui-col-md6 cf f18 fontw tr" id="awaitUser"></div>
             </div>
-            <div class="title_sta cgrey">未审核数</div>
+            <div class="title_sta cf">未审核数</div>
         </div>
-        <div class="layui-col-md2  bgf shodow" data-src="pages/certification_service/result_query.jsp" data-title="认证结果查询" onclick="linkPage(this)">
+        <div class="layui-col-md2  bgf shodow padMar" data-src="pages/certification_service/result_query.jsp" data-title="认证结果查询" onclick="linkPage(this)">
             <div class="layui-row">
-                <i class="layui-col-md6  fa fa-copy  fa-2x cgrey"></i>
-                <div class="layui-col-md6 cblue f18 fontw tr" id="accessUser"></div>
+                <i class="layui-col-md6  fa fa-copy  fa-2x cf"></i>
+                <div class="layui-col-md6 cf f18 fontw tr" id="accessUser"></div>
             </div>
-            <div class="title_sta cgrey">已通过数：</div>
+            <div class="title_sta cf">已通过数：</div>
         </div>
-        <div class="layui-col-md2  bgf shodow" data-src="pages/certification_service/result_query.jsp" data-title="认证结果查询" onclick="linkPage(this)">
+        <div class="layui-col-md2  bgf shodow padMar" data-src="pages/certification_service/result_query.jsp" data-title="认证结果查询" onclick="linkPage(this)">
             <div class="layui-row">
-                <i class="layui-col-md6  fa fa-copy  fa-2x"></i>
-                <div class="layui-col-md6 cblue f18 fontw tr" id="unassessUser"></div>
+                <i class="layui-col-md6  fa fa-copy  fa-2x cf"></i>
+                <div class="layui-col-md6 cf f18 fontw tr" id="unassessUser"></div>
             </div>
-            <div class="title_sta cgrey">未通过数：</div>
+            <div class="title_sta cf">未通过数：</div>
         </div>
     </div>
     <div class="disflex">
-        <div class="itemflex bgf" id="asset_chart" style="width:400px;height: 480px"></div>
+        <div class="itemflex" id="asset_chart" style="width:400px;height: 480px"></div>
     </div>
 </div>
 <script src="${pageContext.request.contextPath}/assets/layui/layui.js"></script>
@@ -88,7 +88,7 @@
                             value.push(element.num)
                         });
                         var optionAsset = {
-                            color: ['#188df0'],
+                            color: 'rgba(255,255,255,0.6)',
                             tooltip : {
                                 trigger: 'axis',
                                 axisPointer : {            // 坐标轴指示器，坐标轴触发有效
@@ -96,7 +96,10 @@
                                 }
                             },
                             title:{
-                                text: '申请统计'
+                                text: '申请统计',
+                                textStyle:{
+                                    color:'#fff'
+                                }
                             },
                             grid: {
                                 left: '3%',
@@ -110,12 +113,24 @@
                                     data : xaris,
                                     axisTick: {
                                         alignWithLabel: true
+                                    },
+                                    axisLine:{
+                                        lineStyle:{
+                                            color:'rgba(255,255,255,0.8)'
+                                        }
+
                                     }
                                 }
                             ],
                             yAxis : [
                                 {
-                                    type : 'value'
+                                    type : 'value',
+                                    axisLine:{
+                                        lineStyle:{
+                                            color:'rgba(255,255,255,0.8)'
+                                        }
+
+                                    }
                                 }
                             ],
                             series : [
@@ -149,6 +164,9 @@
                 }
             });
             if (endFlag) {
+                parent.$('#LAY_app_body').find('.layui-show').each(function (item) {
+                    $(this).removeClass('layui-show');
+                });
                 parent.$('#LAY_app_body').append(['<div class="layadmin-tabsbody-item layui-show">', '<iframe src="' + url + '" frameborder="0"  class="layadmin-iframe"></iframe>', "</div>"].join(""))
                 parent.element.tabAdd('layadmin-layout-tabs', {
                     title: "<span>"+_that.attr('data-title')+"</span>",

@@ -12,7 +12,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/layui/css/layui.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/layui/css/admin.css">
-    <link id="layuicss-layer" rel="stylesheet" href="https://www.layui.com/admin/std/dist/layuiadmin/layui/css/modules/layer/default/layer.css?v=3.1.1" media="all">
+    <link id="layuicss-layer" rel="stylesheet" href="${pageContext.request.contextPath}/assets/layui/css/layer.css?v=3.1.1" media="all">
+    <style>
+        body{
+            background-image: url(assets/images/8.jpg);
+            transition: background .3s;
+            background-size: 100% 100%;
+            background-attachment: fixed;
+            background-position: center;
+        }
+    </style>
 </head>
 
 <body class="layui-layout-body" layadmin-themealias="default">
@@ -161,7 +170,7 @@
                         </a>
                         <dl class="layui-nav-child">
                             <dd data-name="zhengshu">
-                                <a lay-href="" >入网证书库管理</a>
+                                <a lay-href="pages/certificate/store.jsp" >入网证书库管理</a>
                             </dd>
                             <dd data-name="nav">
                                 <a lay-href="">入网证书生成</a>

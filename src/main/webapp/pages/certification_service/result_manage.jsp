@@ -4,18 +4,22 @@
     <title>Title</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common.css" media="all">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/static.css">
     <style>
         .layui-form-label{
             width:87px;
         }
         .layui-table-view .layui-table {width:100%}
+        .layui-layer{
+            background: rgba(0,0,0,0.8);
+        }
     </style>
 </head>
-<body style="background: #fff">
+<body>
 <div class="layui-card-header">认证结果管理</div>
 <br>
-<div class="layui-fluid ">
-    <div class="layui-row layui-col-space10">
+<div class="layui-fluid shodow " style="margin: 15px">
+    <div class="layui-row layui-col-space10"  style="padding: 10px">
         <div class="layui-col-md3">
             <label class="layui-form-label">系统化名称：</label>
             <div class="layui-col-md6">

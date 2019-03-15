@@ -13,7 +13,7 @@
         }
     </style>
 </head>
-<body style="background: #fff">
+<body>
 <div class="layui-card-header">认证结果查询</div>
 <br>
 <div class="layui-fluid">

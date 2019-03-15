@@ -1629,7 +1629,7 @@ a cite {
 .layui-card {
     margin-bottom: 15px;
     border-radius: 2px;
-    background-color: #fff;
+    /*background-color: #fff;*/
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05)
 }
 
@@ -1642,8 +1642,8 @@ a cite {
     height: 42px;
     line-height: 42px;
     padding: 0 15px;
-    border-bottom: 1px solid #f6f6f6;
-    color: #333;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.7);
     border-radius: 2px 2px 0 0;
     font-size: 14px
 }
@@ -1728,7 +1728,7 @@ a cite {
 }
 
 .layui-badge-rim, .layui-colla-content, .layui-colla-item, .layui-collapse, .layui-elem-field, .layui-form-pane .layui-form-item[pane], .layui-form-pane .layui-form-label, .layui-input, .layui-layedit, .layui-layedit-tool, .layui-quote-nm, .layui-select, .layui-tab-bar, .layui-tab-card, .layui-tab-title, .layui-tab-title .layui-this:after, .layui-textarea {
-    border-color: #e6e6e6
+    border-color: rgba(255,255,255,0.08)
 }
 
 .layui-timeline-item:before, hr {
@@ -2019,7 +2019,8 @@ a cite {
     width: 80px;
     font-weight: 400;
     line-height: 20px;
-    text-align: right
+    text-align: right;
+    color:rgba(255,255,255,0.8)
 }
 
 .layui-form-label-col {
@@ -2812,8 +2813,7 @@ a cite {
 
 .layui-table {
     width: 100%;
-    background-color: #fff;
-    color: #666
+    color:rgba(255,255,255,0.85)
 }
 
 .layui-table tr {
@@ -2827,13 +2827,13 @@ a cite {
 }
 
 .layui-table tbody tr:hover, .layui-table thead tr, .layui-table-click, .layui-table-header, .layui-table-hover, .layui-table-mend, .layui-table-patch, .layui-table-tool, .layui-table-total, .layui-table-total tr, .layui-table[lay-even] tr:nth-child(even) {
-    background-color: #f2f2f2
+    /*background-color: #f2f2f2*/
 }
 
 .layui-table td, .layui-table th, .layui-table-col-set, .layui-table-fixed-r, .layui-table-grid-down, .layui-table-header, .layui-table-page, .layui-table-tips-main, .layui-table-tool, .layui-table-total, .layui-table-view, .layui-table[lay-skin=line], .layui-table[lay-skin=row] {
     border-width: 1px;
     border-style: solid;
-    border-color: #e6e6e6
+    border-color: rgba(255,255,255,0.2)
 }
 
 .layui-table td, .layui-table th {
@@ -3128,7 +3128,7 @@ a cite {
     line-height: 26px;
     padding: 15px;
     text-align: center;
-    color: #999
+    color: #fff
 }
 
 .layui-table-fixed {
@@ -3208,7 +3208,8 @@ a cite {
     line-height: 26px;
     margin-bottom: 10px;
     border: none;
-    background: 0 0
+    background: 0 0;
+    color:rgba(255,255,255,0.8)
 }
 
 .layui-table-page .layui-laypage a, .layui-table-page .layui-laypage span.layui-laypage-curr {
@@ -3611,7 +3612,7 @@ body .layui-table-tips .layui-layer-content {
 }
 
 .layui-nav .layui-nav-child dd.layui-this a, .layui-nav-child dd.layui-this {
-    background-color: rgb(10, 102, 196);
+    background-color: rgba(255,255,255,.06);
     color: #fff
 }
 
@@ -3650,7 +3651,7 @@ body .layui-table-tips .layui-layer-content {
 }
 
 .layui-nav-tree .layui-nav-child dd.layui-this, .layui-nav-tree .layui-nav-child dd.layui-this a, .layui-nav-tree .layui-this, .layui-nav-tree .layui-this > a, .layui-nav-tree .layui-this > a:hover {
-    background-color: rgb(10, 102, 196);
+    background-color: rgba(255,255,255,.06);
     color: #fff
 }
 
@@ -3689,7 +3690,6 @@ body .layui-table-tips .layui-layer-content {
 .layui-nav-itemed > .layui-nav-child {
     display: block;
     padding: 0;
-    background-color: rgba(0, 0, 0, .3) !important
 }
 
 .layui-nav-itemed > .layui-nav-child > .layui-this > .layui-nav-child {
@@ -3778,7 +3778,8 @@ body .layui-table-tips .layui-layer-content {
     min-width: 65px;
     padding: 0 15px;
     text-align: center;
-    cursor: pointer
+    cursor: pointer;
+    color: rgba(255,255,255,0.7);
 }
 
 .layui-tab-title li a {
@@ -3786,7 +3787,7 @@ body .layui-table-tips .layui-layer-content {
 }
 
 .layui-tab-title .layui-this {
-    color: #000
+    color: #fff;
 }
 
 .layui-tab-title .layui-this:after {
@@ -3868,14 +3869,13 @@ body .layui-table-tips .layui-layer-content {
     top: 1px;
     text-align: center;
     font-size: 14px;
-    color: #c2c2c2;
+    color: rgba(255,255,255,0.7);
     transition: all .2s;
     -webkit-transition: all .2s
 }
 
 .layui-tab-title li .layui-tab-close:hover {
     border-radius: 2px;
-    background-color: #FF5722;
     color: #fff
 }
 
@@ -5020,4 +5020,8 @@ body .layui-util-face .layui-layer-content {
 .layui-anim-fadeout {
     -webkit-animation-name: layui-fadeout;
     animation-name: layui-fadeout
+}
+/*new css*/
+.layui-layer{
+    background: rgba(0,0,0,0.8) !important;
 }

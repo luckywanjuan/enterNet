@@ -13,7 +13,7 @@
         }
     </style>
 </head>
-<body style="background: #fff">
+<body>
 
 <div class="layui-card-header">测试任务查询</div>
 <br>

@@ -23,69 +23,75 @@
 <body>
 <div class="layui-fluid">
     <div class="layui-row" style="padding: 15px">
-        <div class="layui-col-md2 bgf shodow" data-src="pages/certification_service/application_assest.jsp" data-title="认证申请审批" onclick="linkPage(this)">
+        <div class="layui-col-md2 bgf shodow padMar" data-src="pages/certification_service/application_assest.jsp" data-title="认证申请审批" onclick="linkPage(this)">
             <div class="layui-row">
-                <i class="layui-col-md6 fa fa-copy  fa-2x cgrey"></i>
-                <div class="layui-col-md6 cblue f18 fontw tr" id="noAsset"></div>
+                <i class="layui-col-md6 fa fa-copy  fa-2x cf"></i>
+                <div class="layui-col-md6 cf f18 fontw tr" id="noAsset"></div>
             </div>
-            <div class="title_sta cgrey">在办数量</div>
+            <div class="title_sta cf">在办数量</div>
         </div>
-        <div class="layui-col-md2  bgf shodow" data-src="pages/certification_service/result_manage.jsp" data-title="认证结果管理"   onclick="linkPage(this)">
+        <div class="layui-col-md2  bgf shodow padMar" data-src="pages/certification_service/result_manage.jsp" data-title="认证结果管理"   onclick="linkPage(this)">
             <div class="layui-row">
-                <i class="layui-col-md6  fa fa-copy  fa-2x cgrey"></i>
-                <div class="layui-col-md6 cblue f18 fontw tr" id="alreadly"></div>
+                <i class="layui-col-md6  fa fa-copy  fa-2x cf"></i>
+                <div class="layui-col-md6 cf f18 fontw tr" id="alreadly"></div>
             </div>
-            <div class="title_sta cgrey">已入网数量：</div>
+            <div class="title_sta cf">已入网数量：</div>
         </div>
-        <div class="layui-col-md2  bgf shodow" data-src="pages/test/task_query.jsp"  data-title="测试任务查询"  onclick="linkPage(this)">
+        <div class="layui-col-md2  bgf shodow padMar" data-src="pages/test/task_query.jsp"  data-title="测试任务查询"  onclick="linkPage(this)">
             <div class="layui-row">
-                <i class="layui-col-md6  fa fa-copy  fa-2x cgrey"></i>
-                <div class="layui-col-md6 cblue f18 fontw tr" id="testTask"></div>
+                <i class="layui-col-md6  fa fa-copy  fa-2x cf"></i>
+                <div class="layui-col-md6 cf f18 fontw tr" id="testTask"></div>
             </div>
-            <div class="title_sta cgrey">测试任务：</div>
+            <div class="title_sta cf">测试任务：</div>
         </div>
-        <div class="layui-col-md2  bgf shodow" data-src="pages/certification_service/result_manage.jsp"  data-title="认证结果管理"  onclick="linkPage(this)">
+        <div class="layui-col-md2  bgf shodow padMar" data-src="pages/certification_service/result_manage.jsp"  data-title="认证结果管理"  onclick="linkPage(this)">
             <div class="layui-row">
-                <i class="layui-col-md6  fa fa-copy  fa-2x cgrey"></i>
-                <div class="layui-col-md6 cblue f18 fontw tr" id="noAccess"></div>
+                <i class="layui-col-md6  fa fa-copy  fa-2x cf"></i>
+                <div class="layui-col-md6 cf f18 fontw tr" id="noAccess"></div>
             </div>
-            <div class="title_sta cgrey">未通过数量：</div>
+            <div class="title_sta cf">未通过数量：</div>
         </div>
     </div>
-    <div class="layui-row bgf">
-        <div class="layui-col-md6">
-            <h5 style="font-size:18px;font-weight:bold;padding-left: 15px;">属性统计</h5>
-            <div class="layui-tab"  lay-filter="tab">
-                <ul class="layui-tab-title">
-                    <li class="layui-this" dataTag="xtgldw">系统管理单位</li>
-                    <li dataTag="yzdw">研制单位</li>
-                </ul>
-                <div class="layui-tab-content">
-                    <div class="layui-tab-item layui-show">
-                        <table class="layui-hide" id="manages" lay-filter="manageTable"></table>
-                    </div>
-                    <div class="layui-tab-item">
-                        <table class="layui-hide" id="delevope" lay-filter="delevopeTable"></table>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="layui-row ">
         <div class="layui-col-md6" style="padding-left: 10px;">
-            <h5 style="font-size:18px;font-weight:bold;padding-left: 15px;">阶段统计</h5>
-            <div class="layui-tab"  lay-filter="tab">
-                <ul class="layui-tab-title">
-                    <li class="layui-this" dataTag="xtgldw">入网阶段统计</li>
-                    <li dataTag="yzdw">测试任务统计</li>
-                </ul>
-                <div class="layui-tab-content">
-                    <div class="layui-tab-item layui-show">
-                       <div id="enter_charts" style="width:400px;height: 480px;padding: 10px"></div>
-                    </div>
-                    <div class="layui-tab-item">
-                        <div id="test_chart" style="width:400px;height: 480px;padding: 10px"></div>
+            <div class="shodow">
+                <h5 style="font-size:18px;font-weight:bold;padding-left: 15px;" class="cf">属性统计</h5>
+                <div class="layui-tab"  lay-filter="tab">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this" dataTag="xtgldw">系统管理单位</li>
+                        <li dataTag="yzdw">研制单位</li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">
+                            <table class="layui-hide" id="manages" lay-filter="manageTable"></table>
+                        </div>
+                        <div class="layui-tab-item">
+                            <table class="layui-hide" id="delevope" lay-filter="delevopeTable"></table>
+                        </div>
                     </div>
                 </div>
             </div>
+
+        </div>
+        <div class="layui-col-md6 " style="padding-left: 10px;">
+            <div class="shodow">
+                <h5 style="font-size:18px;font-weight:bold;padding-left: 15px;"  class="cf">阶段统计</h5>
+                <div class="layui-tab"  lay-filter="tab">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this" dataTag="xtgldw">入网阶段统计</li>
+                        <li dataTag="yzdw">测试任务统计</li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">
+                            <div id="enter_charts" style="height: 380px;padding: 10px"></div>
+                        </div>
+                        <div class="layui-tab-item">
+                            <div id="test_chart" style="height: 380px;padding: 10px"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="" ></div>
         </div>
     </div>
@@ -206,7 +212,10 @@
                         var optionNet = {
                             title : {
                                 text: '入网情况统计',
-                                x:'center'
+                                x:'center',
+                                textStyle:{
+                                    color:'#fff'
+                                }
                             },
                             tooltip : {
                                 trigger: 'item',
@@ -361,6 +370,9 @@
                 }
             });
             if (endFlag) {
+                parent.$('#LAY_app_body').find('.layui-show').each(function (item) {
+                    $(this).removeClass('layui-show');
+                });
                 parent.$('#LAY_app_body').append(['<div class="layadmin-tabsbody-item layui-show">', '<iframe src="' + url + '" frameborder="0"  class="layadmin-iframe"></iframe>', "</div>"].join(""))
                 parent.element.tabAdd('layadmin-layout-tabs', {
                     title: "<span>"+_that.attr('data-title')+"</span>",

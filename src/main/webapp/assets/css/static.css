@@ -7,6 +7,12 @@
 .cblue{
     color:#1e88e5 ;
 }
+.cf{
+    color: #fff;
+}
+.cf7{
+    color:rgba(255,255,255,0.7)
+}
 .f18{
     font-size: 18px;
 }
@@ -17,9 +23,12 @@
     text-align: right;
 }
 .shodow{
+    background: rgba(0,0,0,0.2);
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,.1)
+}
+.padMar{
     margin-right: 10px;
     padding: 10px;
-    box-shadow: 0 1px 4px 0 rgba(0,0,0,.1)
 }
 .title_sta{
     margin-top: 10px;
@@ -30,3 +39,4 @@
 .itemflex{
     flex: 1;
 }
+/*new css*/
