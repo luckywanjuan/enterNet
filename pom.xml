@@ -1,43 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.tqy</groupId>
+    <artifactId>cams</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
 
-	<groupId>com.tqy</groupId>
-	<artifactId>cams</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
-
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.6.RELEASE</version>
-		<relativePath/>
-	</parent>
-
-	<properties>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.6.RELEASE</version>
+        <relativePath/>
+    </parent>
+    
+    <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 	</properties>
-	    
-	<dependencies>
-		<dependency>
+	
+    <dependencies>
+    	<dependency>
 			<groupId>org.hibernate.common</groupId>
 			<artifactId>hibernate-commons-annotations</artifactId>
 			<version>5.0.2.Final</version>
 		</dependency>
-		<!--		<dependency>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-data-jpa</artifactId>
-                </dependency>-->
 		<dependency>
 			<groupId>com.tqy.activiti</groupId>
 			<artifactId>base</artifactId>
 			<version>1.0</version>
 		</dependency>
-
-		<!--jsp支持-->
 		<!-- servlet 依赖. -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -60,7 +53,6 @@
 			<artifactId>tomcat-jsp-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
@@ -123,8 +115,6 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
-
-
 		<!-- httpclient -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
@@ -141,7 +131,6 @@
 			<artifactId>httpmime</artifactId>
 			<version>4.5</version>
 		</dependency>
-
 		<dependency>
 			<groupId>net.sf.json-lib</groupId>
 			<artifactId>json-lib</artifactId>
@@ -157,22 +146,19 @@
 
 	</dependencies>
 
-
-	<build>
-		<finalName>cams</finalName>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<!--版本-->
-				<version>1.4.2.RELEASE</version>
-				<configuration>
-					<!--热部署 不设置不会生效-->
-					<fork>true</fork>
-				</configuration>
-			</plugin>
-		</plugins>
-		<resources>
+    <build>
+    	<finalName>cams</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!--热部署 不设置不会生效-->
+                    <fork>true</fork>
+                </configuration>
+            </plugin>
+        </plugins>
+        <resources>
 			<!-- 打包时将jsp文件拷贝到META-INF目录下-->
 			<resource>
 				<!-- 指定resources插件处理哪个目录下的资源文件 -->
@@ -197,6 +183,6 @@
 				</excludes>
 			</resource>
 		</resources>
+    </build>
 
-	</build>
 </project>
