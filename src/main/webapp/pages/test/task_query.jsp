@@ -11,6 +11,9 @@
         .middle_text{
             line-height: 38px;
         }
+        .alert_content{
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -134,19 +137,19 @@
                 <form class="layui-form" lay-filter="ensureModal">
                     <div class="layui-form-item layui-row">
                         <label class="layui-form-label">测试任务名称:</label>
-                        <div class=" layui-col-md3" style="margin-top: 5px" name="taskNameLook"></div>
+                        <div class=" layui-col-md3 alert_content" style="margin-top: 5px" name="taskNameLook"></div>
                     </div>
                     <div class="layui-form-item layui-row">
                         <label class="layui-form-label">关联系统名称:</label>
-                        <div class=" layui-col-md3" style="margin-top: 5px" name="systemNameLook"></div>
+                        <div class=" layui-col-md3 alert_content" style="margin-top: 5px" name="systemNameLook"></div>
                     </div>
                     <div class="layui-form-item layui-form-text  layui-row">
                         <label class="layui-form-label">系统管理单位:</label>
-                        <div class=" layui-col-md3" style="margin-top: 5px" name="managerDeptLook"></div>
+                        <div class=" layui-col-md3 alert_content" style="margin-top: 5px" name="managerDeptLook"></div>
                     </div>
                     <div class="layui-form-item layui-form-text  layui-row">
                         <label class="layui-form-label">研制单位:</label>
-                        <div class=" layui-col-md3" style="margin-top: 5px" name="developDeptLook"></div>
+                        <div class=" layui-col-md3 alert_content" style="margin-top: 5px" name="developDeptLook"></div>
                     </div>
                     <div class="layui-form-item layui-layout-admin">
                         <div class="layui-input-block">

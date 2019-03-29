@@ -98,7 +98,11 @@
             <table class="layui-table" id="assetTable" lay-filter="assetTable"></table>
         </div>
         <script type="text/html" id="databar">
-           <a class="layui-btn  layui-btn-mini" href="" download lay-event="fujian">附件下载</a>
+            {{#  if(d.attachement !=''){ }}
+            <a class="layui-btn  layui-btn-mini" href="" download="" lay-event="fujian">附件下载</a>
+            {{#  } else{ }}
+            <button class="layui-btn layui-btn-mini"  lay-event="fujian">附件下载</button>
+            {{#  } }}
             <a class="layui-btn  layui-btn-mini" data-method="offset" data-type="auto" lay-event="shenhe">审核</a>
         </script>
     </div>
@@ -216,12 +220,19 @@
             var othis = $(this);
             if(layEvent==='fujian'){
                 var attachment=tableData.attachment;
-                var indexx =attachment.indexOf("upload");
-                if(null!=attachment&&''!=attachment&&indexx!=-1){
-                    var subStr=attachment.substr(indexx,attachment.length);
-                    var pathUrl=ctx+subStr.replace(/\\/g,'/');
-                    othis.attr('href',pathUrl)
+                console.log(attachment)
+                if(attachment!=''){
+                    alert('附件没有');
+                    return false;
+                }else{
+                    var indexx =attachment.indexOf("upload");
+                    if(null!=attachment&&''!=attachment&&indexx!=-1){
+                        var subStr=attachment.substr(indexx,attachment.length);
+                        var pathUrl=ctx+subStr.replace(/\\/g,'/');
+                        othis.attr('href',pathUrl)
+                    }
                 }
+
             }else if(layEvent==='shenhe'){
                 var othis = $(this), method = othis.data('method');
                 active[method] ? active[method].call(this, othis) : '';

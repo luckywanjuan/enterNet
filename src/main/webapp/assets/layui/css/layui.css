@@ -2391,7 +2391,8 @@ a cite {
 }
 
 .layui-form-radio * {
-    font-size: 14px
+    font-size: 14px;
+    color: #fff;
 }
 
 .layui-form-radio > i {
@@ -5023,5 +5024,5 @@ body .layui-util-face .layui-layer-content {
 }
 /*new css*/
 .layui-layer{
-    background: rgba(0,0,0,0.8) !important;
+    background: rgba(0,0,0,1) !important;
 }
